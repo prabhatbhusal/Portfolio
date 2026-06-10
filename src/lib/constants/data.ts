@@ -1,11 +1,11 @@
-import { navbar } from '@/@types/navbar.types';
-import {heroData} from '@/@types/common.types';
+import { navbar } from "@/@types/navbar.types";
+import { heroData, SkillsData } from "@/@types/common.types";
 export const NavLinks: navbar[] = [
-  { id: 1, title: "work",    url: '/work'    },
-  { id: 2, title: "skills",  url: '/skills'  },
-  { id: 3, title: "contact", url: '/contact' },
-]
-export const HeroData:heroData[] = [
+  { id: 1, title: "work", url: "/work" },
+  { id: 2, title: "skills", url: "/skills" },
+  { id: 3, title: "contact", url: "/contact" },
+];
+export const HeroData: heroData[] = [
   {
     id: 1,
     status: "available for work",
@@ -26,6 +26,90 @@ export const HeroData:heroData[] = [
         href: "/contact",
         primary: false,
       },
+    ],
+  },
+];
+
+export const skillsdata: SkillsData[] = [
+  {
+    id: 1,
+    title: "Frontend Stack",
+    stack: [
+      {
+        lang: "React",
+      },
+      {
+        lang: "HTML",
+      },{
+        lang: "Nextjs",
+      },{
+        lang: "CSS",
+      },{
+        lang: "Javascript",
+      },{
+        lang: "TailwindCSS",
+      },
+      {
+        lang: "Typescript",
+      },
+      {
+        lang: "Redux",
+      },
+
+    ],
+  },
+   {
+    id: 1,
+    title: "Frontend Stack",
+    stack: [
+      {
+        lang: "React",
+      },
+      {
+        lang: "HTML",
+      },{
+        lang: "Nextjs",
+      },{
+        lang: "CSS",
+      },{
+        lang: "Javascript",
+      },{
+        lang: "TailwindCSS",
+      },
+      {
+        lang: "Typescript",
+      },
+      {
+        lang: "Redux",
+      },
+
+    ],
+  },
+   {
+    id: 1,
+    title: "Frontend Stack",
+    stack: [
+      {
+        lang: "React",
+      },
+      {
+        lang: "HTML",
+      },{
+        lang: "Nextjs",
+      },{
+        lang: "CSS",
+      },{
+        lang: "Javascript",
+      },{
+        lang: "TailwindCSS",
+      },
+      {
+        lang: "Typescript",
+      },
+      {
+        lang: "Redux",
+      },
+
     ],
   },
 ];

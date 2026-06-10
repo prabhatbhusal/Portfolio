@@ -13,3 +13,11 @@ export interface heroData {
   description: string;
   buttons: Button[];
 }
+export interface SkillsData{
+  id:number;
+  title:string;
+  stack:Stack[]
+}
+interface Stack{
+  lang:string
+}

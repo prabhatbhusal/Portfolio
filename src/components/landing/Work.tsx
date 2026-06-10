@@ -1,0 +1,14 @@
+import React from "react";
+import Headerbanner from "../props/Headerbanner";
+
+const Work =()=>{
+    return(
+    <>
+        <hr className="w-full    border-bg " />
+        <section>
+            <Headerbanner header='Projects'/>
+        </section>
+    </>
+    )
+}
+export default Work;

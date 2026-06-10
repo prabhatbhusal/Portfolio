@@ -1,8 +1,9 @@
 import Image from 'next/image'
+import Headerbanner from '../props/Headerbanner'
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden px-4 sm:px-6 md:px-7 pt-10 pb-8 md:pt-14 md:pb-12 flex flex-col gap-6">
+    <section className="relative overflow-hidden px-4 sm:px-6 md:px-7 pt-15 pb-8 md:pt-25 md:pb-12 flex flex-col gap-6">
 
       {/* Background topo */}
       <Image
@@ -16,10 +17,7 @@ const Hero = () => {
       />
 
       {/* Available tag */}
-      <span className="flex items-center gap-3 mono text-[11px] text-[#EF9F27] tracking-widest uppercase z-10">
-        <hr className="w-6 border border-[#EF9F27]" />
-        available to work
-      </span>
+      <Headerbanner header='available for work'/>
 
       {/* Heading */}
       <div className="z-10">
