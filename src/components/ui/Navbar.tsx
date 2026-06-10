@@ -2,18 +2,18 @@ import Link from 'next/link'
 import { NavLinks } from '@/lib/constants/data'
 
 import { Download } from 'lucide-react'
-import { Button } from './button'
+
 
 
 const Navbar = () => {
   return (
     <nav className='flex justify-between items-center py-5 padding'>
       <div>
-        <Link href='/' className='font-extrabold mono'>pb<span className='font-extrabold mono amber py-5'>.</span>dev</Link>
+        <Link href='/' className='font-extrabold mono hover:transition hover:ease-in-out hover:duration-500 hover:amber'>pb<span className='font-extrabold mono amber hover:text-white py-5'>.</span>dev</Link>
       </div>
       <div >{
         NavLinks.map((item, key) => (
-          <Link href={item.url} className='px-5 hover:text-[#EF9F27] transition-all mono text-sm' key={key}>{item.title}</Link>
+          <Link href={item.url} className='px-5 hover:text-[#EF9F27]  hover:transition hover:ease-in-out hover:duration-500 mono text-sm' key={key}>{item.title}</Link>
         ))
       }
 
