@@ -13,7 +13,7 @@ const Navbar = () => {
       </div>
       <div >{
         NavLinks.map((item, key) => (
-          <Link href={item.url} className='px-5 hover:text-[#EF9F27]  hover:transition hover:ease-in-out hover:duration-500 mono text-sm' key={key}>{item.title}</Link>
+          <Link href={item.url} className='px-5 hover:text-[#EF9F27]  text-[#888780] hover:transition hover:ease-in-out hover:duration-500 mono text-sm' key={key}>{item.title}</Link>
         ))
       }
 
