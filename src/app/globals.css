@@ -136,7 +136,9 @@
   }
   
 
-
+.padding{
+  padding:16px 40px;
+}
 .mono {
   font-family: var(--font-dm-mono), monospace;
 }
