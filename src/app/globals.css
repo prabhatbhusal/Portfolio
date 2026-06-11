@@ -134,13 +134,16 @@
   .amber{
     color:#EF9F27;
   }
+  
   .amber-bg{
     background-color:rgba(239, 159, 39, 0.15);
   }
   .borderbg{
     border: 1px solid rgba(239, 159, 39, 0.3);
   }
-
+  .greybg{
+    background-color:#161616;
+  }
 .padding{
   padding:16px 40px;
 }
@@ -176,5 +179,8 @@
     padding-top: 3.5rem;    /* md:pt-14 */
     padding-bottom: 3rem;   /* md:pb-12 */
   }
+}
+.greytext{
+  color:#888780
 }
 
