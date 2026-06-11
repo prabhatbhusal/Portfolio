@@ -1,4 +1,4 @@
-import { Mail, MapPin, FileText } from "lucide-react";
+import { Mail, MapPin, FileText,PhoneCallIcon } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
@@ -174,8 +174,8 @@ export const contactdata: ContactData[] = [
   {
     id: 1,
     label: "email",
-    value: "prabhat@email.com",
-    url: "mailto:prabhat@email.com",
+    value: "prabhatbhusal777@gmail.com",
+    url: "mailto:prabhatbhusal777@gmail.com",
     icon: Mail,
   },
   {
@@ -189,7 +189,7 @@ export const contactdata: ContactData[] = [
     id: 3,
     label: "linkedin",
     value: "linkedin.com/in/prabhat-bhusal",
-    url: "https://linkedin.com/in/prabhat-bhusal",
+    url: "https://www.linkedin.com/in/prabhat-bhusal-302672322/",
     icon: FaLinkedin,
   },
   {
@@ -206,5 +206,12 @@ export const contactdata: ContactData[] = [
     url: "#",
     icon: MapPin,
   },
-]
+  {
+    id: 6,
+    label: "Phone",
+    value: "+977 9840177176",
+    url: "tel:+9779840177176",
+    icon: PhoneCallIcon,
+  },
+];
 

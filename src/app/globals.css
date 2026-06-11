@@ -135,9 +135,11 @@
     color:#EF9F27;
   }
   .amber-bg{
-    background-color: #EF9F27;;
+    background-color:rgba(239, 159, 39, 0.15);
   }
-  
+  .borderbg{
+    border: 1px solid rgba(239, 159, 39, 0.3);
+  }
 
 .padding{
   padding:16px 40px;
@@ -149,6 +151,7 @@
   border-color:var(--border)
 }
 }
+/* */
 .container {
   padding-left: 1rem;      /* px-4 */
   padding-right: 1rem;     /* px-4 */

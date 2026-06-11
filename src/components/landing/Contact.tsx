@@ -11,7 +11,7 @@ const Contact = () => {
     <section className='container'>
         
     <Headerbanner header='Contacts' />
-    <div className="grid grid-cols-2 gap-3 pb-10">
+    <div className="grid grid-cols-2 gap-3 ">
         
       {contactdata.map((item) => {
           const Icon = item.icon          // ← capitalise to use as component
