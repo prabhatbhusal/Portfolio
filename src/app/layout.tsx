@@ -31,10 +31,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", syne.variable, dmMono.variable)}
+      className={cn("h-full", "antialiased w-full", syne.variable, dmMono.variable)}
     >
       
-      <body className="bg-black text-white overflow-x-hidden  "><Navbar/>{children}<Footer/></body>
+      <body className="bg-black text-white overflow-x-hidden  w-full"><Navbar/>{children}<Footer/></body>
     </html>
   );
 }

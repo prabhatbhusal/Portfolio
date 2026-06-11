@@ -7,6 +7,9 @@ const Work =()=>{
         <hr className="w-full    border-bg " />
         <section className="container">
             <Headerbanner header='Projects'/>
+            <div>
+                
+            </div>
         </section>
     </>
     )

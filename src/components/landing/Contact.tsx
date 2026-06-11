@@ -8,7 +8,7 @@ const Contact = () => {
     <>
     <hr />
     
-    <section className='container'>
+    <section className='container '>
         
     <Headerbanner header='Contacts' />
     <div className="grid grid-cols-2 gap-3 ">

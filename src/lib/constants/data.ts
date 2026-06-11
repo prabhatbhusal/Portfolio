@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
 import { navbar } from "@/@types/navbar.types";
-import { heroData, SkillsData } from "@/@types/common.types";
+import { heroData, SkillsData,Projectsdata } from "@/@types/common.types";
 
 
 export const NavLinks: navbar[] = [
@@ -214,4 +214,31 @@ export const contactdata: ContactData[] = [
     icon: PhoneCallIcon,
   },
 ];
+
+export const ProjectData:Projectsdata[]=[
+  {
+    id:1,
+    stack:"",
+    title:"",
+    description:"",
+    skills1:"",
+    skills2:"",
+},
+{
+    id:1,
+    stack:"",
+    title:"",
+    description:"",
+    skills1:"",
+    skills2:"",
+},
+{
+    id:1,
+    stack:"",
+    title:"",
+    description:"",
+    skills1:"",
+    skills2:"",
+},
+]
 
