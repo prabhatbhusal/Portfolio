@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className='flex justify-between fixed top-0 left-0 z-50 w-full bg-black overflow-auto items-center padding'>
       <div>
-        <Link href='/' className='font-extrabold mono hover:transition hover:ease-in-out hover:duration-500 hover:amber'>pb<span className='font-extrabold mono amber hover:text-white py-5'>.</span>dev</Link>
+        <Link href='/' className='font-extrabold mono amber hover:transition hover:ease-in-out hover:duration-500 hover:text-white'>{'<'}<span className='font-extrabold mono text-white hover:text-amber py-5'>pb</span>{'/>'}</Link>
       </div>
       <div >{
         NavLinks.map((item, key) => (

@@ -10,7 +10,7 @@ const Footer = () => {
             
             <div className='flex  justify-between padding   w-full --font-dm-mono pt-1'>
                 <div className='flex  justify-between  w-full '>
-                    <Link href='/' className='font-extrabold mono hover:transition hover:ease-in-out hover:duration-500 hover:amber'>pb<span className='font-extrabold mono amber hover:text-white py-5'>.</span>dev 2026</Link>
+                    <Link href='/' className='font-extrabold mono hover:transition amber hover:ease-in-out hover:duration-500 hover:white'>{'<'}<span className='font-extrabold text-white mono amber hover:text-amber py-5'>pb</span>{'/>'} 2026</Link>
                     <h2 className='flex justify-center items-center flex-wrap gap-2 text-[#5DCAA5]'> 
                     <span className="relative flex size-3">
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5DCAA5] opacity-75"></span>

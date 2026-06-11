@@ -113,3 +113,6 @@ export const skillsdata: SkillsData[] = [
     ],
   },
 ];
+export const contactdata:ContactData[]=[{
+  
+}]
