@@ -34,7 +34,7 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", syne.variable, dmMono.variable)}
     >
       
-      <body className="bg-black text-white overflow-x-hidden  "><Navbar/><Footer/>{children}</body>
+      <body className="bg-black text-white overflow-x-hidden  "><Navbar/>{children}<Footer/></body>
     </html>
   );
 }

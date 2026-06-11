@@ -9,7 +9,7 @@ const Skills = () => {
         <>
             <hr className="w-full    border-bg " />
 
-            <section className="px-4 sm:px-6 md:px-7 pt-10 pb-8 md:pt-14 md:pb-12 ">
+            <section className="container">
                 <Headerbanner header='Skills'/>
                 <div className="grid grid-cols-3 gap-2 rounded-2xl h-full w-full  ">
                     {skillsdata.map((item, index) => (

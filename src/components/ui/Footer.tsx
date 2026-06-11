@@ -5,10 +5,10 @@ const Footer = () => {
     return (
         <>
 
-        <footer className='fixed bottom-0 left-0 z-50 bg-black overflow-x-hidden mono text-sm flex flex-col w-full'>
-            <hr className="w-full   py-2 border-[#888780] " />
+        <footer className='  bg-black overflow-hidden over mono text-sm flex flex-col w-full'>
             
-            <div className='flex  justify-between padding   w-full --font-dm-mono pt-1'>
+            
+            <div className='flex  justify-between container   w-full --font-dm-mono pt-1'>
                 <div className='flex  justify-between  w-full '>
                     <Link href='/' className='font-extrabold mono hover:transition amber hover:ease-in-out hover:duration-500 hover:white'>{'<'}<span className='font-extrabold text-white mono amber hover:text-amber py-5'>pb</span>{'/>'} 2026</Link>
                     <h2 className='flex justify-center items-center flex-wrap gap-2 text-[#5DCAA5]'> 

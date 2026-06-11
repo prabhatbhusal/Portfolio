@@ -5,7 +5,7 @@ const Work =()=>{
     return(
     <>
         <hr className="w-full    border-bg " />
-        <section>
+        <section className="container">
             <Headerbanner header='Projects'/>
         </section>
     </>
