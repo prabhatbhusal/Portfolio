@@ -3,7 +3,7 @@ import Headerbanner from '../props/Headerbanner'
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden px-4 sm:px-6 md:px-7 pt-15 pb-8 md:pt-25 md:pb-12 flex flex-col gap-6">
+    <section className="relative overflow-hidden container flex flex-col gap-6">
 
       {/* Background topo */}
       <Image
