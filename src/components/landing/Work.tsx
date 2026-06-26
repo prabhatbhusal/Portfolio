@@ -7,9 +7,9 @@ const Work =()=>{
         <hr className="w-full    border-bg " />
         <section className="container">
             <Headerbanner header='Projects'/>
-            <div className="grid grid-cols-2 gap-10 items-center justify-center">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5 rounded-2xl h-full w-full">
                {ProjectData.map((item,idx)=>(
-                <div className="border rounded-md borderbg greybg px-10 py-5 " key={idx}>
+                <div className="border rounded-md borderbg greybg px-7 py-5 " key={idx}>
                     <span className="text-xs mono  greytext ">{item.stack}</span>
                     <h2 className=" font-bold  amber">{item.title}</h2>
                     <p className="greytext mono text-xs">{item.description}</p>
