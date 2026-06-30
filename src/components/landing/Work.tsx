@@ -5,7 +5,7 @@ const Work =()=>{
     return(
     <>
         <hr className="w-full    border-bg " />
-        <section className="container">
+        <section className="px-4 sm:px-6 md:px-7 py-8 md:py-10">
             <Headerbanner header='Projects'/>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5 rounded-2xl h-full w-full">
                {ProjectData.map((item,idx)=>(

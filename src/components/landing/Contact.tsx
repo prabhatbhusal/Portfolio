@@ -8,7 +8,7 @@ const Contact = () => {
     <>
     <hr />
     
-    <section className='container '>
+    <section className='px-4 sm:px-6 md:px-7 py-8 md:py-10 '>
         
     <Headerbanner header='Contacts' />
     <div className="grid grid-cols-2 gap-3 ">

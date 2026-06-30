@@ -3,8 +3,7 @@ import Headerbanner from '../props/Headerbanner'
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden container flex flex-col gap-6">
-
+    <section className="relative overflow-hidden px-4 sm:px-6 md:px-7 py-8 md:py-10  flex flex-col gap-6">
       {/* Background topo */}
       <Image
         src="/hero-topo-bg.svg"
@@ -12,12 +11,12 @@ const Hero = () => {
         aria-hidden="true"
         width={800}
         height={1100}
-        className="absolute right-0 top-0 h-full w-auto pointer-events-none select-none"
+        className="absolute right-0 top-0 h-full w-auto ml-100 pointer-events-none select-none"
         priority
       />
 
       {/* Available tag */}
-      <Headerbanner header='available for work'/>
+      <Headerbanner header="available for work" />
 
       {/* Heading */}
       <div className="z-10">
@@ -44,9 +43,8 @@ const Hero = () => {
           contact me
         </button>
       </div>
-
     </section>
-  )
+  );
 }
 
 export default Hero

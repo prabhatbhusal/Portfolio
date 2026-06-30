@@ -134,6 +134,9 @@
   .amber{
     color:#EF9F27;
   }
+  .amberbg{
+    background-color: #EF9F27;
+  }
   
   .amber-bg{
     background-color:rgba(239, 159, 39, 0.15);
@@ -159,10 +162,8 @@
   width: 100%;
   max-width: 1440px;
   /* Matches high-end monitor caps */
-  margin: auto;
-  /* Splits leftover space perfectly on ultra-wide screens */
   
-  padding: auto;
+  padding-left: 1.25rem;
   /* Exact px-5 (20px) uniform breathing room */
   padding-right: 1.25rem;
   /* Exact px-5 (20px) uniform breathing room */

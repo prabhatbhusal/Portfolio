@@ -3,7 +3,7 @@ import PagesBanner from '@/components/props/PagesBanner';
 import Headerbanner from '@/components/props/Headerbanner';
 const Page=()=>{
     return(
-        <section className="container">
+        <section className="px-4 sm:px-6 md:px-7 py-8 md:py-10">
         <Headerbanner header='what I work with'/>
         <PagesBanner title='Skills' desc="Projects I've built — full-stack, spatial, and ML"/>
         
