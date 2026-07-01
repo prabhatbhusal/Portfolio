@@ -22,11 +22,12 @@ interface Stack{
   lang:string
 }
 
-export interface Projectsdata{
-  id:number;
-    stack:string;
-    title:string;
-    description:string;
-    skills1:string;
-    skills2:string;
+export interface Projectsdata {
+  id: number;
+  stack: string;
+  title: string;
+  description: string;
+  skills1: string;
+  skills2: string;
+  skills3: string;
 }

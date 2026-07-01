@@ -16,16 +16,16 @@ const Skills = () => {
                   to scale organically to fill the left-to-right boundaries 
                   identically to your design mock.
                 */}
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-5 rounded-2xl h-full w-full">
+        <div className="grid grid-cols-4 gap-5 rounded-2xl h-full w-full">
           {skillsdata.map((item, index) => (
-            <div className="border rounded-sm p-5 bg-white/8" key={index}>
+            <div className="border rounded-sm p-3 bg-white/8" key={index}>
               <h1 className="amber mb-3">{item.title}</h1>
 
               {/* Inner skills tags array */}
-              <div className="border rounded-sm p-5 bg-white/8" key={index}>
-                <h1 className="amber mb-3">{item.title}</h1>
+              <div className="" key={index}>
+                
 
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   {item.stack.map((skill, idx) => (
                     <span
                       className="border rounded px-3 py-1 text-sm amber flex opacity-80 amber-bg borderbg items-center justify-center"

@@ -36,11 +36,10 @@ export const HeroData: heroData[] = [
   },
 ];
 
-export const skillsdata: SkillsData[] =[
-
+export const skillsdata: SkillsData[] = [
   {
     id: 1,
-    title: "Frontend Stack",
+    title: "Frontend ",
     stack: [
       {
         lang: "React",
@@ -70,91 +69,67 @@ export const skillsdata: SkillsData[] =[
   },
   {
     id: 2,
-    title: "Frontend Stack",
+    title: "Backend ",
     stack: [
       {
-        lang: "React",
+        lang: "Django",
       },
       {
-        lang: "HTML",
+        lang: "Django REST",
       },
       {
-        lang: "Nextjs",
+        lang: "JWT Auth",
       },
       {
-        lang: "CSS",
+        lang: "PostgreSQL",
       },
       {
-        lang: "Javascript",
+        lang: "Rest API",
       },
       {
-        lang: "TailwindCSS",
-      },
-      {
-        lang: "Typescript",
-      },
-      {
-        lang: "Redux",
+        lang: "Docker",
       },
     ],
   },
   {
     id: 3,
-    title: "Frontend Stack",
+    title: "Geospatial",
     stack: [
       {
-        lang: "React",
+        lang: "PostGIS",
       },
       {
-        lang: "HTML",
+        lang: "Leaflet",
       },
       {
-        lang: "Nextjs",
+        lang: "ArcGIS",
       },
       {
-        lang: "CSS",
-      },
-      {
-        lang: "Javascript",
-      },
-      {
-        lang: "TailwindCSS",
-      },
-      {
-        lang: "Typescript",
-      },
-      {
-        lang: "Redux",
+        lang: "GIS Analysis",
       },
     ],
   },
   {
     id: 4,
-    title: "Frontend Stack",
+    title: "Game Development",
     stack: [
       {
-        lang: "React",
+        lang: "Unity",
       },
       {
-        lang: "HTML",
+        lang: "Unreal Engine",
       },
       {
-        lang: "Nextjs",
+        lang: "Game Design",
       },
       {
-        lang: "CSS",
+        lang: "Level Design",
       },
       {
-        lang: "Javascript",
+        lang: "C#",
       },
       {
-        lang: "TailwindCSS",
-      },
-      {
-        lang: "Typescript",
-      },
-      {
-        lang: "Redux",
+        lang: "C++",
       },
     ],
   },
@@ -215,30 +190,36 @@ export const contactdata: ContactData[] = [
   },
 ];
 
-export const ProjectData:Projectsdata[]=[
+export const ProjectData: Projectsdata[] = [
   {
-    id:1,
-    stack:"Full Stack",
-    title:"Food Delivery WebGIS APP",
-    description:"Real-time delivery position tracking using React, Django REST, PostGIS spatial queries and Leaflet maps.",
-    skills1:"React",
-    skills2:"Django",
-},
-{
-    id:2,
-    stack:"Full Stack",
-    title:"Food Delivery WebGIS APP",
-    description:"Real-time delivery position tracking using React, Django REST, PostGIS spatial queries and Leaflet maps.",
-    skills1:"React",
-    skills2:"Django",
-},
-{
-    id:3,
-    stack:"Full Stack",
-    title:"Food Delivery WebGIS APP",
-    description:"Real-time delivery position tracking using React, Django REST, PostGIS spatial queries and Leaflet maps.",
-    skills1:"React",
-    skills2:"Django",
-},
-]
+    id: 1,
+    stack: "Full Stack",
+    title: "Food Delivery WebGIS APP",
+    description:
+      "Real-time delivery position tracking using React, Django REST, PostGIS spatial queries and Leaflet maps.",
+    skills1: "React",
+    skills2: "Django",
+    skills3: "PostGIS",
+  },
+  {
+    id: 2,
+    stack: "Url Shortener",
+    title: "Url Shortener APP",
+    description:
+      "A simple and efficient URL shortening service built with React and Django.",
+    skills1: "React",
+    skills2: "Django",
+    skills3: "PostgreSQL",
+  },
+  {
+    id: 3,
+    stack: "Full Stack",
+    title: "Food Delivery WebGIS APP",
+    description:
+      "Real-time delivery position tracking using React, Django REST, PostGIS spatial queries and Leaflet maps.",
+    skills1: "React",
+    skills2: "Django",
+    skills3: "Rest API",
+  },
+];
 
