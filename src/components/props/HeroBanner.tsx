@@ -10,16 +10,7 @@ const Herobanner = ({ header }: prop) => {
   return (
    <section className="relative overflow-hidden px-4 sm:px-6 md:px-7 pt-15 pb-8 md:pt-25 md:pb-12 flex flex-col gap-6">
    
-         {/* Background topo */}
-         <Image
-           src="/hero-topo-bg.svg"
-           alt=""
-           aria-hidden="true"
-           width={800}
-           height={1100}
-           className="absolute right-0 top-0 h-full w-auto pointer-events-none select-none"
-           priority
-         />
+         
    
          {/* Available tag */}
          
