@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
 import { navbar } from "@/@types/navbar.types";
-import { heroData, SkillsData,Projectsdata } from "@/@types/common.types";
+import { heroData, SkillsData,Projectsdata, workdata } from "@/@types/common.types";
 
 
 export const NavLinks: navbar[] = [
@@ -203,7 +203,7 @@ export const ProjectData: Projectsdata[] = [
   },
   {
     id: 2,
-    stack: "Url Shortener",
+    stack: "Full Stack",
     title: "Url Shortener APP",
     description:
       "A simple and efficient URL shortening service built with React and Django.",
@@ -211,15 +211,73 @@ export const ProjectData: Projectsdata[] = [
     skills2: "Django",
     skills3: "PostgreSQL",
   },
+  
+];
+export const workprojects: workdata[] = [
   {
-    id: 3,
+    id: 1,
+    index: "01",
     stack: "Full Stack",
+    sector: "GIS",
+    badge: "geospatial",
+    featured: true,
     title: "Food Delivery WebGIS APP",
     description:
-      "Real-time delivery position tracking using React, Django REST, PostGIS spatial queries and Leaflet maps.",
-    skills1: "React",
-    skills2: "Django",
-    skills3: "Rest API",
+      "Real-time position tracking for a food delivery platform. Riders locations update live on an interactive map using WebSockets. Spatial queries powered by PostGIS for nearest-rider matching.",
+    skills: [
+      "React",
+      "Django",
+      "PostGIS",
+      "Leaflet",
+      "WebSocket",
+      "PostgreSQL",
+    ],
+    github: "https://github.com/prabhatbhusal/food-delivery",
+    live: null,
+  },
+  {
+    id: 2,
+    index: "02",
+    stack: "ML",
+    sector: "Computer Vision",
+    badge: "machine learning",
+    featured: false,
+    title: "Padel Shot Classification",
+    description:
+      "AI shot classifier from video using YOLOv8 object detection, MOG2 background subtraction and Kalman filter for stable player tracking.",
+    skills: ["YOLOv8", "OpenCV", "Python", "Kalman filter", "MOG2"],
+    github: "https://github.com/prabhatbhusal/shot-classification",
+    live: null,
+  },
+  {
+    id: 3,
+    index: "03",
+    stack: "Full Stack",
+    sector: "Ecommerce",
+    badge: "in progress",
+    featured: false,
+    title: "Automax Ecommerce Platform",
+    description:
+      "Full-stack ecommerce platform with product listings, cart, JWT auth, admin dashboard and Khalti payment integration.",
+    skills: ["Next.js", "TypeScript", "Django", "DRF", "Khalti", "PostgreSQL"],
+    github: "https://github.com/prabhatbhusal/automax",
+    live: null,
+  },
+  {
+    id: 4,
+    index: "04",
+    stack: "ML",
+    sector: "Research",
+    badge: "thesis",
+    featured: false,
+    title: "LiDAR Road Condition Monitor",
+    description:
+      "Undergraduate thesis. LiDAR point cloud processing pipeline with YOLOv8 for automated road defect classification and monitoring.",
+    skills: ["LiDAR", "YOLOv8", "Point Cloud", "Python", "GIS"],
+    github: "",
+    live: "https://researchgate.net",
   },
 ];
+
+
 

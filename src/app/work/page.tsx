@@ -2,6 +2,8 @@ import Headerbanner from "@/components/props/Headerbanner";
 import PagesBanner from "@/components/props/PagesBanner";
 import React from "react";
 
+import Projects from "@/components/landing/Projects";
+
 const Page=()=>{
     return (
       <>
@@ -11,6 +13,8 @@ const Page=()=>{
             title="Work"
             desc="Projects I've built — full-stack, spatial, and ML"
           />
+          <Projects />
+          
         </section>
       </>
     );
