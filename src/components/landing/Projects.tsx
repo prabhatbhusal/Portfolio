@@ -5,12 +5,12 @@ import React from 'react'
 const Projects = () => {
   return (
     <>
-        <hr className="w-full border-bg" />
-      <div className="flex flex-col gap-3 md:gap-4 mt-6">
+        <hr className="w-full border-bg absolute" />
+      <div className="flex flex-col gap-3 md:gap-4   mt-6">
         {workprojects.map((item) => (
           <div
             key={item.id}
-            className={`border rounded-xl p-4 md:p-6 bg-[#161616] transition-colors hover:border-[#EF9F27]/40
+            className={`border rounded-xl p-4 md:p-6 bg-[#161616]  transition-colors hover:border-[#EF9F27]
                 ${
                   item.featured ? "border-[#EF9F27]/30" : "border-white/[0.08]"
                 }`}
