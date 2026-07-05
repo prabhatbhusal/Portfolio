@@ -1,5 +1,5 @@
-import { Mail, MapPin, FileText,PhoneCallIcon } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { Mail, MapPin, FileText, Phone } from "lucide-react";
+import { FaGithub, FaLinkedin, } from "react-icons/fa";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
 import { navbar } from "@/@types/navbar.types";
@@ -141,17 +141,18 @@ export interface ContactData {
   label: string;
   value: string;
   url: string;
-  icon: LucideIcon | IconType; // ← accepts both types
+  icon: LucideIcon | IconType;
+  color: string; // ← accepts both types
 }
 
 export const contactdata: ContactData[] = [
-
   {
     id: 1,
     label: "email",
     value: "prabhatbhusal777@gmail.com",
     url: "mailto:prabhatbhusal777@gmail.com",
     icon: Mail,
+    color: "bg-[#EF9F27]/10 border-[#EF9F27]/20 text-[#EF9F27]",
   },
   {
     id: 2,
@@ -159,13 +160,15 @@ export const contactdata: ContactData[] = [
     value: "github.com/prabhatbhusal",
     url: "https://github.com/prabhatbhusal",
     icon: FaGithub,
+    color: "bg-white/[0.08] border-white/[0.08] text-[#e8e6e0]",
   },
   {
     id: 3,
     label: "linkedin",
     value: "linkedin.com/in/prabhat-bhusal",
-    url: "https://www.linkedin.com/in/prabhat-bhusal-302672322/",
+    url: "https://linkedin.com/in/prabhat-bhusal",
     icon: FaLinkedin,
+    color: "bg-white/[0.08] border-white/[0.08] text-[#e8e6e0]",
   },
   {
     id: 4,
@@ -173,6 +176,7 @@ export const contactdata: ContactData[] = [
     value: "ResearchGate — LiDAR thesis",
     url: "https://researchgate.net",
     icon: FileText,
+    color: "bg-[#5DCAA5]/10 border-[#5DCAA5]/20 text-[#5DCAA5]",
   },
   {
     id: 5,
@@ -180,13 +184,15 @@ export const contactdata: ContactData[] = [
     value: "Kathmandu, Nepal",
     url: "#",
     icon: MapPin,
+    color: "bg-[#EF9F27]/10 border-[#EF9F27]/20 text-[#EF9F27]",
   },
   {
     id: 6,
-    label: "Phone",
+    label: "phone",
     value: "+977 9840177176",
     url: "tel:+9779840177176",
-    icon: PhoneCallIcon,
+    icon: Phone,
+    color: "bg-[#EF9F27]/10 border-[#EF9F27]/20 text-[#EF9F27]",
   },
 ];
 

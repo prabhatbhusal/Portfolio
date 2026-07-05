@@ -1,54 +1,59 @@
 // components/features/contact/ContactList.tsx
-import Link from 'next/link'
-import { contactdata } from '@/lib/constants/data'
-import Headerbanner from '../props/Headerbanner'
+"use client";
+import Link from "next/link";
+import { contactdata } from "@/lib/constants/data";
+import Headerbanner from "../props/Headerbanner";
+import ContactForm from "./ContactForm";
 
 const Contact = () => {
   return (
     <>
-    <hr />
-    
-    <section className='px-4 sm:px-6 md:px-7 py-8 md:py-10 '>
-        
-    <Headerbanner header='Contacts' />
-    <div className="grid grid-cols-2 gap-3 ">
-        
-      {contactdata.map((item) => {
-          const Icon = item.icon          // ← capitalise to use as component
-          
-        return (
-          <Link
-            key={item.id}
-            href={item.url}
-            className="flex items-center gap-3 bg-[#161616] border border-white/8 rounded-xl p-4 hover:border-[#EF9F27]/40 transition-colors"
-          >
-            {/* Icon box */}
-            <div className="w-9 h-9 rounded-lg bg-[#EF9F27]/10 border border-[#EF9F27]/20 flex items-center justify-center shrink-0">
-              <Icon size={16} strokeWidth={1.5} className="text-[#EF9F27]" />
-            </div>
+      <hr />
+      <div className="grid grid-cols-2 gap-3 md:gap-4   mt-6">
+        <section className="px-4 sm:px-6 md:px-7 py-8 md:py-10 ">
+          <Headerbanner header="Contacts" />
+          <div className="grid grid-cols-2 gap-3 ">
+            {contactdata.map((item) => {
+              const Icon = item.icon; // ← capitalise to use as component
 
-            {/* Text */}
-            <div className="flex flex-col min-w-0">
-              <span className="font-mono text-[10px] text-[#888780]">
-                {item.label}
-              </span>
-              <span className="font-mono text-xs text-[#e8e6e0] truncate">
-                {item.value}
-              </span>
-            </div>
+              return (
+                <Link
+                  key={item.id}
+                  href={item.url}
+                  className="flex items-center gap-3 bg-[#161616] border border-white/8 rounded-xl p-4 hover:border-[#EF9F27]/40 transition-colors"
+                >
+                  {/* Icon box */}
+                  <div className={`w-9 h-9 rounded-lg ${item.color} flex items-center justify-center shrink-0`}>
+                    <Icon
+                      size={16}
+                      strokeWidth={1.5}
+                      className={item.color}
+                    />
+                  </div>
 
-            {/* Arrow */}
-            <span className="font-mono text-sm text-[#888780] ml-auto">
-              ↗
-            </span>
-          </Link>
-        )
-      })}
-    </div>
+                  {/* Text */}
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-mono text-[10px] text-[#888780]">
+                      {item.label}
+                    </span>
+                    <span className="font-mono text-xs text-[#e8e6e0] truncate">
+                      {item.value}
+                    </span>
+                  </div>
+
+                  {/* Arrow */}
+                  <span className="font-mono text-sm text-[#888780] ml-auto">
+                    ↗
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </section>
+        <ContactForm />
+      </div>
     </>
-          
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;
