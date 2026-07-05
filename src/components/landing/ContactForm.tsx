@@ -15,7 +15,7 @@ const ContactForm = () => {
         <input type="text" placeholder="Your Name"  className="bg-[#161616] border border-white/8 focus:outline-none focus:ring-2 focus:ring-[#EF9F27] w-full rounded-lg px-4 py-2" />
         <input type="email" placeholder="Your Email" className="bg-[#161616] border border-white/8 focus:outline-none focus:ring-2 focus:ring-[#EF9F27] w-full rounded-lg px-4 py-2" />
         <textarea placeholder="Your Message" className="bg-[#161616] border border-white/8 focus:outline-none focus:ring-2 focus:ring-[#EF9F27] w-full rounded-lg px-4 py-2"></textarea>
-        <button type="submit" className="bg-[#EF9F27] text-[#161616] font-bold py-2 px-4 rounded-lg hover:bg-[#d48c20] transition-colors">
+        <button type="submit" className="bg-[#EF9F27] text-[#161616] font-bold py-2 px-4 rounded-lg hover:bg-[#d48c20] transition-colors  ">
           Send Message
         </button>
       </form>
