@@ -9,7 +9,7 @@ import { Stagger, StaggerItem } from "../motion";
 
 const Services = () => {
   return (
-    <section className="rail py-16 md:py-24">
+    <section id="services" className="rail py-16 md:py-24">
       <div className="hairline mb-16 md:mb-24" />
 
       <Reveal>

@@ -236,8 +236,8 @@ export const contactdata: ContactData[] = [
   {
     id: 3,
     label: "linkedin",
-    value: "linkedin.com/in/prabhat-bhusal",
-    url: "https://linkedin.com/in/prabhat-bhusal",
+    value: "linkedin.com/in/prabhat-bhusal-302672322",
+    url: "https://www.linkedin.com/in/prabhat-bhusal-302672322/",
     icon: FaLinkedin,
     color: "bg-white/[0.08] border-white/[0.08] text-[#e8e6e0]",
   },
@@ -642,7 +642,19 @@ export const blogdata: BlogPost[] = [
 ];
 
 // scenes go here: drop files in /public/gallery and add a row
-export const gallerydata: GalleryItem[] = [];
+export const gallerydata: GalleryItem[] = [
+  {
+    id: 1,
+    slug: "nuwakot-clock-tower",
+    title: "Nuwakot Clock Tower",
+    location: "Nuwakot, Nepal",
+    // year only — set the real capture date when you have it
+    date: "2026",
+    src: "/gallery/nuwakot_clock_tower.jpeg",
+    width: 1200,
+    height: 1599,
+  },
+];
 
 // declared last so the work dropdown can be built from the projects above
 export const NavLinks: navbar[] = [

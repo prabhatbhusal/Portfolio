@@ -1,17 +1,23 @@
 import Link from "next/link";
 import React from "react";
-import { ArrowUp, type LucideIcon } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import ScrollLink from "@/components/motion/ScrollLink";
-import type { IconType } from "react-icons";
 
-import { NavLinks, contactdata, workprojects } from "@/lib/constants/data";
+import {
+  NavLinks,
+  blogdata,
+  contactdata,
+  servicesdata,
+  workprojects,
+} from "@/lib/constants/data";
 
 type FooterLink = {
   id: number;
   label: string;
   href: string;
-  external: boolean;
-  icon?: LucideIcon | IconType;
+  external?: boolean;
+  /* long titles get trimmed rather than wrapping a column three lines deep */
+  clamp?: boolean;
 };
 
 type FooterColumn = {
@@ -31,42 +37,49 @@ const Footer = () => {
         id: item.id,
         label: item.title,
         href: item.url,
-        external: false,
       })),
     },
     {
       id: 2,
-      heading: "projects",
-      links: workprojects.slice(0, 4).map((item) => ({
+      heading: "services",
+      // there is no services route, so these land on the section itself
+      links: servicesdata.slice(0, 5).map((item) => ({
         id: item.id,
         label: item.title,
-        href: "/work",
-        external: false,
+        href: "/#services",
       })),
     },
     {
       id: 3,
-      heading: "elsewhere",
-      // the contact column carries its icons, which marks it out from the
-      // two navigation columns beside it
-      links: contactdata
-        .filter((item) => item.url !== "#")
-        .map((item) => ({
-          id: item.id,
-          label: item.label,
-          href: item.url,
-          external: item.url.startsWith("http"),
-          icon: item.icon,
-        })),
+      heading: "work",
+      links: workprojects.slice(0, 5).map((item) => ({
+        id: item.id,
+        label: item.title,
+        href: `/work/${item.slug}`,
+        clamp: true,
+      })),
+    },
+    {
+      id: 4,
+      heading: "blog",
+      links: blogdata.slice(0, 4).map((item) => ({
+        id: item.id,
+        label: item.title,
+        href: `/blog/${item.slug}`,
+        clamp: true,
+      })),
     },
   ];
+
+  /* location has no link behind it, so it would be a dead icon */
+  const elsewhere = contactdata.filter((item) => item.url !== "#");
 
   return (
     <footer className="relative">
       <div className="rail pb-12 pt-16 md:pb-16 md:pt-24">
         <div className="hairline mb-16 md:mb-20" />
 
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.1fr_1.4fr]">
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <div>
             <h2 className="display text-5xl font-extrabold leading-[0.95] text-ink sm:text-6xl md:text-7xl">
               Prabhat
@@ -78,9 +91,37 @@ const Footer = () => {
               build web applications with React, Next.js and Django, and work
               with spatial data — PostGIS, LiDAR and everything in between.
             </p>
+
+            {/* icons only up here — the labels would repeat the columns */}
+            <div className="mt-10">
+              <h3 className="mono text-[10px] font-medium uppercase tracking-[0.2em] text-ink">
+                elsewhere
+              </h3>
+
+              <div className="mt-5 flex flex-wrap gap-3">
+                {elsewhere.map((item) => {
+                  const Icon = item.icon;
+                  const external = item.url.startsWith("http");
+
+                  return (
+                    <Link
+                      key={item.id}
+                      href={item.url}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noreferrer" : undefined}
+                      aria-label={item.label}
+                      title={item.label}
+                      className="grid size-12 shrink-0 place-items-center rounded-2xl border border-line bg-(--chip-bg) text-ink-soft transition-colors duration-300 hover:border-(--brand-line) hover:bg-(--brand-soft) hover:text-brand-ink"
+                    >
+                      <Icon size={19} strokeWidth={1.8} />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             {columns.map((column) => (
               <div key={column.id}>
                 <h3 className="mono text-[10px] font-medium uppercase tracking-[0.2em] text-ink">
@@ -88,27 +129,20 @@ const Footer = () => {
                 </h3>
 
                 <ul className="mt-6 flex flex-col gap-4">
-                  {column.links.map((link) => {
-                    const Icon = link.icon;
-
-                    return (
-                      <li key={link.id}>
-                        <Link
-                          href={link.href}
-                          target={link.external ? "_blank" : undefined}
-                          rel={link.external ? "noreferrer" : undefined}
-                          className="group inline-flex items-center gap-2.5 text-[14px] text-ink-soft transition-colors duration-300 hover:text-brand-ink"
-                        >
-                          {Icon && (
-                            <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-(--chip-bg) text-ink-faint transition-colors duration-300 group-hover:border-(--brand-line) group-hover:bg-(--brand-soft) group-hover:text-brand-ink">
-                              <Icon size={13} strokeWidth={1.8} />
-                            </span>
-                          )}
-                          {link.label}
-                        </Link>
-                      </li>
-                    );
-                  })}
+                  {column.links.map((link) => (
+                    <li key={link.id}>
+                      <Link
+                        href={link.href}
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noreferrer" : undefined}
+                        className={`block text-[14px] leading-snug text-ink-soft transition-colors duration-300 hover:text-brand-ink ${
+                          link.clamp ? "line-clamp-2" : ""
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </div>
             ))}
