@@ -2,6 +2,7 @@ import React from "react";
 import { processdata } from "@/lib/constants/data";
 import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
+import { Stagger, StaggerItem } from "../motion";
 
 const Process = () => {
   return (
@@ -21,12 +22,12 @@ const Process = () => {
       </div>
       </Reveal>
 
-      <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {processdata.map((item, idx) => {
+      <Stagger className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {processdata.map((item) => {
           const Icon = item.icon;
 
           return (
-            <Reveal key={item.id} delay={idx * 70}>
+            <StaggerItem key={item.id} hover>
             <article className="surface lift flex h-full flex-col rounded-2xl p-6">
               <div className="mb-5 flex items-center justify-between">
                 <span className="borderbg amber-bg grid size-11 place-items-center rounded-[14px] text-brand-ink">
@@ -45,10 +46,10 @@ const Process = () => {
                 {item.description}
               </p>
             </article>
-            </Reveal>
+            </StaggerItem>
           );
         })}
-      </div>
+      </Stagger>
     </section>
   );
 };

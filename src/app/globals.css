@@ -232,12 +232,6 @@
     scroll-padding-top: 96px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-  }
-
   body {
     background-color: var(--canvas);
     color: var(--ink);
@@ -418,17 +412,23 @@
   }
 }
 
-/* logo marquee — the track holds two copies of the list, so shifting
-   it half its width loops seamlessly */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+/* custom cursor. the class is added by javascript only on a fine
+   pointer, so touch devices are never left without one */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none;
 }
 
+/* typing still wants a real caret */
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select,
+.has-custom-cursor [contenteditable="true"] {
+  cursor: auto;
+}
+
+/* logo marquee. the track holds two copies of the list and framer-motion
+   wraps it at -50%, so the loop is seamless and can also be dragged */
 .marquee {
   mask-image: linear-gradient(
     to right,
@@ -437,20 +437,6 @@
     #000 92%,
     transparent
   );
-}
-
-.marquee-track {
-  animation: marquee 45s linear infinite;
-}
-
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
-  }
 }
 
 /* faq accordion, built on details/summary so it needs no javascript */
@@ -471,22 +457,8 @@
   transform: rotate(45deg);
 }
 
-/* scroll reveal. the .js class comes from the head script, so with
-   javascript off everything just stays visible */
-.js .reveal {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.js .reveal.in {
-  opacity: 1;
-  transform: none;
-  transition: opacity 800ms cubic-bezier(0.22, 0.7, 0.25, 1),
-    transform 800ms cubic-bezier(0.22, 0.7, 0.25, 1);
-  transition-delay: var(--d, 0ms);
-}
-
-/* first paint */
+/* first paint. still used by the blog post header; everything else
+   reveals through framer-motion now */
 @keyframes riseIn {
   from {
     opacity: 0;
@@ -503,56 +475,25 @@
   animation-delay: var(--d, 0ms);
 }
 
-/* navbar dropdown */
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: translateY(-6px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.pop {
-  animation: popIn 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  transform-origin: top left;
-}
-
-/* mobile sheet */
-@keyframes sheetIn {
-  from {
-    opacity: 0;
-    transform: translateY(-14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.sheet {
-  animation: sheetIn 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.sheet > * {
+/* the mobile sheet itself is animated by framer-motion; its rows still
+   cascade in through css, which keeps that markup plain */
+.sheet-items > * {
   animation: riseIn 420ms cubic-bezier(0.22, 0.7, 0.25, 1) both;
 }
 
-.sheet > *:nth-child(2) {
+.sheet-items > *:nth-child(2) {
   animation-delay: 40ms;
 }
 
-.sheet > *:nth-child(3) {
+.sheet-items > *:nth-child(3) {
   animation-delay: 80ms;
 }
 
-.sheet > *:nth-child(4) {
+.sheet-items > *:nth-child(4) {
   animation-delay: 120ms;
 }
 
-.sheet > *:nth-child(5) {
+.sheet-items > *:nth-child(5) {
   animation-delay: 160ms;
 }
 
@@ -632,26 +573,14 @@
   transform: translateY(-3px);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .js .reveal,
-  .js .reveal.in {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+/* inside a motion hover wrapper the lift is framer-motion’s job */
+[data-motion-hover] .lift {
+  transition: border-color 400ms ease, background-color 400ms ease,
+    box-shadow 400ms ease;
+}
 
-  .rise,
-  .pop,
-  .sheet,
-  .sheet > *,
-  .faq[open] .faq-body,
-  .aurora {
-    animation: none;
-  }
-
-  .lift:hover {
-    transform: none;
-  }
+[data-motion-hover] .lift:hover {
+  transform: none;
 }
 
 /* hero backdrop */
@@ -695,12 +624,4 @@
 
 .vtx {
   animation: twinkle 5s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mesh-drift,
-  .contour-scan,
-  .vtx {
-    animation: none;
-  }
 }

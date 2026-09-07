@@ -111,3 +111,13 @@ export interface workdata{
   skills: string[]       // ← array instead of skills1, skills2, skills3
   github: string
   live: string | null ;}
+
+export interface Testimonial {
+  id: number;
+  quote: string;
+  name: string;
+  /* the organisation they are speaking for */
+  company: string;
+  companyUrl?: string;
+  initials: string;
+}

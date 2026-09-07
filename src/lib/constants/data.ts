@@ -52,6 +52,7 @@ import {
   GalleryItem,
   ServiceItem,
   DisciplineItem,
+  Testimonial,
 } from "@/@types/common.types";
 
 
@@ -387,7 +388,7 @@ export const workprojects: workdata[] = [
   },
   {
     id: 5,
-    slug: "construction-company-website",
+    slug: "bhumlu-construction",
     year: "2025",
     role: "Design and build",
     highlights: [
@@ -400,12 +401,12 @@ export const workprojects: workdata[] = [
     sector: "Construction",
     badge: "client work",
     featured: false,
-    title: "Construction Company Website",
+    title: "Bhumlu Construction",
     description:
-      "Marketing and project-portfolio site for a construction firm. Services, completed works with galleries, and an enquiry flow that reaches the right person.",
+      "Marketing and project-portfolio site for Bhumlu Construction. Services, completed works with galleries, and an enquiry flow that reaches the right person.",
     skills: ["Next.js", "TypeScript", "TailwindCSS", "Django", "PostgreSQL"],
     github: "",
-    live: null,
+    live: "https://bhumluconstruction.com.np",
   },
 
   {
@@ -690,5 +691,22 @@ export const disciplinesdata: DisciplineItem[] = [
       "Engine work, level design and gameplay systems. It is where I learned to think in 3D space before it was my job.",
     tools: ["Unity", "Unreal Engine", "C#", "C++"],
     icon: Gamepad2,
+  },
+];
+
+
+/* DRAFT COPY. these quotes were written to size the layout, not by the
+   people they are attributed to. replace each `quote` with the client's
+   own words and get their sign-off before this goes live — a made-up
+   endorsement under a real person's name is not something to ship. */
+export const testimonialsdata: Testimonial[] = [
+  {
+    id: 1,
+    quote:
+      "Prabhat took a rough brief and came back with something we could actually run ourselves. He was straight with us about what was worth building and what was not, and the site has been steady since the day it went up.",
+    name: "Saurav Raj Khanal",
+    company: "Bhumlu Construction",
+    companyUrl: "https://bhumluconstruction.com.np",
+    initials: "SK",
   },
 ];

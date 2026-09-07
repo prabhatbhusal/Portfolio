@@ -4,6 +4,9 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/ui/Footer";
 import Navbar from "@/components/ui/Navbar";
+import MotionProvider from "@/components/motion/MotionProvider";
+import Cursor from "@/components/motion/Cursor";
+import Loader from "@/components/motion/Loader";
 import { Geist, Geist_Mono } from "next/font/google";
 
 const geist = Geist({
@@ -48,11 +51,20 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* motion renders its start state inline, so without javascript
+            these elements would never be revealed */}
+        <noscript>
+          <style>{`[data-motion]{opacity:1!important;transform:none!important}[data-loader]{display:none!important}`}</style>
+        </noscript>
       </head>
       <body id="top" className="w-full overflow-x-hidden">
-        <Navbar />
-        {children}
-        <Footer />
+        <MotionProvider>
+          <Loader />
+          <Cursor />
+          <Navbar />
+          {children}
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

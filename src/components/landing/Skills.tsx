@@ -1,7 +1,7 @@
 import React from "react";
 import { skillsdata } from "@/lib/constants/data";
 import Headerbanner from "../props/Headerbanner";
-import Reveal from "../props/Reveal";
+import { Stagger, StaggerItem } from "../motion";
 
 interface prop {
   // the /skills page already has a masthead, so it turns this off
@@ -29,12 +29,12 @@ const Skills = ({ heading = true }: prop) => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {skillsdata.map((item, idx) => {
+      <Stagger className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {skillsdata.map((item) => {
           const Icon = item.icon;
 
           return (
-            <Reveal key={item.id} delay={idx * 70}>
+            <StaggerItem key={item.id} hover>
             <article className="surface lift flex h-full flex-col rounded-2xl p-6">
               {Icon && (
                 <span className="borderbg amber-bg mb-5 grid size-11 place-items-center rounded-[14px] text-brand-ink">
@@ -63,10 +63,10 @@ const Skills = ({ heading = true }: prop) => {
                 ))}
               </div>
             </article>
-            </Reveal>
+            </StaggerItem>
           );
         })}
-      </div>
+      </Stagger>
     </section>
   );
 };

@@ -3,14 +3,14 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { workprojects } from "@/lib/constants/data";
-import Reveal from "../props/Reveal";
+import { Stagger, StaggerItem } from "../motion";
 
 const Projects = () => {
   return (
     <div className="rail py-14 md:py-20">
-      <div className="flex flex-col gap-4">
-        {workprojects.map((item, idx) => (
-          <Reveal key={item.id} delay={idx * 70}>
+      <Stagger className="flex flex-col gap-4" stagger={0.07}>
+        {workprojects.map((item) => (
+          <StaggerItem key={item.id}>
           <article
             className={`surface rounded-2xl p-6 md:p-8 ${
               item.featured ? "borderbg" : ""
@@ -99,9 +99,9 @@ const Projects = () => {
               </div>
             </div>
           </article>
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </div>
   );
 };

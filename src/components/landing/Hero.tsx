@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import HeroBackdrop from "../props/HeroBackdrop";
 import Marquee from "./Marquee";
+import { Stagger, StaggerItem } from "../motion";
+import ScrollCue from "../motion/ScrollCue";
 
 const stats = [
   { id: 1, value: "6", label: "projects shipped" },
@@ -14,40 +16,40 @@ const Hero = () => {
     <section className="relative isolate overflow-hidden">
       <HeroBackdrop className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none opacity-70 dark:opacity-60" />
 
-      <div className="rail flex flex-col items-start gap-7 pb-12 pt-12 md:pb-16 md:pt-16">
-        <span
-          className="rise chip inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 mono text-[10px] uppercase tracking-[0.18em] text-ok-ink"
-          style={{ "--d": "0ms" } as React.CSSProperties}
-        >
-          <span className="relative flex size-1.5">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-75" />
-            <span className="relative inline-flex size-1.5 rounded-full bg-ok" />
+      {/* above the fold, so it runs on mount rather than on scroll */}
+      <Stagger
+        immediate
+        delay={250}
+        stagger={0.12}
+        className="rail flex flex-col items-start gap-7 pb-12 pt-12 md:pb-16 md:pt-16"
+      >
+        <StaggerItem>
+          <span className="chip inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 mono text-[10px] uppercase tracking-[0.18em] text-ok-ink">
+            <span className="relative flex size-1.5">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-75" />
+              <span className="relative inline-flex size-1.5 rounded-full bg-ok" />
+            </span>
+            available for work
           </span>
-          available for work
-        </span>
+        </StaggerItem>
 
-        <h1
-          className="rise display max-w-5xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]"
-          style={{ "--d": "80ms" } as React.CSSProperties}
-        >
-          Web applications that
-          <span className="block text-brand-ink">know where they are</span>
-        </h1>
+        <StaggerItem>
+          <h1 className="display max-w-5xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]">
+            I&apos;m
+            <span className="block text-brand-ink">Prabhat </span>
+          </h1>
+        </StaggerItem>
 
-        <p
-          className="rise max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed"
-          style={{ "--d": "160ms" } as React.CSSProperties}
-        >
-          I&apos;m Prabhat Bhusal — a full-stack developer and Geomatics
-          Engineer in Kathmandu. I build with React, Next.js and Django, and I
-          take the spatial half seriously: PostGIS, LiDAR and 3D Gaussian
-          Splatting — with a game engine background underneath it.
-        </p>
+        <StaggerItem>
+          <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed">
+            I&apos;m Prabhat Bhusal — a full-stack developer and Geomatics
+            Engineer in Kathmandu. I build with React, Next.js and Django, and I
+            take the spatial half seriously: PostGIS, LiDAR and 3D Gaussian
+            Splatting — with a game engine background underneath it.
+          </p>
+        </StaggerItem>
 
-        <div
-          className="rise flex flex-wrap items-center gap-3"
-          style={{ "--d": "240ms" } as React.CSSProperties}
-        >
+        <StaggerItem className="flex flex-wrap items-center gap-3">
           <Link
             href="/work"
             className="btn-solid group inline-flex h-12 items-center gap-2.5 rounded-full px-6 text-[15px] font-semibold"
@@ -66,24 +68,27 @@ const Hero = () => {
           >
             start a project
           </Link>
-        </div>
+        </StaggerItem>
 
-        <dl
-          className="rise mt-8 grid w-full max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3"
-          style={{ "--d": "320ms" } as React.CSSProperties}
-        >
-          {stats.map((stat) => (
-            <div key={stat.id} className="bg-canvas px-5 py-6">
-              <dt className="display text-2xl font-extrabold text-ink md:text-3xl">
-                {stat.value}
-              </dt>
-              <dd className="mt-1 mono text-[11px] text-ink-faint">
-                {stat.label}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
+        <StaggerItem className="mt-8 w-full">
+          <dl className="grid w-full max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+            {stats.map((stat) => (
+              <div key={stat.id} className="bg-canvas px-5 py-6">
+                <dt className="display text-2xl font-extrabold text-ink md:text-3xl">
+                  {stat.value}
+                </dt>
+                <dd className="mt-1 mono text-[11px] text-ink-faint">
+                  {stat.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </StaggerItem>
+
+        <StaggerItem className="mt-2">
+          <ScrollCue to="#disciplines" href="#disciplines" />
+        </StaggerItem>
+      </Stagger>
 
       <Marquee className="pb-14 md:pb-20" />
     </section>

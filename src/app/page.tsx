@@ -7,6 +7,7 @@ import Work from '@/components/landing/Work';
 import Skills from '@/components/landing/Skills';
 import About from '@/components/landing/About';
 import Faq from '@/components/landing/Faq';
+import Testimonials from '@/components/landing/Testimonials';
 import Contact from '@/components/landing/Contact';
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <Skills />
       <About />
       <Faq />
+      <Testimonials />
       <Contact />
     </main>
   );

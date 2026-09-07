@@ -3,10 +3,11 @@ import React from "react";
 import { disciplinesdata } from "@/lib/constants/data";
 import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
+import { Stagger, StaggerItem } from "../motion";
 
 const Disciplines = () => {
   return (
-    <section className="rail py-16 md:py-24">
+    <section id="disciplines" className="rail py-16 md:py-24">
       <div className="hairline mb-16 md:mb-24" />
 
       <Reveal>
@@ -26,12 +27,12 @@ const Disciplines = () => {
         </div>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <Stagger className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {disciplinesdata.map((item, idx) => {
           const Icon = item.icon;
 
           return (
-            <Reveal key={item.id} delay={idx * 90}>
+            <StaggerItem key={item.id} hover>
               <article className="surface lift flex h-full flex-col rounded-[28px] p-8 md:p-10">
                 <div className="flex items-start justify-between gap-4">
                   <span className="borderbg amber-bg grid size-12 place-items-center rounded-[16px] text-brand-ink">
@@ -65,10 +66,10 @@ const Disciplines = () => {
                   ))}
                 </div>
               </article>
-            </Reveal>
+            </StaggerItem>
           );
         })}
-      </div>
+      </Stagger>
     </section>
   );
 };

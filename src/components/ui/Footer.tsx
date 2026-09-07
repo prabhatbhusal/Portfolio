@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { ArrowUp, type LucideIcon } from "lucide-react";
+import ScrollLink from "@/components/motion/ScrollLink";
 import type { IconType } from "react-icons";
 
 import { NavLinks, contactdata, workprojects } from "@/lib/constants/data";
@@ -130,13 +131,14 @@ const Footer = () => {
               open to opportunities
             </span>
 
-            <a
+            <ScrollLink
+              to="top"
               href="#top"
               aria-label="Back to top"
               className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-[#1a0e00] transition-transform duration-300 hover:-translate-y-0.5"
             >
               <ArrowUp size={18} strokeWidth={2.5} />
-            </a>
+            </ScrollLink>
           </div>
         </div>
       </div>

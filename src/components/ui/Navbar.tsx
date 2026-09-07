@@ -4,12 +4,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ChevronDown, Download, Menu, X } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 import { NavLinks } from "@/lib/constants/data";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
+
+const ease = [0.2, 0.8, 0.2, 1] as const;
 
 const RESUME_URL = "/Prabhat_s_Resume.pdf";
 const GITHUB_URL = "https://github.com/prabhatbhusal";
@@ -108,17 +111,25 @@ const Navbar = () => {
                   </button>
 
                   {openDesktop === item.id && (
-                    <>
-                      <button
-                        type="button"
-                        tabIndex={-1}
-                        aria-hidden="true"
-                        onClick={() => setOpenDesktop(null)}
-                        className="fixed inset-0 -z-10 cursor-default"
-                      />
-                      <div
+                    <button
+                      type="button"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      onClick={() => setOpenDesktop(null)}
+                      className="fixed inset-0 -z-10 cursor-default"
+                    />
+                  )}
+
+                  <AnimatePresence>
+                    {openDesktop === item.id && (
+                      <motion.div
+                        key="menu"
                         role="menu"
-                        className="pop absolute left-0 top-[calc(100%+12px)] w-72 rounded-2xl border border-line bg-raised p-2 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45)]"
+                        initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                        transition={{ duration: 0.22, ease }}
+                        className="absolute left-0 top-[calc(100%+12px)] w-72 origin-top-left rounded-2xl border border-line bg-raised p-2 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45)]"
                       >
                         {item.children.map((child) => (
                           <Link
@@ -136,9 +147,9 @@ const Navbar = () => {
                             </span>
                           </Link>
                         ))}
-                      </div>
-                    </>
-                  )}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ) : (
                 <Link
@@ -190,8 +201,16 @@ const Navbar = () => {
         </nav>
       </header>
 
-      {isOpen && (
-        <div className="sheet fixed inset-0 z-60 flex flex-col overflow-y-auto bg-canvas px-4 pb-10 pt-3 sm:pt-4 md:hidden">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="sheet"
+            initial={{ opacity: 0, y: -14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -14 }}
+            transition={{ duration: 0.32, ease }}
+            className="sheet-items fixed inset-0 z-60 flex flex-col overflow-y-auto bg-canvas px-4 pb-10 pt-3 sm:pt-4 md:hidden"
+          >
           <div className="flex items-center justify-between">
             <Logo onClick={closeAll} />
 
@@ -246,25 +265,36 @@ const Navbar = () => {
                       />
                     </button>
 
-                    {expanded && (
-                      <div className="border-t border-line p-2">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.id}
-                            href={child.url}
-                            onClick={closeAll}
-                            className="block rounded-xl px-3 py-2.5"
-                          >
-                            <span className="block text-[15px] font-semibold text-ink">
-                              {child.title}
-                            </span>
-                            <span className="mt-0.5 block text-[12px] font-medium text-ink-faint">
-                              {child.description}
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
+                    <AnimatePresence initial={false}>
+                      {expanded && (
+                        <motion.div
+                          key="sub"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.28, ease }}
+                          className="overflow-hidden"
+                        >
+                          <div className="border-t border-line p-2">
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.id}
+                                href={child.url}
+                                onClick={closeAll}
+                                className="block rounded-xl px-3 py-2.5"
+                              >
+                                <span className="block text-[15px] font-semibold text-ink">
+                                  {child.title}
+                                </span>
+                                <span className="mt-0.5 block text-[12px] font-medium text-ink-faint">
+                                  {child.description}
+                                </span>
+                              </Link>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 );
               }
@@ -317,8 +347,9 @@ const Navbar = () => {
             <Download size={22} strokeWidth={2} />
             resume
           </a>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* the bar is fixed, this keeps page content clear of it */}
       <div aria-hidden="true" className="h-20 sm:h-22" />

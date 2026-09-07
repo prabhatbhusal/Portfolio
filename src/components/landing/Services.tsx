@@ -5,6 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { servicesdata } from "@/lib/constants/data";
 import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
+import { Stagger, StaggerItem } from "../motion";
 
 const Services = () => {
   return (
@@ -27,12 +28,12 @@ const Services = () => {
         </div>
       </Reveal>
 
-      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {servicesdata.map((item, idx) => {
+      <Stagger className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {servicesdata.map((item) => {
           const Icon = item.icon;
 
           return (
-            <Reveal key={item.id} delay={idx * 60}>
+            <StaggerItem key={item.id} hover>
               <article className="surface lift flex h-full flex-col rounded-2xl p-6 md:p-7">
                 <span className="borderbg amber-bg mb-6 grid size-11 place-items-center rounded-[14px] text-brand-ink">
                   <Icon size={19} strokeWidth={1.6} />
@@ -57,11 +58,11 @@ const Services = () => {
                   ))}
                 </div>
               </article>
-            </Reveal>
+            </StaggerItem>
           );
         })}
 
-        <Reveal delay={120} className="md:col-span-2 lg:col-span-2">
+        <StaggerItem hover className="md:col-span-2 lg:col-span-2">
         <Link
           href="/contact"
           className="surface lift group flex h-full flex-col items-start justify-between gap-6 rounded-2xl p-8 md:flex-row md:items-center md:p-10"
@@ -85,8 +86,8 @@ const Services = () => {
             />
           </span>
         </Link>
-        </Reveal>
-      </div>
+        </StaggerItem>
+      </Stagger>
     </section>
   );
 };

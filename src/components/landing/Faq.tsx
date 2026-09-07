@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 
 import { faqdata } from "@/lib/constants/data";
 import Headerbanner from "../props/Headerbanner";
-import Reveal from "../props/Reveal";
+import { Stagger, StaggerItem } from "../motion";
 
 const Faq = () => {
   return (
@@ -23,9 +23,9 @@ const Faq = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-3">
-          {faqdata.map((item, idx) => (
-            <Reveal key={item.id} delay={idx * 60}>
+        <Stagger className="flex flex-col gap-3" stagger={0.06}>
+          {faqdata.map((item) => (
+            <StaggerItem key={item.id}>
             <details className="faq surface rounded-2xl">
               <summary className="flex items-center justify-between gap-4 p-5 md:p-6">
                 <span className="text-[15px] font-semibold text-ink md:text-base">
@@ -44,9 +44,9 @@ const Faq = () => {
                 </p>
               </div>
             </details>
-            </Reveal>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
       </div>
     </section>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import Headerbanner from "../props/Headerbanner";
-import Reveal from "../props/Reveal";
+import { Stagger, StaggerItem } from "../motion";
 import { workprojects } from "@/lib/constants/data";
 
 const Work = () => {
@@ -32,9 +32,9 @@ const Work = () => {
         </Link>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {workprojects.map((item, idx) => (
-          <Reveal key={item.id} delay={idx * 80}>
+      <Stagger className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {workprojects.map((item) => (
+          <StaggerItem key={item.id} hover>
           <Link
             href={`/work/${item.slug}`}
             className="surface lift group flex h-full flex-col rounded-2xl p-6 md:p-8"
@@ -82,9 +82,9 @@ const Work = () => {
               />
             </span>
           </Link>
-          </Reveal>
+          </StaggerItem>
         ))}
-      </div>
+      </Stagger>
     </section>
   );
 };
