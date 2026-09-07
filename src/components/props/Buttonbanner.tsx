@@ -1,21 +1,42 @@
-import React from 'react'
-interface buttonsprops{
-    title1:string;
-    title2:string;
+import React from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+
+interface buttonsprops {
+  title1: string;
+  title2: string;
+  href1?: string;
+  href2?: string;
 }
-const Buttonbanner = ({title1,title2}:buttonsprops) => {
+
+const Buttonbanner = ({
+  title1,
+  title2,
+  href1 = "/work",
+  href2 = "/contact",
+}: buttonsprops) => {
   return (
-        /**Buttons */
+    <div className="flex flex-wrap items-center gap-3">
+      <Link
+        href={href1}
+        className="btn-solid group inline-flex h-11 items-center gap-2.5 rounded-full px-5 text-[14px] font-semibold"
+      >
+        {title1}
+        <ArrowRight
+          size={16}
+          strokeWidth={2.5}
+          className="transition-transform duration-300 group-hover:translate-x-0.5"
+        />
+      </Link>
 
-         <div className="flex items-center gap-3 z-10">
-           <button className="mono text-xs bg-[#EF9F27] font-bold text-[#1a0e00] hover:scale-110 hover:transition hover:ease-in-out hover:duration-500 px-5 py-2.5  rounded-lg ">
-             {title1}
-           </button>
-           <button className="mono text-xs border font-bold border-[#888780] text-[#e8e6e0] px-5 py-2.5 rounded-lg hover:scale-110 hover:transition hover:ease-in-out hover:duration-500">
-             {title2}
-           </button>
-         </div>
-  )
-}
+      <Link
+        href={href2}
+        className="btn-quiet inline-flex h-11 items-center rounded-full px-5 text-[14px] font-semibold"
+      >
+        {title2}
+      </Link>
+    </div>
+  );
+};
 
-export default Buttonbanner
+export default Buttonbanner;

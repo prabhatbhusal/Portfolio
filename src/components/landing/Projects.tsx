@@ -1,56 +1,56 @@
-import { workprojects } from '@/lib/constants/data';
-import { Link } from 'lucide-react';
-import React from 'react'
+import React from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+
+import { workprojects } from "@/lib/constants/data";
+import Reveal from "../props/Reveal";
 
 const Projects = () => {
   return (
-    <>
-        <hr className="w-full border-bg absolute" />
-      <div className="flex flex-col gap-3 md:gap-4   mt-6">
-        {workprojects.map((item) => (
-          <div
-            key={item.id}
-            className={`border rounded-xl p-4 md:p-6 bg-[#161616]  transition-colors hover:border-[#EF9F27]
-                ${
-                  item.featured ? "border-[#EF9F27]/30" : "border-white/[0.08]"
-                }`}
+    <div className="rail py-14 md:py-20">
+      <div className="flex flex-col gap-4">
+        {workprojects.map((item, idx) => (
+          <Reveal key={item.id} delay={idx * 70}>
+          <article
+            className={`surface rounded-2xl p-6 md:p-8 ${
+              item.featured ? "borderbg" : ""
+            }`}
           >
-            {/* Top row — index + badges */}
-            <div className="flex items-center gap-2 mb-3 flex-wrap">
-              <span className="font-mono text-[10px] text-[#888780]">
+            <div className="mb-5 flex flex-wrap items-center gap-2">
+              <span className="mono text-[11px] tabular-nums text-brand-ink">
                 {item.index}
               </span>
-              <span className="font-mono text-[10px] text-[#888780]">
+              <span className="mono text-[11px] text-ink-faint">
                 {item.stack} · {item.sector}
               </span>
 
-              {item.featured && (
-                <span className="font-mono text-[10px] bg-[#EF9F27]/10 text-[#EF9F27] border border-[#EF9F27]/25 px-2 py-0.5 rounded">
-                  featured
+              <span className="ml-auto flex flex-wrap items-center gap-1.5">
+                {item.featured && (
+                  <span className="borderbg amber-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
+                    featured
+                  </span>
+                )}
+                <span className="chip rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider">
+                  {item.badge}
                 </span>
-              )}
-
-              <span className="font-mono text-[10px] bg-[#161616] text-[#888780] border border-white/[0.08] px-2 py-0.5 rounded">
-                {item.badge}
               </span>
             </div>
 
-            {/* Title + description + links */}
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <h2 className="font-syne font-bold text-base md:text-lg text-[#e8e6e0] tracking-tight mb-2">
+            <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+              <div className="min-w-0 flex-1">
+                <h2 className="display text-xl font-bold text-ink md:text-2xl">
                   {item.title}
                 </h2>
-                <p className="font-mono text-xs text-[#888780] leading-relaxed mb-4 max-w-xl">
+
+                <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-ink-soft">
                   {item.description}
                 </p>
 
-                {/* Skills */}
-                <div className="flex flex-wrap gap-2">
+                <div className="mt-6 flex flex-wrap gap-1.5">
                   {item.skills.map((skill, idx) => (
                     <span
                       key={idx}
-                      className="font-mono text-[10px] border border-white/[0.08] bg-[#1e1e1e] text-[#888780] px-3 py-1 rounded"
+                      className="chip rounded-full px-2.5 py-1 mono text-[11px]"
                     >
                       {skill}
                     </span>
@@ -58,38 +58,52 @@ const Projects = () => {
                 </div>
               </div>
 
-              {/* Links */}
-              <div className="flex flex-col gap-2 items-end flex-shrink-0">
+              <div className="flex shrink-0 flex-wrap items-center gap-2 md:flex-col md:items-end">
                 {item.live && (
                   <Link
                     href={item.live}
                     target="_blank"
-                    className="font-mono text-xs text-[#EF9F27] hover:underline whitespace-nowrap"
+                    rel="noreferrer"
+                    className="btn-solid group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full px-4 text-[13px] font-semibold"
                   >
-                    live ↗
+                    live
+                    <ArrowUpRight
+                      size={15}
+                      strokeWidth={2.5}
+                      className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
                   </Link>
                 )}
+
                 {item.github && (
                   <Link
                     href={item.github}
                     target="_blank"
-                    className="font-mono text-xs text-[#888780] hover:text-[#e8e6e0] transition-colors whitespace-nowrap"
+                    rel="noreferrer"
+                    className="btn-quiet group inline-flex h-10 items-center gap-2 whitespace-nowrap rounded-full px-4 text-[13px] font-semibold"
                   >
-                    github ↗
+                    github
+                    <ArrowUpRight
+                      size={15}
+                      strokeWidth={2.5}
+                      className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                    />
                   </Link>
                 )}
+
                 {!item.live && !item.github && (
-                  <span className="font-mono text-[10px] text-[#888780]">
+                  <span className="mono text-[11px] text-ink-faint">
                     coming soon
                   </span>
                 )}
               </div>
             </div>
-          </div>
+          </article>
+          </Reveal>
         ))}
       </div>
-    </>
+    </div>
   );
-}
+};
 
-export default Projects
+export default Projects;

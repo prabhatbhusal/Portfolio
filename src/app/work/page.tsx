@@ -1,23 +1,26 @@
-import Headerbanner from "@/components/props/Headerbanner";
-import PagesBanner from "@/components/props/PagesBanner";
 import React from "react";
+import type { Metadata } from "next";
 
+import PagesBanner from "@/components/props/PagesBanner";
 import Projects from "@/components/landing/Projects";
 
-const Page=()=>{
-    return (
-      <>
-        <section className="px-4 sm:px-6 md:px-7 py-8 md:py-10">
-          <Headerbanner header="Selected Projects" />
-          <PagesBanner
-            title="Work"
-            desc="Projects I've built — full-stack, spatial, and ML"
-          />
-          <Projects />
-          
-        </section>
-      </>
-    );
+export const metadata: Metadata = {
+  title: "Work | Prabhat Bhusal",
+  description:
+    "Full-stack, geospatial and machine learning projects built by Prabhat Bhusal.",
+};
 
-}
+const Page = () => {
+  return (
+    <main>
+      <PagesBanner
+        eyebrow="selected projects"
+        title="Work"
+        desc="Projects I've built — full-stack, spatial, and machine learning."
+      />
+      <Projects />
+    </main>
+  );
+};
+
 export default Page;

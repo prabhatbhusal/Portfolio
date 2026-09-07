@@ -1,41 +1,35 @@
-import React from 'react';
-import Image from 'next/image'
-import Headerbanner from './Headerbanner';
-import Buttonbanner from './Buttonbanner';
-interface prop {
-  title: string;
+import React from "react";
+import Headerbanner from "./Headerbanner";
+import HeroBackdrop from "./HeroBackdrop";
 
-  desc:string;
+interface prop {
+  eyebrow?: string;
+  title: string;
+  desc: string;
 }
 
-const PagesBanner = ({ title,desc }: prop) => {
+const PagesBanner = ({ eyebrow, title, desc }: prop) => {
   return (
-    <section className="relative overflow-hidden  flex flex-col gap-6">
-      {/* Background topo */}
-      
-      <Image
-              src="/hero-topo-bg.svg"
-              alt=""
-              aria-hidden="true"
-              width={1100}
-              height={1100}
-              className="absolute right-0 top-0 h-full w-auto z-50 ml-100 pointer-events-none select-none"
-              priority
-            />
-      {/* Available tag */}
-      {/* Heading */}
-      <div className="z-10">
-        <h1 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-[#e8e6e0]">
+    <section className="relative isolate overflow-hidden">
+      <HeroBackdrop className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none opacity-55 dark:opacity-50" />
+
+      <div className="rail flex flex-col items-start gap-6 pb-12 pt-10 md:pb-16 md:pt-16">
+        {eyebrow && <Headerbanner header={eyebrow} />}
+
+        <h1 className="display text-5xl font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5.5rem]">
           {title}
         </h1>
+
+        <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft md:text-base">
+          {desc}
+        </p>
       </div>
-      {/* Description */}
-      <p className="mono text-xs sm:text-sm text-[#888780] leading-relaxed max-w-sm z-10">
-        {desc}
-      </p>
-      {/* Buttons */}
+
+      <div className="rail">
+        <div className="hairline" />
+      </div>
     </section>
   );
-}
+};
 
-export default PagesBanner
+export default PagesBanner;

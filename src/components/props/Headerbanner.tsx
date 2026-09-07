@@ -1,14 +1,14 @@
 interface prop {
-  header: string
+  header: string;
 }
 
 const Headerbanner = ({ header }: prop) => {
   return (
-    <span className="flex items-center gap-3 mono text-[11px] amber pb-5 tracking-widest uppercase z-10">
-      <hr className="w-10 border border-[#EF9F27]" />
+    <span className="chip inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 mono text-[10px] uppercase tracking-[0.18em] text-brand-ink">
+      <span className="size-1.5 rounded-full bg-brand" />
       {header}
     </span>
-  )
-}
+  );
+};
 
-export default Headerbanner
+export default Headerbanner;

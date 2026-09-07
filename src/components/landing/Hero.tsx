@@ -1,50 +1,90 @@
-import Image from 'next/image'
-import Headerbanner from '../props/Headerbanner'
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import HeroBackdrop from "../props/HeroBackdrop";
+
+const stats = [
+  { id: 1, value: "6", label: "projects shipped" },
+  { id: 2, value: "3", label: "web · geomatics · games" },
+  { id: 3, value: "<1d", label: "typical reply time" },
+];
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden px-4 sm:px-6 md:px-7 py-8 md:py-10  flex flex-col gap-6">
-      {/* Background topo */}
-      <Image
-        src="/hero-topo-bg.svg"
-        alt=""
-        aria-hidden="true"
-        width={800}
-        height={1100}
-        className="absolute right-0 top-0 h-full w-auto ml-100 pointer-events-none select-none"
-        priority
-      />
+    <section className="relative isolate overflow-hidden">
+      <HeroBackdrop className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none opacity-70 dark:opacity-60" />
 
-      {/* Available tag */}
-      <Headerbanner header="available for work" />
+      <div className="rail flex flex-col items-start gap-7 pb-16 pt-12 md:pb-24 md:pt-16">
+        <span
+          className="rise chip inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 mono text-[10px] uppercase tracking-[0.18em] text-ok-ink"
+          style={{ "--d": "0ms" } as React.CSSProperties}
+        >
+          <span className="relative flex size-1.5">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-75" />
+            <span className="relative inline-flex size-1.5 rounded-full bg-ok" />
+          </span>
+          available for work
+        </span>
 
-      {/* Heading */}
-      <div className="z-10">
-        <h1 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-[#e8e6e0]">
-          Prabhat
+        <h1
+          className="rise display max-w-4xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]"
+          style={{ "--d": "80ms" } as React.CSSProperties}
+        >
+          Web applications that
+          <span className="block text-brand-ink">know where they are</span>
         </h1>
-        <h1 className="font-syne font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-[#EF9F27]">
-          Bhusal
-        </h1>
-      </div>
 
-      {/* Description */}
-      <p className="mono text-xs sm:text-sm text-[#888780] leading-relaxed max-w-sm z-10">
-        Full-stack developer + Geomatics Engineer. <br />
-        Building web apps with React, Next.js, Django + spatial data.
-      </p>
+        <p
+          className="rise max-w-xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed"
+          style={{ "--d": "160ms" } as React.CSSProperties}
+        >
+          I&apos;m Prabhat Bhusal — a full-stack developer and Geomatics
+          Engineer in Kathmandu. I build with React, Next.js and Django, and I
+          take the spatial half seriously: PostGIS, LiDAR and 3D Gaussian
+          Splatting — with a game engine background underneath it.
+        </p>
 
-      {/* Buttons */}
-      <div className="flex items-center gap-3 z-10">
-        <button className="mono text-xs bg-[#EF9F27] font-bold text-[#1a0e00] hover:scale-110 hover:transition hover:ease-in-out hover:duration-500 px-5 py-2.5  rounded-lg ">
-          view projects →
-        </button>
-        <button className="mono text-xs border font-bold border-[#888780] text-[#e8e6e0] px-5 py-2.5 rounded-lg hover:scale-110 hover:transition hover:ease-in-out hover:duration-500">
-          contact me
-        </button>
+        <div
+          className="rise flex flex-wrap items-center gap-3"
+          style={{ "--d": "240ms" } as React.CSSProperties}
+        >
+          <Link
+            href="/work"
+            className="btn-solid group inline-flex h-12 items-center gap-2.5 rounded-full px-6 text-[15px] font-semibold"
+          >
+            view my work
+            <ArrowRight
+              size={17}
+              strokeWidth={2.5}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </Link>
+
+          <Link
+            href="/contact"
+            className="btn-quiet inline-flex h-12 items-center rounded-full px-6 text-[15px] font-semibold"
+          >
+            start a project
+          </Link>
+        </div>
+
+        <dl
+          className="rise mt-8 grid w-full max-w-3xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3"
+          style={{ "--d": "320ms" } as React.CSSProperties}
+        >
+          {stats.map((stat) => (
+            <div key={stat.id} className="bg-canvas px-5 py-6">
+              <dt className="display text-2xl font-extrabold text-ink md:text-3xl">
+                {stat.value}
+              </dt>
+              <dd className="mt-1 mono text-[11px] text-ink-faint">
+                {stat.label}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
-}
+};
 
-export default Hero
+export default Hero;

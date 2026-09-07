@@ -1,25 +1,120 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
+import { ArrowUp } from "lucide-react";
+
+import { NavLinks, contactdata, workprojects } from "@/lib/constants/data";
+
+const year = new Date().getFullYear();
 
 const Footer = () => {
-    return (
-        <>
+  const columns = [
+    {
+      id: 1,
+      heading: "explore",
+      links: NavLinks.map((item) => ({
+        id: item.id,
+        label: item.title,
+        href: item.url,
+        external: false,
+      })),
+    },
+    {
+      id: 2,
+      heading: "projects",
+      links: workprojects.slice(0, 4).map((item) => ({
+        id: item.id,
+        label: item.title,
+        href: "/work",
+        external: false,
+      })),
+    },
+    {
+      id: 3,
+      heading: "elsewhere",
+      links: contactdata
+        .filter((item) => item.url !== "#")
+        .map((item) => ({
+          id: item.id,
+          label: item.label,
+          href: item.url,
+          external: item.url.startsWith("http"),
+        })),
+    },
+  ];
 
-        <footer className='  bg-black overflow-hidden px-4 over mono text-sm flex flex-col w-full'>
-            <div className='flex  justify-between    w-full --font-dm-mono '>
-                <div className='flex  justify-between  w-full '>
-                    <Link href='/' className='font-extrabold mono hover:transition amber hover:ease-in-out hover:duration-500 hover:white'>{'<'}<span className='font-extrabold text-white mono amber hover:text-amber py-5'>pb</span>{'/>'} 2026</Link>
-                    <h2 className='flex justify-center animate-pulse items-center flex-wrap gap-2 text-[#5DCAA5]'> 
-                    <span className="relative flex size-3">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#5DCAA5] opacity-75"></span>
-                        <span className="relative inline-flex size-3 rounded-full bg-[#5DCAA5]"></span>
-                    </span >open to opportunities</h2>
-                </div>
+  return (
+    <footer className="relative">
+      <div className="rail pb-12 pt-16 md:pb-16 md:pt-24">
+        <div className="hairline mb-16 md:mb-20" />
 
-            </div>
-        </footer>
-        </>
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.1fr_1.4fr]">
+          <div>
+            <h2 className="display text-5xl font-extrabold leading-[0.95] text-ink sm:text-6xl md:text-7xl">
+              Prabhat
+              <span className="block text-brand-ink">Bhusal</span>
+            </h2>
 
-    )
-}
+            <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink-soft">
+              Full-stack developer and Geomatics Engineer based in Kathmandu. I
+              build web applications with React, Next.js and Django, and work
+              with spatial data — PostGIS, LiDAR and everything in between.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
+            {columns.map((column) => (
+              <div key={column.id}>
+                <h3 className="mono text-[10px] font-medium uppercase tracking-[0.2em] text-ink">
+                  {column.heading}
+                </h3>
+
+                <ul className="mt-6 flex flex-col gap-4">
+                  {column.links.map((link) => (
+                    <li key={link.id}>
+                      <Link
+                        href={link.href}
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noreferrer" : undefined}
+                        className="text-[14px] text-ink-soft transition-colors duration-300 hover:text-brand-ink"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="hairline mt-16 md:mt-20" />
+
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
+          <p className="mono text-[12px] text-ink-faint">
+            © {year} Prabhat Bhusal. Built in Kathmandu.
+          </p>
+
+          <div className="flex items-center gap-6">
+            <span className="flex items-center gap-2 mono text-[12px] text-ok-ink">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-ok" />
+              </span>
+              open to opportunities
+            </span>
+
+            <a
+              href="#top"
+              aria-label="Back to top"
+              className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-[#1a0e00] transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              <ArrowUp size={18} strokeWidth={2.5} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
 export default Footer;
