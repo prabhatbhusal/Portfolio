@@ -1,6 +1,5 @@
 import React from 'react';
 import Hero from '@/components/landing/Hero';
-import Marquee from '@/components/landing/Marquee';
 import Disciplines from '@/components/landing/Disciplines';
 import Services from '@/components/landing/Services';
 import Process from '@/components/landing/Process';
@@ -14,7 +13,6 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Marquee />
       <Disciplines />
       <Services />
       <Work />

@@ -68,7 +68,7 @@ const Navbar = () => {
   return (
     <>
       <header className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4">
-        <nav className="glass mx-auto flex w-full max-w-6xl items-center gap-1 rounded-[28px] p-2.5 backdrop-blur-xl">
+        <nav className="glass mx-auto flex w-full max-w-[84rem] items-center gap-1 rounded-[28px] p-2.5 backdrop-blur-xl">
           <Logo />
 
           <Link
@@ -93,7 +93,7 @@ const Navbar = () => {
                     className={cn(
                       "glass-link inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-[15px] font-semibold",
                       (openDesktop === item.id || isActive(item.url)) &&
-                        "bg-[var(--glass-hover)]"
+                        "bg-(--glass-hover)"
                     )}
                   >
                     {item.title}
@@ -126,7 +126,7 @@ const Navbar = () => {
                             href={child.url}
                             role="menuitem"
                             onClick={closeAll}
-                            className="block rounded-xl px-3 py-2.5 transition-colors duration-200 hover:bg-[var(--surface-bg-hover)]"
+                            className="block rounded-xl px-3 py-2.5 transition-colors duration-200 hover:bg-(--surface-bg-hover)"
                           >
                             <span className="block text-[14px] font-semibold text-ink">
                               {child.title}
@@ -146,7 +146,7 @@ const Navbar = () => {
                   href={item.url}
                   className={cn(
                     "glass-link inline-flex h-11 items-center rounded-full px-4 text-[15px] font-semibold",
-                    isActive(item.url) && "bg-[var(--glass-hover)]"
+                    isActive(item.url) && "bg-(--glass-hover)"
                   )}
                 >
                   {item.title}
@@ -161,7 +161,7 @@ const Navbar = () => {
               className="btn-quiet hidden h-11 items-center gap-2 rounded-full px-4 text-[14px] font-semibold lg:inline-flex"
             >
               status
-              <span className="rounded-full bg-[var(--ok-soft)] px-2 py-0.5 text-[11px] font-bold text-ok-ink">
+              <span className="rounded-full bg-(--ok-soft) px-2 py-0.5 text-[11px] font-bold text-ok-ink">
                 open
               </span>
             </Link>
@@ -301,7 +301,7 @@ const Navbar = () => {
             className="flex h-16 shrink-0 items-center justify-between rounded-2xl border border-line bg-raised px-5 text-[17px] font-semibold text-ink"
           >
             status
-            <span className="rounded-full bg-[var(--ok-soft)] px-2.5 py-1 text-[12px] font-bold text-ok-ink">
+            <span className="rounded-full bg-(--ok-soft) px-2.5 py-1 text-[12px] font-bold text-ok-ink">
               open
             </span>
           </Link>

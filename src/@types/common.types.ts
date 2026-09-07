@@ -44,7 +44,7 @@ export interface FaqItem {
 export interface TechItem {
   id: number;
   name: string;
-  icon: IconType;
+  icon: LucideIcon | IconType;
 }
 
 export interface Projectsdata {

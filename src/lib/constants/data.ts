@@ -19,6 +19,7 @@ import {
   Radar,
   ScanEye,
   Plug,
+  Sparkles,
 } from "lucide-react";
 import { FaGithub, FaLinkedin, } from "react-icons/fa";
 import {
@@ -34,6 +35,7 @@ import {
   SiLeaflet,
   SiQgis,
   SiUnity,
+  SiUnrealengine,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
@@ -446,6 +448,9 @@ export const techstack: TechItem[] = [
   { id: 10, name: "Leaflet", icon: SiLeaflet },
   { id: 11, name: "QGIS", icon: SiQgis },
   { id: 12, name: "Unity", icon: SiUnity },
+  { id: 13, name: "Unreal Engine", icon: SiUnrealengine },
+  { id: 14, name: "Digital Twin", icon: Boxes },
+  { id: 15, name: "Gaussian Splatting", icon: Sparkles },
 ];
 
 export const processdata: ProcessStep[] = [

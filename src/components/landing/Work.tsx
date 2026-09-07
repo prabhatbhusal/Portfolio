@@ -32,7 +32,7 @@ const Work = () => {
         </Link>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {workprojects.map((item, idx) => (
           <Reveal key={item.id} delay={idx * 80}>
           <Link

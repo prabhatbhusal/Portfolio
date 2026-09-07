@@ -48,7 +48,7 @@ const About = () => {
             <span className="block text-brand-ink">reads the map</span>
           </h2>
 
-          <p className="max-w-lg text-[15px] leading-relaxed text-ink-soft">
+          <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
             I trained as a Geomatics Engineer and ended up building for the web.
             The overlap turned out to be the interesting part — most products
             eventually need to know where something is, and that is where a

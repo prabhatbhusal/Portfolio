@@ -13,13 +13,13 @@ const Disciplines = () => {
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col items-start gap-5">
             <Headerbanner header="disciplines" />
-            <h2 className="display max-w-xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+            <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
               Three fields, one
               <span className="block text-brand-ink">way of thinking</span>
             </h2>
           </div>
 
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
             They look separate on a CV. In practice they all come down to
             modelling space and then making it interactive.
           </p>

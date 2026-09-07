@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import HeroBackdrop from "../props/HeroBackdrop";
+import Marquee from "./Marquee";
 
 const stats = [
   { id: 1, value: "6", label: "projects shipped" },
@@ -13,7 +14,7 @@ const Hero = () => {
     <section className="relative isolate overflow-hidden">
       <HeroBackdrop className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none opacity-70 dark:opacity-60" />
 
-      <div className="rail flex flex-col items-start gap-7 pb-16 pt-12 md:pb-24 md:pt-16">
+      <div className="rail flex flex-col items-start gap-7 pb-12 pt-12 md:pb-16 md:pt-16">
         <span
           className="rise chip inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 mono text-[10px] uppercase tracking-[0.18em] text-ok-ink"
           style={{ "--d": "0ms" } as React.CSSProperties}
@@ -26,7 +27,7 @@ const Hero = () => {
         </span>
 
         <h1
-          className="rise display max-w-4xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]"
+          className="rise display max-w-5xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]"
           style={{ "--d": "80ms" } as React.CSSProperties}
         >
           Web applications that
@@ -34,7 +35,7 @@ const Hero = () => {
         </h1>
 
         <p
-          className="rise max-w-xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed"
+          className="rise max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed"
           style={{ "--d": "160ms" } as React.CSSProperties}
         >
           I&apos;m Prabhat Bhusal — a full-stack developer and Geomatics
@@ -68,7 +69,7 @@ const Hero = () => {
         </div>
 
         <dl
-          className="rise mt-8 grid w-full max-w-3xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3"
+          className="rise mt-8 grid w-full max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3"
           style={{ "--d": "320ms" } as React.CSSProperties}
         >
           {stats.map((stat) => (
@@ -83,6 +84,8 @@ const Hero = () => {
           ))}
         </dl>
       </div>
+
+      <Marquee className="pb-14 md:pb-20" />
     </section>
   );
 };

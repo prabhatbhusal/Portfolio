@@ -20,7 +20,7 @@ const PagesBanner = ({ eyebrow, title, desc }: prop) => {
           {title}
         </h1>
 
-        <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft md:text-base">
+        <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-base">
           {desc}
         </p>
       </div>

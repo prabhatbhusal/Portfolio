@@ -22,7 +22,7 @@ const Skills = ({ heading = true }: prop) => {
             </h2>
           </div>
 
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
             Four areas I keep sharp — the web stack I ship with, and the spatial
             work that sits underneath it.
           </p>

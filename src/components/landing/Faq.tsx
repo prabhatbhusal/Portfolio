@@ -17,7 +17,7 @@ const Faq = () => {
             Before you
             <span className="block text-brand-ink">write in</span>
           </h2>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
             The things people usually ask first. Anything else, just send it
             over — I reply within a day.
           </p>

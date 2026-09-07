@@ -10,6 +10,9 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+// a static export serves only the slugs listed below; anything else is a 404
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return blogdata.map((post) => ({ slug: post.slug }));
 }

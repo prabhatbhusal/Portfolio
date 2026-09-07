@@ -15,12 +15,12 @@ const Services = () => {
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col items-start gap-5">
             <Headerbanner header="what I do" />
-            <h2 className="display max-w-xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+            <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
               Work I take on
             </h2>
           </div>
 
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
             Seven things I do well. Most projects are some combination of two
             or three of them.
           </p>

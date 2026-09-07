@@ -1,13 +1,28 @@
 import Link from "next/link";
 import React from "react";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, type LucideIcon } from "lucide-react";
+import type { IconType } from "react-icons";
 
 import { NavLinks, contactdata, workprojects } from "@/lib/constants/data";
+
+type FooterLink = {
+  id: number;
+  label: string;
+  href: string;
+  external: boolean;
+  icon?: LucideIcon | IconType;
+};
+
+type FooterColumn = {
+  id: number;
+  heading: string;
+  links: FooterLink[];
+};
 
 const year = new Date().getFullYear();
 
 const Footer = () => {
-  const columns = [
+  const columns: FooterColumn[] = [
     {
       id: 1,
       heading: "explore",
@@ -31,6 +46,8 @@ const Footer = () => {
     {
       id: 3,
       heading: "elsewhere",
+      // the contact column carries its icons, which marks it out from the
+      // two navigation columns beside it
       links: contactdata
         .filter((item) => item.url !== "#")
         .map((item) => ({
@@ -38,6 +55,7 @@ const Footer = () => {
           label: item.label,
           href: item.url,
           external: item.url.startsWith("http"),
+          icon: item.icon,
         })),
     },
   ];
@@ -69,18 +87,27 @@ const Footer = () => {
                 </h3>
 
                 <ul className="mt-6 flex flex-col gap-4">
-                  {column.links.map((link) => (
-                    <li key={link.id}>
-                      <Link
-                        href={link.href}
-                        target={link.external ? "_blank" : undefined}
-                        rel={link.external ? "noreferrer" : undefined}
-                        className="text-[14px] text-ink-soft transition-colors duration-300 hover:text-brand-ink"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
+                  {column.links.map((link) => {
+                    const Icon = link.icon;
+
+                    return (
+                      <li key={link.id}>
+                        <Link
+                          href={link.href}
+                          target={link.external ? "_blank" : undefined}
+                          rel={link.external ? "noreferrer" : undefined}
+                          className="group inline-flex items-center gap-2.5 text-[14px] text-ink-soft transition-colors duration-300 hover:text-brand-ink"
+                        >
+                          {Icon && (
+                            <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-(--chip-bg) text-ink-faint transition-colors duration-300 group-hover:border-(--brand-line) group-hover:bg-(--brand-soft) group-hover:text-brand-ink">
+                              <Icon size={13} strokeWidth={1.8} />
+                            </span>
+                          )}
+                          {link.label}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

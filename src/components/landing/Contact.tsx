@@ -44,7 +44,7 @@ const Contact = ({ heading = true }: prop) => {
             )}
 
             <Reveal delay={80}>
-              <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink-soft md:text-base">
+              <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ink-soft md:text-base">
                 Open to full-stack and geospatial work, freelance or full time.
                 Tell me what you are building and I will tell you honestly
                 whether I am the right person for it.
