@@ -68,7 +68,7 @@ const Navbar = () => {
   return (
     <>
       <header className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4">
-        <nav className="glass mx-auto flex w-full max-w-[84rem] items-center gap-1 rounded-[28px] p-2.5 backdrop-blur-xl">
+        <nav className="glass mx-auto flex w-full max-w-336 items-center gap-1 rounded-[28px] p-2.5 backdrop-blur-xl">
           <Logo />
 
           <Link
@@ -321,7 +321,7 @@ const Navbar = () => {
       )}
 
       {/* the bar is fixed, this keeps page content clear of it */}
-      <div aria-hidden="true" className="h-[80px] sm:h-[88px]" />
+      <div aria-hidden="true" className="h-20 sm:h-22" />
     </>
   );
 };
