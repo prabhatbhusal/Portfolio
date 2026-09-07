@@ -695,18 +695,52 @@ export const disciplinesdata: DisciplineItem[] = [
 ];
 
 
-/* DRAFT COPY. these quotes were written to size the layout, not by the
-   people they are attributed to. replace each `quote` with the client's
-   own words and get their sign-off before this goes live — a made-up
-   endorsement under a real person's name is not something to ship. */
+/* PLACEHOLDER COPY, none of it written by the people it is attributed to.
+   entry 1 is a real client with a quote I drafted — get Saurav's own words
+   and his sign-off before this goes live. entries 2 and 3 are invented
+   people, there to size the layout; replace them outright rather than
+   leaving fictional clients on a published site. */
 export const testimonialsdata: Testimonial[] = [
   {
     id: 1,
     quote:
       "Prabhat took a rough brief and came back with something we could actually run ourselves. He was straight with us about what was worth building and what was not, and the site has been steady since the day it went up.",
     name: "Saurav Raj Khanal",
+    // his actual title — leave unset rather than guessing at it
+    role: undefined,
     company: "Bhumlu Construction",
     companyUrl: "https://bhumluconstruction.com.np",
-    initials: "SK",
+    location: "Kavre, Nepal",
+    projectSlug: "bhumlu-construction",
+    date: "2025",
+    // add a headshot to /public and point at it here, e.g. "/clients/saurav.jpg"
+    image: undefined,
+  },
+
+  /* ---- placeholders. invented people, not clients — swap the whole
+     entry out as real testimonials come in ---- */
+  {
+    id: 2,
+    quote:
+      "We came in with a spreadsheet and a vague idea of a map. Prabhat turned it into something our dispatchers actually use every day, and he explained the trade-offs in language we could follow.",
+    name: "Aayush Shrestha",
+    role: "Operations Lead",
+    company: "Logistics startup",
+    location: "Kathmandu, Nepal",
+    projectSlug: "food-delivery-webgis",
+    date: "2025",
+    image: undefined,
+  },
+  {
+    id: 3,
+    quote:
+      "Deadlines held, and the handover was the easiest part of the project. Everything was documented well enough that our own developer picked it up without a single call.",
+    name: "Nisha Gurung",
+    role: "Managing Director",
+    company: "Retail group",
+    location: "Pokhara, Nepal",
+    projectSlug: "automax-ecommerce",
+    date: "2024",
+    image: undefined,
   },
 ];

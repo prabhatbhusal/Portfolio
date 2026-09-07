@@ -116,8 +116,21 @@ export interface Testimonial {
   id: number;
   quote: string;
   name: string;
+  /* their job title, e.g. "Managing Director" — omit if you do not know it */
+  role?: string;
   /* the organisation they are speaking for */
   company: string;
   companyUrl?: string;
-  initials: string;
+  /* where they are, shown after the company */
+  location?: string;
+  /* slug of the workprojects entry this quote is about, so the card can
+     link through to the work itself */
+  projectSlug?: string;
+  /* when they said it, e.g. "2025" */
+  date?: string;
+  /* headshot in /public, e.g. "/clients/saurav.jpg". without one the
+     card falls back to the initials taken from the name */
+  image?: string;
+  /* only needed when the initials from the name read badly */
+  initials?: string;
 }
