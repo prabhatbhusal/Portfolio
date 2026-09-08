@@ -4,6 +4,7 @@ import Disciplines from '@/components/landing/Disciplines';
 import Services from '@/components/landing/Services';
 import Process from '@/components/landing/Process';
 import Work from '@/components/landing/Work';
+import Games from '@/components/landing/Games';
 import Skills from '@/components/landing/Skills';
 import About from '@/components/landing/About';
 import Faq from '@/components/landing/Faq';
@@ -17,6 +18,7 @@ export default function Home() {
       <Disciplines />
       <Services />
       <Work />
+      <Games />
       <Process />
       <Skills />
       <About />

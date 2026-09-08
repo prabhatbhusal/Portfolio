@@ -3,12 +3,14 @@ import type { Metadata } from "next";
 
 import PagesBanner from "@/components/props/PagesBanner";
 import Skills from "@/components/landing/Skills";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Skills | Prabhat Bhusal",
+export const metadata: Metadata = pageMetadata({
+  title: "Skills",
   description:
     "Frontend, backend, geospatial and game development — the tools and technologies Prabhat Bhusal builds with.",
-};
+  path: "/skills",
+});
 
 const Page = () => {
   return (

@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "og": "node scripts/generate-og.mjs",
+    "art": "node scripts/generate-game-art.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",

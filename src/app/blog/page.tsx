@@ -6,12 +6,14 @@ import { ArrowUpRight } from "lucide-react";
 import PagesBanner from "@/components/props/PagesBanner";
 import Reveal from "@/components/props/Reveal";
 import { blogdata } from "@/lib/constants/data";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Blog | Prabhat Bhusal",
+export const metadata: Metadata = pageMetadata({
+  title: "Blog",
   description:
     "Notes on full-stack development, spatial data and the things that break in between.",
-};
+  path: "/blog",
+});
 
 const formatDate = (value: string) =>
   new Date(value).toLocaleDateString("en-GB", {

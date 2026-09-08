@@ -4,10 +4,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { workprojects } from "@/lib/constants/data";
+import { gamesdata } from "@/lib/constants/data";
 import FactGrid from "@/components/props/FactGrid";
+import MediaFrame from "@/components/props/MediaFrame";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadcrumbSchema, projectSchema } from "@/lib/seo/schema";
+import { breadcrumbSchema, videoGameSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = {
@@ -18,52 +19,61 @@ type Props = {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return workprojects.map((project) => ({ slug: project.slug }));
+  return gamesdata.map((game) => ({ slug: game.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = workprojects.find((item) => item.slug === slug);
+  const game = gamesdata.find((item) => item.slug === slug);
 
-  if (!project) return { title: "Not found" };
+  if (!game) return { title: "Not found" };
 
   return pageMetadata({
-    title: project.title,
-    description: project.description,
-    path: `/work/${slug}`,
+    title: game.title,
+    description: game.description,
+    path: `/games/${slug}`,
+    // the cover shares better than the site-wide card here
+    image: {
+      url: game.cover.src,
+      type: "image/png",
+      width: game.cover.width,
+      height: game.cover.height,
+      alt: game.cover.alt,
+    },
   });
 }
 
 const Page = async ({ params }: Props) => {
   const { slug } = await params;
-  const project = workprojects.find((item) => item.slug === slug);
+  const game = gamesdata.find((item) => item.slug === slug);
 
-  if (!project) notFound();
+  if (!game) notFound();
 
-  const index = workprojects.findIndex((item) => item.slug === slug);
-  const next = workprojects[(index + 1) % workprojects.length];
+  const index = gamesdata.findIndex((item) => item.slug === slug);
+  const next = gamesdata[(index + 1) % gamesdata.length];
 
   const facts = [
-    { id: 1, label: "year", value: project.year ?? "—" },
-    { id: 2, label: "role", value: project.role ?? "—" },
-    { id: 3, label: "domain", value: project.sector },
-    { id: 4, label: "type", value: project.stack },
+    { id: 1, label: "engine", value: game.engine },
+    { id: 2, label: "platform", value: game.platforms.join(", ") },
+    { id: 3, label: "genre", value: game.genre },
+    { id: 4, label: "year", value: game.year },
+    { id: 5, label: "role", value: game.role },
   ];
 
   return (
     <main>
-      <JsonLd data={projectSchema(project)} />
+      <JsonLd data={videoGameSchema(game)} />
       <JsonLd
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
-          { name: "Work", path: "/work" },
-          { name: project.title, path: `/work/${slug}` },
+          { name: "Games", path: "/games" },
+          { name: game.title, path: `/games/${slug}` },
         ])}
       />
 
       <div className="rail pt-10 md:pt-14">
         <Link
-          href="/work"
+          href="/games"
           className="group inline-flex items-center gap-2 text-[13px] font-semibold text-ink-soft transition-colors duration-300 hover:text-ink"
         >
           <ArrowLeft
@@ -71,42 +81,40 @@ const Page = async ({ params }: Props) => {
             strokeWidth={2.5}
             className="transition-transform duration-300 group-hover:-translate-x-0.5"
           />
-          all projects
+          all games
         </Link>
       </div>
 
-      <section className="rail flex flex-col items-start gap-6 pb-12 pt-8 md:pb-16 md:pt-10">
+      <section className="rail flex flex-col items-start gap-6 pb-10 pt-8 md:pt-10">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="mono text-[11px] tabular-nums text-brand-ink">
-            {project.index}
+          <span className="borderbg amber-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
+            {game.status}
           </span>
-          {project.featured && (
-            <span className="borderbg amber-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
-              featured
-            </span>
-          )}
           <span className="chip rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider">
-            {project.badge}
+            {game.engine}
+          </span>
+          <span className="chip rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider">
+            {game.platforms.join(" · ")}
           </span>
         </div>
 
         <h1 className="display max-w-3xl text-4xl font-extrabold leading-[1.03] text-ink sm:text-5xl md:text-6xl">
-          {project.title}
+          {game.title}
         </h1>
 
         <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed">
-          {project.description}
+          {game.description}
         </p>
 
         <div className="flex flex-wrap items-center gap-3">
-          {project.live && (
+          {game.download && (
             <Link
-              href={project.live}
+              href={game.download}
               target="_blank"
               rel="noreferrer"
               className="btn-solid group inline-flex h-11 items-center gap-2 rounded-full px-5 text-[14px] font-semibold"
             >
-              view live
+              download the build
               <ArrowUpRight
                 size={16}
                 strokeWidth={2.5}
@@ -115,9 +123,9 @@ const Page = async ({ params }: Props) => {
             </Link>
           )}
 
-          {project.github && (
+          {game.source && (
             <Link
-              href={project.github}
+              href={game.source}
               target="_blank"
               rel="noreferrer"
               className="btn-quiet group inline-flex h-11 items-center gap-2 rounded-full px-5 text-[14px] font-semibold"
@@ -130,33 +138,46 @@ const Page = async ({ params }: Props) => {
               />
             </Link>
           )}
+
+          {!game.download && !game.source && (
+            <span className="mono text-[11px] text-ink-faint">
+              no public build yet
+            </span>
+          )}
         </div>
       </section>
 
       <section className="rail">
-        <FactGrid facts={facts} />
+        <MediaFrame
+          shot={game.cover}
+          priority
+          showCaption={false}
+          sizes="(min-width: 1400px) 1280px, 100vw"
+        />
+      </section>
+
+      <section className="rail pt-10">
+        <FactGrid facts={facts} className="md:grid-cols-5" />
       </section>
 
       <section className="rail grid grid-cols-1 gap-12 py-16 md:py-24 lg:grid-cols-[1.3fr_0.7fr] lg:gap-16">
         <div>
           <h2 className="display text-2xl font-bold text-ink md:text-3xl">
-            What it took
+            What is in it
           </h2>
 
-          {project.highlights && (
-            <ul className="mt-8 flex flex-col gap-6">
-              {project.highlights.map((highlight, idx) => (
-                <li key={idx} className="flex gap-4">
-                  <span className="mono mt-0.5 shrink-0 text-[11px] tabular-nums text-brand-ink">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
-                    {highlight}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="mt-8 flex flex-col gap-6">
+            {game.features.map((feature, idx) => (
+              <li key={idx} className="flex gap-4">
+                <span className="mono mt-0.5 shrink-0 text-[11px] tabular-nums text-brand-ink">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
+                  {feature}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="surface h-fit rounded-2xl p-6 md:p-8">
@@ -165,27 +186,41 @@ const Page = async ({ params }: Props) => {
           </h3>
 
           <div className="mt-5 flex flex-wrap gap-1.5">
-            {project.skills.map((skill) => (
+            {game.tech.map((item) => (
               <span
-                key={skill}
+                key={item}
                 className="chip rounded-full px-2.5 py-1 mono text-[11px]"
               >
-                {skill}
+                {item}
               </span>
             ))}
           </div>
         </div>
       </section>
 
+      {game.shots.length > 0 && (
+        <section className="rail pb-16 md:pb-24">
+          <h2 className="display text-2xl font-bold text-ink md:text-3xl">
+            Screenshots
+          </h2>
+
+          <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            {game.shots.map((shot) => (
+              <MediaFrame key={shot.src} shot={shot} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="rail pb-8">
         <div className="hairline mb-10" />
 
         <Link
-          href={`/work/${next.slug}`}
+          href={`/games/${next.slug}`}
           className="surface group flex flex-col gap-2 rounded-2xl p-6 md:p-8"
         >
           <span className="mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-            next project
+            next build
           </span>
 
           <span className="display flex items-center gap-3 text-xl font-bold text-ink transition-colors duration-300 group-hover:text-brand-ink md:text-2xl">

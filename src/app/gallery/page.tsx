@@ -7,12 +7,14 @@ import { Camera } from "lucide-react";
 import PagesBanner from "@/components/props/PagesBanner";
 import Reveal from "@/components/props/Reveal";
 import { gallerydata } from "@/lib/constants/data";
+import { pageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Gallery | Prabhat Bhusal",
+export const metadata: Metadata = pageMetadata({
+  title: "Gallery",
   description:
     "Scenes and photographs by Prabhat Bhusal — field work, survey sites and everything in between.",
-};
+  path: "/gallery",
+});
 
 // placeholder frames so the page has shape before the photographs land
 const frames = [

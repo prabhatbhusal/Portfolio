@@ -134,3 +134,37 @@ export interface Testimonial {
   /* only needed when the initials from the name read badly */
   initials?: string;
 }
+
+/* one screenshot or cover — the same shape the next/image props expect,
+   so a frame component can spread it straight through */
+export interface GameShot {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+}
+
+export interface GameItem {
+  id: number;
+  slug: string;
+  title: string;
+  /* one line under the title, on the card and on the detail page */
+  tagline: string;
+  description: string;
+  engine: "Unity" | "Unreal Engine";
+  platforms: string[];
+  genre: string;
+  year: string;
+  role: string;
+  /* released | in development | prototype — shown as a chip */
+  status: string;
+  featured?: boolean;
+  cover: GameShot;
+  shots: GameShot[];
+  /* what is actually built, one line each */
+  features: string[];
+  tech: string[];
+  download: string | null;
+  source: string | null;
+}

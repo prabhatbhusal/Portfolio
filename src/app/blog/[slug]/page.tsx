@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import { blogdata } from "@/lib/constants/data";
+import JsonLd from "@/components/seo/JsonLd";
+import { blogPostingSchema, breadcrumbSchema } from "@/lib/seo/schema";
+import { pageMetadata } from "@/lib/seo/metadata";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,12 +24,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = blogdata.find((item) => item.slug === slug);
 
-  if (!post) return { title: "Not found | Prabhat Bhusal" };
+  if (!post) return { title: "Not found" };
 
-  return {
-    title: `${post.title} | Prabhat Bhusal`,
+  return pageMetadata({
+    title: post.title,
     description: post.excerpt,
-  };
+    path: `/blog/${slug}`,
+    type: "article",
+    publishedTime: post.date,
+    tags: post.tags,
+  });
 }
 
 const formatDate = (value: string) =>
@@ -47,6 +54,15 @@ const Page = async ({ params }: Props) => {
 
   return (
     <main>
+      <JsonLd data={blogPostingSchema(post)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.title, path: `/blog/${slug}` },
+        ])}
+      />
+
       <div className="rail pt-10 md:pt-14">
         <Link
           href="/blog"

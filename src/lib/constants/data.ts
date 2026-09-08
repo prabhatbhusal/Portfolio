@@ -50,6 +50,7 @@ import {
   TechItem,
   BlogPost,
   GalleryItem,
+  GameItem,
   ServiceItem,
   DisciplineItem,
   Testimonial,
@@ -656,6 +657,89 @@ export const gallerydata: GalleryItem[] = [
   },
 ];
 
+/* SAMPLE ENTRIES — two PC builds, written to size the pages. the art in
+   /public/games is generated placeholder art (npm run art), so swap the
+   copy and drop real captures in before this goes live. */
+export const gamesdata: GameItem[] = [
+  {
+    id: 1,
+    slug: "ridge-runner",
+    title: "Ridge Runner",
+    tagline: "A traversal game built on real terrain data",
+    description:
+      "A first-person traversal game where the level is a heightmap. Ridge lines are generated from DEM tiles, then carved into something you can actually run along — the survey work I do by day, turned into a playground.",
+    engine: "Unity",
+    platforms: ["PC (Windows)"],
+    genre: "Traversal / arcade",
+    year: "2025",
+    role: "Solo — design, gameplay and tools",
+    status: "prototype",
+    featured: true,
+    cover: {
+      src: "/games/ridge-runner-cover.png",
+      alt: "Ridge Runner cover art",
+      width: 1600,
+      height: 900,
+    },
+    shots: [
+      {
+        src: "/games/ridge-runner-shot.png",
+        alt: "Ridge Runner in-game view of the generated ridge line",
+        width: 1600,
+        height: 900,
+        caption: "Terrain streamed in from DEM tiles, no hand-placed geometry.",
+      },
+    ],
+    features: [
+      "Heightmaps imported straight from DEM tiles, so the ridge you run is a real one.",
+      "Momentum-based movement — speed is kept or lost by how you take a slope, not by a boost button.",
+      "Chunked terrain streaming, so the view distance does not cost a frame budget.",
+      "An in-editor tool that turns a GeoTIFF into a playable mesh in one pass.",
+    ],
+    tech: ["Unity", "C#", "URP", "GDAL", "ScriptableObjects"],
+    download: null,
+    source: null,
+  },
+  {
+    id: 2,
+    slug: "signal-depth",
+    title: "Signal Depth",
+    tagline: "A flooded survey station, one working instrument",
+    description:
+      "An exploration game set in a survey station that is half underwater. You carry one working instrument and read the building through it — depth, signal, and whatever the last crew left behind.",
+    engine: "Unreal Engine",
+    platforms: ["PC (Windows)"],
+    genre: "Exploration / atmospheric",
+    year: "2024",
+    role: "Design, blueprints and level layout",
+    status: "in development",
+    cover: {
+      src: "/games/signal-depth-cover.png",
+      alt: "Signal Depth cover art",
+      width: 1600,
+      height: 900,
+    },
+    shots: [
+      {
+        src: "/games/signal-depth-shot.png",
+        alt: "Signal Depth in-game view of the instrument overlay",
+        width: 1600,
+        height: 900,
+        caption: "The instrument is the whole HUD — there is nothing else on screen.",
+      },
+    ],
+    features: [
+      "One diegetic instrument instead of a HUD, so every reading costs you a look.",
+      "Water volumes that change how sound carries, which is how you find the way out.",
+      "Level built as a loop, so the station teaches its own layout without a map.",
+      "Lighting passes done in Lumen, tuned for a room lit by one working lamp.",
+    ],
+    tech: ["Unreal Engine 5", "Blueprints", "C++", "Lumen", "MetaSounds"],
+    download: null,
+    source: null,
+  },
+];
+
 // declared last so the work dropdown can be built from the projects above
 export const NavLinks: navbar[] = [
   {
@@ -670,10 +754,11 @@ export const NavLinks: navbar[] = [
       url: `/work/${project.slug}`,
     })),
   },
-  { id: 2, title: "skills", url: "/skills", icon: Layers },
-  { id: 3, title: "blog", url: "/blog", icon: Newspaper },
-  { id: 4, title: "gallery", url: "/gallery", icon: Images },
-  { id: 5, title: "contact", url: "/contact", icon: Mail },
+  { id: 2, title: "games", url: "/games", icon: Gamepad2 },
+  { id: 3, title: "skills", url: "/skills", icon: Layers },
+  { id: 4, title: "blog", url: "/blog", icon: Newspaper },
+  { id: 5, title: "gallery", url: "/gallery", icon: Images },
+  { id: 6, title: "contact", url: "/contact", icon: Mail },
 ];
 
 export const disciplinesdata: DisciplineItem[] = [
