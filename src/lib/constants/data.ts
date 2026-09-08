@@ -744,7 +744,7 @@ export const gamesdata: GameItem[] = [
 export const NavLinks: navbar[] = [
   {
     id: 1,
-    title: "work",
+    title: "Work",
     url: "/work",
     icon: Briefcase,
     children: workprojects.map((project) => ({
@@ -754,11 +754,11 @@ export const NavLinks: navbar[] = [
       url: `/work/${project.slug}`,
     })),
   },
-  { id: 2, title: "games", url: "/games", icon: Gamepad2 },
-  { id: 3, title: "skills", url: "/skills", icon: Layers },
-  { id: 4, title: "blog", url: "/blog", icon: Newspaper },
-  { id: 5, title: "gallery", url: "/gallery", icon: Images },
-  { id: 6, title: "contact", url: "/contact", icon: Mail },
+  { id: 2, title: "Games", url: "/games", icon: Gamepad2 },
+  { id: 3, title: "Skills", url: "/skills", icon: Layers },
+  { id: 4, title: "Blog", url: "/blog", icon: Newspaper },
+  { id: 5, title: "Gallery", url: "/gallery", icon: Images },
+  { id: 6, title: "Contact", url: "/contact", icon: Mail },
 ];
 
 export const disciplinesdata: DisciplineItem[] = [

@@ -32,7 +32,7 @@ const Contact = ({ heading = true }: prop) => {
             {heading && (
               <Reveal>
                 <div className="flex flex-col items-start gap-5">
-                  <Headerbanner header="get in touch" />
+                  
                   <h2 className="display text-4xl font-extrabold leading-[1.03] text-ink md:text-5xl lg:text-6xl">
                     Let&apos;s build
                     <span className="block text-brand-ink">
@@ -46,14 +46,13 @@ const Contact = ({ heading = true }: prop) => {
             <Reveal delay={80}>
               <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ink-soft md:text-base">
                 Open to full-stack and geospatial work, freelance or full time.
-                Tell me what you are building and I will tell you honestly
-                whether I am the right person for it.
+                Tell me what you are building .
               </p>
             </Reveal>
 
             {/* the email, as the largest thing on the page */}
             <Reveal delay={160} className="mt-10 w-full">
-              <p className="mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
+              <p className="text-[11px] leading-relaxed uppercase text-ink-faint font-semibold">
                 write to me
               </p>
 
@@ -89,8 +88,8 @@ const Contact = ({ heading = true }: prop) => {
             </Reveal>
 
             {/* everywhere else */}
-            <Reveal delay={280} className="mt-6 w-full">
-              <div className="flex flex-wrap gap-2">
+            <Reveal delay={280} className="mt-6 w-[50%] sm:w-[40%] md:w-[30%] lg:w-[50%]">
+              <div className="grid grid-cols-2 gap-2">
                 {elsewhere.map((item) => {
                   const Icon = item.icon;
                   const external = item.url.startsWith("http");
@@ -122,9 +121,9 @@ const Contact = ({ heading = true }: prop) => {
             <div className="surface rounded-[28px] p-6 md:p-8 lg:p-10">
               <div className="mb-8 flex items-baseline justify-between gap-4">
                 <h3 className="display text-xl font-bold text-ink md:text-2xl">
-                  Start a project
+                  Let&apos;s collaborate
                 </h3>
-                <span className="mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
+                <span className="text-[11px] leading-relaxed uppercase  font-semibold text-ink-faint">
                   4 fields
                 </span>
               </div>

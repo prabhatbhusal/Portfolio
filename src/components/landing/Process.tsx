@@ -11,7 +11,7 @@ const Process = () => {
 
       <Reveal>
       <div className="flex flex-col items-start gap-5">
-        <Headerbanner header="how I work" />
+        
         <h2 className="display max-w-3xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
           From a rough idea to something running
         </h2>

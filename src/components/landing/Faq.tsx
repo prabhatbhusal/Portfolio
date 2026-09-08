@@ -12,7 +12,7 @@ const Faq = () => {
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="flex flex-col items-start gap-5">
-          <Headerbanner header="questions" />
+          
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             Before you
             <span className="block text-brand-ink">write in</span>

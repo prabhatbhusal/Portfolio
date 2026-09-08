@@ -16,7 +16,7 @@ const Games = () => {
 
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col items-start gap-5">
-          <Headerbanner header="unity & unreal" />
+          
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             Games I have shipped
           </h2>

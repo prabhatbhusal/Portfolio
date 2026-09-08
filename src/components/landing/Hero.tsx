@@ -23,15 +23,7 @@ const Hero = () => {
         stagger={0.12}
         className="rail flex flex-col items-start gap-7 pb-12 pt-12 md:pb-16 md:pt-16"
       >
-        <StaggerItem>
-          <span className="chip inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 mono text-[10px] uppercase tracking-[0.18em] text-ok-ink">
-            <span className="relative flex size-1.5">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-75" />
-              <span className="relative inline-flex size-1.5 rounded-full bg-ok" />
-            </span>
-            available for work
-          </span>
-        </StaggerItem>
+        
 
         <StaggerItem>
           <h1 className="display max-w-5xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]">
@@ -54,7 +46,7 @@ const Hero = () => {
             href="/work"
             className="btn-solid group inline-flex h-12 items-center gap-2.5 rounded-full px-6 text-[15px] font-semibold"
           >
-            view my work
+            View my work
             <ArrowRight
               size={17}
               strokeWidth={2.5}
@@ -66,7 +58,7 @@ const Hero = () => {
             href="/contact"
             className="btn-quiet inline-flex h-12 items-center rounded-full px-6 text-[15px] font-semibold"
           >
-            start a project
+            Let's Collaborate
           </Link>
         </StaggerItem>
 

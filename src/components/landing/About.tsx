@@ -41,7 +41,7 @@ const About = () => {
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal className="flex flex-col items-start gap-5">
-          <Headerbanner header="about" />
+          
 
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             A developer who

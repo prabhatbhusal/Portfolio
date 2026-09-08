@@ -16,7 +16,7 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow="what I work with"
+        eyebrow=""
         title="Skills"
         desc="Technologies, tools and areas of expertise — grouped by where they sit in the stack."
       />

@@ -20,7 +20,7 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow="unity & unreal"
+        eyebrow=""
         title="Games"
         desc="PC builds made in Unity and Unreal Engine — the systems underneath, and what each one was an excuse to learn."
       />

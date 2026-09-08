@@ -94,7 +94,7 @@ const Footer = () => {
 
             {/* icons only up here — the labels would repeat the columns */}
             <div className="mt-10">
-              <h3 className="mono text-[10px] font-medium uppercase tracking-[0.2em] text-ink">
+              <h3 className="text-[11px] leading-relaxed uppercase  font-semibold">
                 elsewhere
               </h3>
 
@@ -124,7 +124,7 @@ const Footer = () => {
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             {columns.map((column) => (
               <div key={column.id}>
-                <h3 className="mono text-[10px] font-medium uppercase tracking-[0.2em] text-ink">
+                <h3 className="text-[11px] leading-relaxed uppercase  font-semibold">
                   {column.heading}
                 </h3>
 
@@ -151,20 +151,15 @@ const Footer = () => {
 
         <div className="hairline mt-16 md:mt-20" />
 
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
-          <p className="mono text-[12px] text-ink-faint">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
+          <p className="text-[12px] leading-relaxed uppercase text-ink-soft font-bold">
             © {year} Prabhat Bhusal. Built in Kathmandu.
           </p>
 
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 mono text-[12px] text-ok-ink">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-ok opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-ok" />
-              </span>
-              open to opportunities
-            </span>
-
+          
+          
+        </div>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-6"> 
             <ScrollLink
               to="top"
               href="#top"
@@ -174,7 +169,6 @@ const Footer = () => {
               <ArrowUp size={18} strokeWidth={2.5} />
             </ScrollLink>
           </div>
-        </div>
       </div>
     </footer>
   );

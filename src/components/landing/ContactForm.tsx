@@ -5,7 +5,7 @@ import { ArrowRight, Check } from "lucide-react";
 
 const EMAIL = "prabhatbhusal777@gmail.com";
 
-const budgets = ["under 1k", "1k – 5k", "5k+", "not sure yet"];
+const budgets = ["under 5k", "10k – 20k", "25k+", "not sure yet"];
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -13,7 +13,7 @@ const ContactForm = () => {
   const [budget, setBudget] = useState(budgets[3]);
   const [message, setMessage] = useState("");
 
-  // no backend on this site, so the draft is handed to the mail client
+  
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -31,7 +31,7 @@ const ContactForm = () => {
         <div className="flex flex-col gap-2">
           <label
             htmlFor="name"
-            className="mono text-[10px] uppercase tracking-[0.18em] text-ink-faint"
+            className=" text-[11px] leading-relaxed uppercase text-ink-faint font-semibold"
           >
             your name
           </label>
@@ -50,7 +50,7 @@ const ContactForm = () => {
         <div className="flex flex-col gap-2">
           <label
             htmlFor="email"
-            className="mono text-[10px] uppercase tracking-[0.18em] text-ink-faint"
+            className=" text-[11px] leading-relaxed uppercase text-ink-faint font-semibold"
           >
             your email
           </label>
@@ -68,7 +68,7 @@ const ContactForm = () => {
       </div>
 
       <fieldset className="flex flex-col gap-2.5">
-        <legend className="mb-2.5 mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
+        <legend className="mb-2.5 text-[11px] leading-relaxed uppercase text-ink-faint font-semibold">
           rough budget
         </legend>
 
@@ -95,7 +95,7 @@ const ContactForm = () => {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="message"
-          className="mono text-[10px] uppercase tracking-[0.18em] text-ink-faint"
+          className=" text-[11px] leading-relaxed uppercase text-ink-faint font-semibold"
         >
           what are you building?
         </label>
@@ -124,7 +124,7 @@ const ContactForm = () => {
           />
         </button>
 
-        <p className="mono text-[11px] leading-relaxed text-ink-faint">
+        <p className=" text-[11px] leading-relaxed text-ink-soft font-semibold">
           opens your mail app — nothing is sent from this page
         </p>
       </div>

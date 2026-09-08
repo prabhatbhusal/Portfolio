@@ -8,9 +8,7 @@ const SPEED = 2;
 
 const Marquee = ({ className = "py-10 md:py-14" }: { className?: string }) => (
   <div className={className}>
-    <p className="rail mb-7 mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
-      the tools I reach for — drag it
-    </p>
+    
 
     {/* runs full width rather than inside the rail, so it reads as motion */}
     <DragMarquee speed={SPEED}>

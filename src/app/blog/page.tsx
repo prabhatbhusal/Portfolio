@@ -28,7 +28,7 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow="writing"
+        eyebrow=""
         title="Blog"
         desc="Notes on building for the web, working with spatial data, and the things that break in between."
       />

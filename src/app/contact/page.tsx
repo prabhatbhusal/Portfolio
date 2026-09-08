@@ -17,7 +17,7 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow="get in touch"
+        eyebrow=""
         title="Contact"
         desc="Open to full-stack and geospatial work, freelance or full time. Tell me what you are building."
       />

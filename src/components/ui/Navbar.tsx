@@ -78,7 +78,7 @@ const Navbar = () => {
             href="/contact"
             className="btn-solid ml-1 hidden h-11 items-center gap-6 rounded-full pl-5 pr-4 text-[14px] font-bold xl:inline-flex"
           >
-            hire me
+            Let's Collaborate
             <ArrowRight size={16} strokeWidth={2.5} />
           </Link>
 

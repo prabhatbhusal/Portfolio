@@ -16,7 +16,7 @@ const Skills = ({ heading = true }: prop) => {
       {heading && (
         <div className="mb-12 flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
           <div className="flex flex-col items-start gap-5">
-            <Headerbanner header="what I work with" />
+            
             <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
               Skills
             </h2>

@@ -30,7 +30,7 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow="scenes"
+        eyebrow=""
         title="Gallery"
         desc="Photographs from the field and elsewhere — survey sites, captures, and whatever the light was doing that day."
       />
