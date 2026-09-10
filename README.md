@@ -6,7 +6,7 @@
   <p><strong>Web applications that know where they are.</strong></p>
 
   <p>
-    Personal site of Prabhat Bhusal — full-stack developer and Geomatics
+    Personal site of Prabhat Bhusal — Game Developer,full-stack developer and Geomatics
     Engineer based in Kathmandu, Nepal.
   </p>
 
