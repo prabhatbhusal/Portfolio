@@ -24,7 +24,7 @@ const Hero = () => {
       <HeroBackdrop className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none opacity-70 dark:opacity-60" />
 
       <DecorativeStar className="absolute left-[7%] top-[17%] h-10 w-10 opacity-80 md:h-12 md:w-12" />
-      <DecorativeStar className="absolute right-[10%] top-[12%] h-12 w-12 opacity-85 md:h-14 md:w-14" />
+      
       <DecorativeStar className="absolute left-[10%] bottom-[20%] h-9 w-9 opacity-75 md:h-11 md:w-11" />
       <DecorativeStar className="absolute right-[9%] bottom-[18%] h-10 w-10 opacity-80 md:h-12 md:w-12" />
 

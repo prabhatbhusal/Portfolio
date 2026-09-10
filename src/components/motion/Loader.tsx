@@ -54,7 +54,7 @@ const Loader = () => {
           data-loader=""
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease }}
-          className="fixed inset-0 z-[100] grid place-items-center bg-canvas"
+          className="fixed inset-0 z-100 grid place-items-center bg-canvas"
         >
           <div className="flex flex-col items-center gap-7">
             <span className="text-[15px] font-extrabold tracking-tighter text-ink">
