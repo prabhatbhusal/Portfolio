@@ -8,6 +8,7 @@ import MotionProvider from "@/components/motion/MotionProvider";
 import Cursor from "@/components/motion/Cursor";
 import Loader from "@/components/motion/Loader";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import JsonLd from "@/components/seo/JsonLd";
 import { personSchema, websiteSchema } from "@/lib/seo/schema";
 import {
@@ -29,6 +30,21 @@ const geist = Geist({
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
+});
+
+// titles only — body copy stays on Geist
+const acorn = localFont({
+  src: [
+    { path: "../../public/Acorn/Acorn-Thin.otf", weight: "100", style: "normal" },
+    { path: "../../public/Acorn/Acorn-ExtraLight.otf", weight: "200", style: "normal" },
+    { path: "../../public/Acorn/Acorn-Light.otf", weight: "300", style: "normal" },
+    { path: "../../public/Acorn/Acorn-Regular.otf", weight: "400", style: "normal" },
+    { path: "../../public/Acorn/Acorn-Medium.otf", weight: "500", style: "normal" },
+    { path: "../../public/Acorn/Acorn-SemiBold.otf", weight: "600", style: "normal" },
+    { path: "../../public/Acorn/Acorn-Bold.otf", weight: "700", style: "normal" },
+  ],
+  variable: "--font-acorn",
+  display: "swap",
 });
 
 // runs before paint so the saved theme is applied without a flash
@@ -113,7 +129,12 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("h-full w-full antialiased", geist.variable, geistMono.variable)}
+      className={cn(
+        "h-full w-full antialiased",
+        geist.variable,
+        geistMono.variable,
+        acorn.variable
+      )}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
