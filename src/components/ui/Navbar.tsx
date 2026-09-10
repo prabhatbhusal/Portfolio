@@ -232,7 +232,7 @@ const Navbar = () => {
             onClick={closeAll}
             className="btn-solid mt-6 flex h-16 shrink-0 items-center justify-between rounded-2xl px-5 text-[17px] font-bold"
           >
-            hire me
+            Let's Collaborate
             <ArrowRight size={20} strokeWidth={2.5} />
           </Link>
 
