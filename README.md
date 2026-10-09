@@ -136,12 +136,7 @@ Builds to fully static files, so it runs anywhere that serves a directory.
 > `@napi-rs/wasm-runtime` (pulled in by wasm32 fallback bindings), and CI
 > installs fail. Do not remove it.
 
-## Icons
 
-The `<pb/>` mark is generated, not drawn by hand — shapes are distance
-functions rasterised with 4×4 supersampling. `favicon.ico` carries 16/32/48/64
-sizes, and the smallest two drop the angle brackets so the mark stays legible
-at tab size.
 
 ## Contact
 
