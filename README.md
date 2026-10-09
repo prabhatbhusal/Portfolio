@@ -22,11 +22,11 @@
 - 🕹️ Building games and interactive experiences using **Unreal Engine**.
 - 💻 Creating seamless, responsive user interfaces as a **Frontend Developer**.
 - 💬 Ask me about: **Game architectures, 3D rendering pipelines, React, C++, and Backend integrations.**
-- 📫 Reach out at: **[prabhatbhusal777@gmail.com](mailto:prabhatbhusal777@gmail.com)**
+
 
 ## About
 
-This is my portfolio: the work I have shipped, the tools I build with, and how
+My portfolio website: the work I have shipped, the tools I build with, and how
 I approach a project.
 
 The through-line is the overlap between two fields. I write full-stack web
