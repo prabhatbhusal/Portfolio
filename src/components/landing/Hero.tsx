@@ -11,17 +11,28 @@ const stats = [
   { id: 3, value: "<1d", label: "typical reply time" },
 ];
 
+const DecorativeStar = ({ className = "" }: { className?: string }) => (
+  <div className={`relative ${className}`} aria-hidden="true">
+    <span className="absolute left-1/2 top-0 h-full w-[0.16rem] -translate-x-1/2 rounded-full bg-ink/80 dark:bg-[#f7f5f2]" />
+    <span className="absolute left-0 top-1/2 h-[0.16rem] w-full -translate-y-1/2 rounded-full bg-ink/80 dark:bg-[#f7f5f2]" />
+  </div>
+);
+
 const Hero = () => {
   return (
     <section className="relative isolate overflow-hidden">
       <HeroBackdrop className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none opacity-70 dark:opacity-60" />
 
-      {/* above the fold, so it runs on mount rather than on scroll */}
+      <DecorativeStar className="absolute left-[7%] top-[17%] h-10 w-10 opacity-80 md:h-12 md:w-12" />
+      
+      <DecorativeStar className="absolute left-[10%] bottom-[20%] h-9 w-9 opacity-75 md:h-11 md:w-11" />
+      <DecorativeStar className="absolute right-[9%] bottom-[18%] h-10 w-10 opacity-80 md:h-12 md:w-12" />
+
       <Stagger
         immediate
         delay={250}
         stagger={0.12}
-        className="rail flex flex-col items-start gap-7 pb-12 pt-12 md:pb-16 md:pt-16"
+        className="rail flex flex-col items-center gap-7 pb-12 pt-12 text-center md:pb-16 md:pt-16"
       >
         
 
@@ -41,7 +52,7 @@ const Hero = () => {
           </p>
         </StaggerItem>
 
-        <StaggerItem className="flex flex-wrap items-center gap-3">
+        <StaggerItem className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/work"
             className="btn-solid group inline-flex h-12 items-center gap-2.5 rounded-full px-6 text-[15px] font-semibold"
@@ -63,7 +74,7 @@ const Hero = () => {
         </StaggerItem>
 
         <StaggerItem className="mt-8 w-full">
-          <dl className="grid w-full max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
+          <dl className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
             {stats.map((stat) => (
               <div key={stat.id} className="bg-canvas px-5 py-6">
                 <dt className="display text-2xl font-extrabold text-ink md:text-3xl">
