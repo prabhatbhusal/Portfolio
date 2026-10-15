@@ -1,7 +1,6 @@
 import React from "react";
 
 import { disciplinesdata } from "@/lib/constants/data";
-import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
 import { Stagger, StaggerItem } from "../motion";
 
@@ -12,13 +11,9 @@ const Disciplines = () => {
 
       <Reveal>
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="flex flex-col items-start gap-5">
-            
-            <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-              Three fields, one
-              <span className="block text-brand-ink">way of thinking</span>
-            </h2>
-          </div>
+          <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+            Three fields, one way of thinking
+          </h2>
 
           <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
             They look separate on a CV. In practice they all come down to
@@ -35,7 +30,7 @@ const Disciplines = () => {
             <StaggerItem key={item.id} hover>
               <article className="surface lift flex h-full flex-col rounded-[28px] p-8 md:p-10">
                 <div className="flex items-start justify-between gap-4">
-                  <span className="borderbg amber-bg grid size-12 place-items-center rounded-[16px] text-brand-ink">
+                  <span className="borderbg brand-bg grid size-12 place-items-center rounded-[16px] text-brand-ink">
                     <Icon size={21} strokeWidth={1.6} />
                   </span>
                   <span className="mono text-[11px] tabular-nums text-ink-faint">

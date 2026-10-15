@@ -2,9 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import Headerbanner from "../props/Headerbanner";
-import { Stagger, StaggerItem } from "../motion";
 import { workprojects } from "@/lib/constants/data";
+import WorkRow from "../props/WorkRow";
+import { Stagger, StaggerItem } from "../motion";
+
+/* the homepage shows the top of the index and hands off to /work */
+const shown = workprojects.slice(0, 4);
 
 const Work = () => {
   return (
@@ -12,12 +15,9 @@ const Work = () => {
       <div className="hairline mb-16 md:mb-24" />
 
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-        <div className="flex flex-col items-start gap-5">
-          
-          <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-            Things I have built
-          </h2>
-        </div>
+        <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+          Things I have built
+        </h2>
 
         <Link
           href="/work"
@@ -32,59 +32,15 @@ const Work = () => {
         </Link>
       </div>
 
-      <Stagger className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {workprojects.map((item) => (
-          <StaggerItem key={item.id} hover>
-          <Link
-            href={`/work/${item.slug}`}
-            className="surface lift group flex h-full flex-col rounded-2xl p-6 md:p-8"
-          >
-            <div className="flex items-center gap-2">
-              <span className="mono text-[11px] tabular-nums text-brand-ink">
-                {item.index}
-              </span>
-              <span className="mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
-                {item.stack} · {item.sector}
-              </span>
-
-              {item.featured && (
-                <span className="borderbg amber-bg ml-auto rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
-                  featured
-                </span>
-              )}
-            </div>
-
-            <h3 className="display mt-5 text-xl font-bold text-ink transition-colors duration-300 group-hover:text-brand-ink md:text-2xl">
-              {item.title}
-            </h3>
-
-            <p className="mt-3 text-[14px] leading-relaxed text-ink-soft">
-              {item.description}
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-1.5">
-              {item.skills.slice(0, 4).map((skill) => (
-                <span
-                  key={skill}
-                  className="chip rounded-full px-2.5 py-1 mono text-[11px]"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-
-            <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold text-ink">
-              read more
-              <ArrowUpRight
-                size={15}
-                strokeWidth={2.5}
-                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              />
-            </span>
-          </Link>
+      <Stagger className="mt-10 flex flex-col" stagger={0.06}>
+        {shown.map((item) => (
+          <StaggerItem key={item.id} y={12}>
+            <WorkRow item={item} detailed={false} />
           </StaggerItem>
         ))}
       </Stagger>
+
+      <div className="hairline" />
     </section>
   );
 };

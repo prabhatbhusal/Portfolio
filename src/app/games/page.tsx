@@ -20,7 +20,6 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow=""
         title="Games"
         desc="PC builds made in Unity and Unreal Engine — the systems underneath, and what each one was an excuse to learn."
       />
@@ -28,7 +27,7 @@ const Page = () => {
       <section className="rail py-14 md:py-20">
         {gamesdata.length === 0 ? (
           <div className="surface flex flex-col items-start gap-5 rounded-[28px] p-8 md:p-12">
-            <span className="borderbg amber-bg grid size-12 place-items-center rounded-[16px] text-brand-ink">
+            <span className="borderbg brand-bg grid size-12 place-items-center rounded-[16px] text-brand-ink">
               <Gamepad2 size={21} strokeWidth={1.6} />
             </span>
 
@@ -37,10 +36,9 @@ const Page = () => {
             </h2>
 
             <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
-              Drop the captures into{" "}
-              <span className="mono text-brand-ink">/public/games</span> and add
-              a row to <span className="mono text-brand-ink">gamesdata</span> —
-              this page and its inner pages build themselves from that.
+              Nothing is ready to download yet. The builds are being cleaned up
+              before they go out — the project write-ups have more in the
+              meantime.
             </p>
 
             <Link

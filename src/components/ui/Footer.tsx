@@ -164,7 +164,7 @@ const Footer = () => {
               to="top"
               href="#top"
               aria-label="Back to top"
-              className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-[#1a0e00] transition-transform duration-300 hover:-translate-y-0.5"
+              className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-white transition-transform duration-300 hover:-translate-y-0.5"
             >
               <ArrowUp size={18} strokeWidth={2.5} />
             </ScrollLink>

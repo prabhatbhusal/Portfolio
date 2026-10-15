@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import Headerbanner from "../props/Headerbanner";
 import GameCard from "../props/GameCard";
 import { Stagger, StaggerItem } from "../motion";
 import { gamesdata } from "@/lib/constants/data";
@@ -16,7 +15,6 @@ const Games = () => {
 
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col items-start gap-5">
-          
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             Games I have shipped
           </h2>

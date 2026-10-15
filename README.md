@@ -6,7 +6,7 @@
   <p><strong>Web applications that know where they are.</strong></p>
 
   <p>
-    Personal site of Prabhat Bhusal — full-stack developer and Geomatics
+    Personal site of Prabhat Bhusal — Game Developer,full-stack developer and Geomatics
     Engineer based in Kathmandu, Nepal.
   </p>
 
@@ -16,10 +16,17 @@
 </div>
 
 ---
+### 👾 What I Do
+
+- 🔭 I’m currently engineering solutions for a **3D Gaussian Splatting (3DGS) platform**, bringing high-fidelity volumetric scenes to life.
+- 🕹️ Building games and interactive experiences using **Unreal Engine**.
+- 💻 Creating seamless, responsive user interfaces as a **Frontend Developer**.
+- 💬 Ask me about: **Game architectures, 3D rendering pipelines, React, C++, and Backend integrations.**
+
 
 ## About
 
-This is my portfolio: the work I have shipped, the tools I build with, and how
+My portfolio website: the work I have shipped, the tools I build with, and how
 I approach a project.
 
 The through-line is the overlap between two fields. I write full-stack web
@@ -129,12 +136,7 @@ Builds to fully static files, so it runs anywhere that serves a directory.
 > `@napi-rs/wasm-runtime` (pulled in by wasm32 fallback bindings), and CI
 > installs fail. Do not remove it.
 
-## Icons
 
-The `<pb/>` mark is generated, not drawn by hand — shapes are distance
-functions rasterised with 4×4 supersampling. `favicon.ico` carries 16/32/48/64
-sizes, and the smallest two drop the angle brackets so the mark stays legible
-at tab size.
 
 ## Contact
 

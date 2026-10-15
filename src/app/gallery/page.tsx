@@ -30,7 +30,6 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow=""
         title="Gallery"
         desc="Photographs from the field and elsewhere — survey sites, captures, and whatever the light was doing that day."
       />
@@ -40,7 +39,7 @@ const Page = () => {
           <>
             <Reveal>
               <div className="surface flex flex-col items-start gap-5 rounded-[28px] p-8 md:p-12">
-                <span className="borderbg amber-bg grid size-12 place-items-center rounded-[16px] text-brand-ink">
+                <span className="borderbg brand-bg grid size-12 place-items-center rounded-[16px] text-brand-ink">
                   <Camera size={21} strokeWidth={1.6} />
                 </span>
 
@@ -49,11 +48,8 @@ const Page = () => {
                 </h2>
 
                 <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
-                  Drop the files into{" "}
-                  <span className="mono text-brand-ink">/public/gallery</span>{" "}
-                  and add a row to{" "}
-                  <span className="mono text-brand-ink">gallerydata</span> — this
-                  page fills itself in, no layout work needed.
+                  Photographs from the field are still being sorted. There will
+                  be more here before long.
                 </p>
 
                 <Link

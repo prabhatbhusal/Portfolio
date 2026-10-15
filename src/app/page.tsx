@@ -2,7 +2,6 @@ import React from 'react';
 import Hero from '@/components/landing/Hero';
 import Disciplines from '@/components/landing/Disciplines';
 import Services from '@/components/landing/Services';
-import Process from '@/components/landing/Process';
 import Work from '@/components/landing/Work';
 import Games from '@/components/landing/Games';
 import Skills from '@/components/landing/Skills';
@@ -19,7 +18,6 @@ export default function Home() {
       <Services />
       <Work />
       <Games />
-      <Process />
       <Skills />
       <About />
       <Faq />

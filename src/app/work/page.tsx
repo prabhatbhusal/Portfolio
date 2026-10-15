@@ -16,7 +16,6 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow=""
         title="Work"
         desc="Projects I've built — full-stack, spatial, and machine learning."
       />

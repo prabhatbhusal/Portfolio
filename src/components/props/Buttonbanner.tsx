@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-interface buttonsprops {
+interface ButtonbannerProps {
   title1: string;
   title2: string;
   href1?: string;
@@ -14,7 +14,7 @@ const Buttonbanner = ({
   title2,
   href1 = "/work",
   href2 = "/contact",
-}: buttonsprops) => {
+}: ButtonbannerProps) => {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Link

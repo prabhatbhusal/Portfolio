@@ -2,7 +2,6 @@ import React from "react";
 import { Plus } from "lucide-react";
 
 import { faqdata } from "@/lib/constants/data";
-import Headerbanner from "../props/Headerbanner";
 import { Stagger, StaggerItem } from "../motion";
 
 const Faq = () => {
@@ -12,10 +11,8 @@ const Faq = () => {
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="flex flex-col items-start gap-5">
-          
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-            Before you
-            <span className="block text-brand-ink">write in</span>
+            Before you write in
           </h2>
           <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
             The things people usually ask first. Anything else, just send it

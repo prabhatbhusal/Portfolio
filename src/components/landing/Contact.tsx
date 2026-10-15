@@ -2,19 +2,18 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 
 import { contactdata } from "@/lib/constants/data";
-import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
 import LocalTime from "../ui/LocalTime";
 import ContactForm from "./ContactForm";
 
 const EMAIL = "prabhatbhusal777@gmail.com";
 
-interface prop {
+interface ContactProps {
   // off on the /contact page, which has its own masthead
   heading?: boolean;
 }
 
-const Contact = ({ heading = true }: prop) => {
+const Contact = ({ heading = true }: ContactProps) => {
   const elsewhere = contactdata.filter(
     (item) => item.label !== "email" && item.label !== "location"
   );
@@ -31,15 +30,9 @@ const Contact = ({ heading = true }: prop) => {
           <div className="flex flex-col items-start">
             {heading && (
               <Reveal>
-                <div className="flex flex-col items-start gap-5">
-                  
-                  <h2 className="display text-4xl font-extrabold leading-[1.03] text-ink md:text-5xl lg:text-6xl">
-                    Let&apos;s build
-                    <span className="block text-brand-ink">
-                      something solid
-                    </span>
-                  </h2>
-                </div>
+                <h2 className="display text-4xl font-extrabold leading-[1.03] text-ink md:text-5xl lg:text-6xl">
+                  Let&apos;s build something solid
+                </h2>
               </Reveal>
             )}
 

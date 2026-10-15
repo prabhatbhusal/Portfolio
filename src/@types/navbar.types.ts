@@ -1,17 +1,17 @@
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
 
-export interface navbarChild {
+export interface NavChild {
     id: number;
     title: string;
     description: string;
     url: string;
 }
 
-export interface navbar {
+export interface NavItem {
     title: string;
     url: string;
     id: number;
     icon?: LucideIcon | IconType;
-    children?: navbarChild[];
+    children?: NavChild[];
 }

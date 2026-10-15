@@ -1,6 +1,5 @@
 import React from "react";
 import { processdata } from "@/lib/constants/data";
-import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
 import { Stagger, StaggerItem } from "../motion";
 
@@ -11,13 +10,12 @@ const Process = () => {
 
       <Reveal>
       <div className="flex flex-col items-start gap-5">
-        
         <h2 className="display max-w-3xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
           From a rough idea to something running
         </h2>
         <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft">
-          Four steps, no surprises. You always know what is being built and
-          where it has got to.
+          No surprises: you always know what is being built, and where it has
+          got to.
         </p>
       </div>
       </Reveal>
@@ -30,7 +28,7 @@ const Process = () => {
             <StaggerItem key={item.id} hover>
             <article className="surface lift flex h-full flex-col rounded-2xl p-6">
               <div className="mb-5 flex items-center justify-between">
-                <span className="borderbg amber-bg grid size-11 place-items-center rounded-[14px] text-brand-ink">
+                <span className="borderbg brand-bg grid size-11 place-items-center rounded-[14px] text-brand-ink">
                   <Icon size={19} strokeWidth={1.6} />
                 </span>
                 <span className="mono text-[11px] tabular-nums text-ink-faint">

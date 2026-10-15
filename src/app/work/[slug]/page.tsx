@@ -81,7 +81,7 @@ const Page = async ({ params }: Props) => {
             {project.index}
           </span>
           {project.featured && (
-            <span className="borderbg amber-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
+            <span className="borderbg brand-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
               featured
             </span>
           )}

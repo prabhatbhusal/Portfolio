@@ -4,7 +4,7 @@ import Image from "next/image";
 import type { GameShot } from "@/@types/common.types";
 import { cn } from "@/lib/utils";
 
-interface prop {
+interface MediaFrameProps {
   /* the shot itself — same shape next/image wants, so it spreads straight in */
   shot: GameShot;
   /* only the first frame on a page should be eager */
@@ -26,7 +26,7 @@ const MediaFrame = ({
   className,
   sizes = "(min-width: 1024px) 50vw, 100vw",
   ratio = "video",
-}: prop) => (
+}: MediaFrameProps) => (
   <figure className={cn("surface overflow-hidden rounded-2xl", className)}>
     <div
       className={cn(

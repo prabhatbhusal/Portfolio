@@ -78,10 +78,10 @@
   --line: rgba(22, 24, 29, 0.1);
   --line-strong: rgba(22, 24, 29, 0.2);
 
-  --brand: #ef9f27;
-  --brand-ink: #8f5a0e; /* darker so small amber text is still readable */
-  --brand-soft: rgba(239, 159, 39, 0.14);
-  --brand-line: rgba(143, 90, 14, 0.24);
+  --brand: #e02020;
+  --brand-ink: #c0161c; /* darker so small red text is still readable — 5.6:1 */
+  --brand-soft: rgba(224, 32, 32, 0.1);
+  --brand-line: rgba(192, 22, 28, 0.26);
 
   --ok: #5dcaa5;
   --ok-ink: #16785a;
@@ -158,10 +158,10 @@
   --line: rgba(255, 255, 255, 0.09);
   --line-strong: rgba(255, 255, 255, 0.2);
 
-  --brand: #ef9f27;
-  --brand-ink: #ef9f27;
-  --brand-soft: rgba(239, 159, 39, 0.1);
-  --brand-line: rgba(239, 159, 39, 0.25);
+  --brand: #ff4a45;
+  --brand-ink: #ff4a45;
+  --brand-soft: rgba(255, 74, 69, 0.1);
+  --brand-line: rgba(255, 74, 69, 0.28);
 
   --ok: #5dcaa5;
   --ok-ink: #5dcaa5;
@@ -362,54 +362,18 @@
   box-shadow: 0 0 0 3px var(--brand-soft);
 }
 
-/* older helpers still used around the app */
+/* small helpers used across the app */
 .mono {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   letter-spacing: 0;
 }
 
-.amber {
-  color: var(--brand-ink);
-}
-
-.amberbg {
-  background-color: var(--brand);
-}
-
-.amber-bg {
+.brand-bg {
   background-color: var(--brand-soft);
 }
 
 .borderbg {
   border: 1px solid var(--brand-line);
-}
-
-.greybg {
-  background-color: var(--raised);
-}
-
-.greytext {
-  color: var(--ink-soft);
-}
-
-.padding {
-  padding: 16px 40px;
-}
-
-.container {
-  width: 100%;
-  max-width: 1440px;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  padding-top: 2.5rem;
-  padding-bottom: 2rem;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding-top: 5rem;
-    padding-bottom: 4rem;
-  }
 }
 
 /* custom cursor. the class is added by javascript only on a fine
@@ -533,7 +497,7 @@
   pointer-events: none;
   background: radial-gradient(
       38% 44% at 22% 32%,
-      rgba(239, 159, 39, 0.4),
+      rgba(224, 32, 32, 0.32),
       transparent 70%
     ),
     radial-gradient(

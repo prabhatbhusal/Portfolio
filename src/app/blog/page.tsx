@@ -28,7 +28,6 @@ const Page = () => {
   return (
     <main>
       <PagesBanner
-        eyebrow=""
         title="Blog"
         desc="Notes on building for the web, working with spatial data, and the things that break in between."
       />
@@ -52,7 +51,7 @@ const Page = () => {
                 className="surface lift group flex flex-col gap-6 rounded-[28px] p-8 md:p-12"
               >
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="borderbg amber-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
+                  <span className="borderbg brand-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
                     latest
                   </span>
                   <span className="mono text-[11px] text-ink-faint">

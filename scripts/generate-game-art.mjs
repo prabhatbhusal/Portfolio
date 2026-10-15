@@ -14,7 +14,7 @@ const games = [
     tagline: "Traversal on real terrain",
     engine: "Unity",
     ink: "#f2f0eb",
-    accent: "#ef9f27",
+    accent: "#e02020",
     from: "#101418",
     to: "#26170a",
     readout: { label: "ELEVATION", value: "2,418 m" },

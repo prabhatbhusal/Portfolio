@@ -5,7 +5,7 @@ import { ArrowRight, Check } from "lucide-react";
 
 const EMAIL = "prabhatbhusal777@gmail.com";
 
-const budgets = ["under 5k", "10k – 20k", "25k+", "not sure yet"];
+const budgets = ["under $5k", "$5k – $20k", "$20k+", "not sure yet"];
 
 const ContactForm = () => {
   const [name, setName] = useState("");

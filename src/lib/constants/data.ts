@@ -39,12 +39,13 @@ import {
 } from "react-icons/si";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
-import { navbar } from "@/@types/navbar.types";
+import { NavItem } from "@/@types/navbar.types";
 import {
-  heroData,
   SkillsData,
-  Projectsdata,
-  workdata,
+  WorkProject,
+  SkillArea,
+  SkillUnlock,
+  SkillPursuit,
   ProcessStep,
   FaqItem,
   TechItem,
@@ -56,31 +57,6 @@ import {
   Testimonial,
 } from "@/@types/common.types";
 
-
-export const HeroData: heroData[] = [
-  {
-    id: 1,
-    status: "available for work",
-    firstName: "Prabhat",
-    lastName: "Bhusal",
-    description:
-      "Full-stack developer + Geomatics Engineer. Building web apps with React, Next.js, Django + spatial data.",
-    buttons: [
-      {
-        id: 1,
-        text: "view projects →",
-        href: "/projects",
-        primary: true,
-      },
-      {
-        id: 2,
-        text: "contact me",
-        href: "/contact",
-        primary: false,
-      },
-    ],
-  },
-];
 
 export const skillsdata: SkillsData[] = [
   {
@@ -224,7 +200,7 @@ export const contactdata: ContactData[] = [
     value: "prabhatbhusal777@gmail.com",
     url: "mailto:prabhatbhusal777@gmail.com",
     icon: Mail,
-    color: "bg-[#EF9F27]/10 border-[#EF9F27]/20 text-[#EF9F27]",
+    color: "bg-[#E02020]/10 border-[#E02020]/20 text-[#E02020]",
   },
   {
     id: 2,
@@ -256,7 +232,7 @@ export const contactdata: ContactData[] = [
     value: "Kathmandu, Nepal",
     url: "#",
     icon: MapPin,
-    color: "bg-[#EF9F27]/10 border-[#EF9F27]/20 text-[#EF9F27]",
+    color: "bg-[#E02020]/10 border-[#E02020]/20 text-[#E02020]",
   },
   {
     id: 6,
@@ -264,34 +240,11 @@ export const contactdata: ContactData[] = [
     value: "+977 9840177176",
     url: "tel:+9779840177176",
     icon: Phone,
-    color: "bg-[#EF9F27]/10 border-[#EF9F27]/20 text-[#EF9F27]",
+    color: "bg-[#E02020]/10 border-[#E02020]/20 text-[#E02020]",
   },
 ];
 
-export const ProjectData: Projectsdata[] = [
-  {
-    id: 1,
-    stack: "Full Stack",
-    title: "Food Delivery WebGIS APP",
-    description:
-      "Real-time delivery position tracking using React, Django REST, PostGIS spatial queries and Leaflet maps.",
-    skills1: "React",
-    skills2: "Django",
-    skills3: "PostGIS",
-  },
-  {
-    id: 2,
-    stack: "Full Stack",
-    title: "Url Shortener APP",
-    description:
-      "A simple and efficient URL shortening service built with React and Django.",
-    skills1: "React",
-    skills2: "Django",
-    skills3: "PostgreSQL",
-  },
-  
-];
-export const workprojects: workdata[] = [
+export const workprojects: WorkProject[] = [
   {
     id: 1,
     slug: "food-delivery-webgis",
@@ -741,7 +694,7 @@ export const gamesdata: GameItem[] = [
 ];
 
 // declared last so the work dropdown can be built from the projects above
-export const NavLinks: navbar[] = [
+export const NavLinks: NavItem[] = [
   {
     id: 1,
     title: "Work",
@@ -839,5 +792,136 @@ export const testimonialsdata: Testimonial[] = [
     projectSlug: "automax-ecommerce",
     date: "2024",
     image: undefined,
+  },
+];
+
+/* ------------------------------------------------------------------ *
+ * Skill unlocks
+ *
+ * Nothing below is typed by hand. The list is derived from the projects
+ * above, so a tool cannot appear unless something shipped with it, the
+ * year is whenever that first happened, and the count is how many
+ * projects use it. Add a project and its tools unlock themselves.
+ * ------------------------------------------------------------------ */
+
+const SKILL_AREA: Record<string, SkillArea> = {
+  React: "frontend",
+  "Next.js": "frontend",
+  TypeScript: "frontend",
+  TailwindCSS: "frontend",
+  Leaflet: "frontend",
+  Django: "backend",
+  DRF: "backend",
+  PostgreSQL: "backend",
+  "REST API": "backend",
+  WebSocket: "backend",
+  Khalti: "backend",
+  PostGIS: "spatial",
+  LiDAR: "spatial",
+  "Point Cloud": "spatial",
+  GIS: "spatial",
+  GDAL: "spatial",
+  YOLOv8: "vision",
+  OpenCV: "vision",
+  Python: "vision",
+  "Kalman filter": "vision",
+  MOG2: "vision",
+  Unity: "engine",
+  "C#": "engine",
+  URP: "engine",
+  ScriptableObjects: "engine",
+  "Unreal Engine 5": "engine",
+  Blueprints: "engine",
+  "C++": "engine",
+  Lumen: "engine",
+  MetaSounds: "engine",
+};
+
+export const skillAreaLabel: Record<SkillArea, string> = {
+  frontend: "frontend",
+  backend: "backend and data",
+  spatial: "spatial",
+  vision: "vision and ml",
+  engine: "game engines",
+  other: "elsewhere",
+};
+
+export const skillAreaOrder: SkillArea[] = [
+  "frontend",
+  "backend",
+  "spatial",
+  "vision",
+  "engine",
+  "other",
+];
+
+export const skillunlocks: SkillUnlock[] = (() => {
+  const sources = [
+    ...workprojects.map((project) => ({
+      title: project.title,
+      href: `/work/${project.slug}`,
+      year: project.year ?? "",
+      tools: project.skills,
+    })),
+    ...gamesdata.map((game) => ({
+      title: game.title,
+      href: `/games/${game.slug}`,
+      year: game.year,
+      tools: game.tech,
+    })),
+  ];
+
+  // note: `Map` here would resolve to the lucide icon imported above
+  const found: Record<string, SkillUnlock> = {};
+
+  for (const source of sources) {
+    for (const tool of source.tools) {
+      const seen = found[tool];
+
+      if (!seen) {
+        found[tool] = {
+          name: tool,
+          area: SKILL_AREA[tool] ?? "other",
+          year: source.year,
+          project: source.title,
+          href: source.href,
+          uses: 1,
+        };
+        continue;
+      }
+
+      seen.uses += 1;
+
+      // the earliest project is the one that unlocked it
+      if (source.year && source.year < seen.year) {
+        seen.year = source.year;
+        seen.project = source.title;
+        seen.href = source.href;
+      }
+    }
+  }
+
+  return Object.values(found).sort(
+    (a, b) => a.year.localeCompare(b.year) || a.name.localeCompare(b.name),
+  );
+})();
+
+/* the honest other half: in flight, nothing shipped with it yet. these are
+   the only hand-written entries, and they show as locked */
+export const skillpursuits: SkillPursuit[] = [
+  {
+    name: "3D Gaussian Splatting",
+    area: "spatial",
+    note: "building a capture-to-web platform around it",
+  },
+  {
+    name: "WebGPU",
+    area: "frontend",
+    note: "for splat rendering that survives a phone",
+  },
+  {
+    name: "PDAL",
+    area: "spatial",
+    note: "moving the point cloud pipeline off hand-rolled scripts",
   },
 ];

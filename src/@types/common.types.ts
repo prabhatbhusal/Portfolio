@@ -1,21 +1,6 @@
 import type { IconType } from "react-icons";
 import type { LucideIcon } from "lucide-react";
 
-interface Button {
-  id: number;
-  text: string;
-  href: string;
-  primary: boolean;
-}
-
-export interface heroData {
-  id: number;
-  status: string;
-  firstName: string;
-  lastName: string;
-  description: string;
-  buttons: Button[];
-}
 export interface SkillsData {
   id: number;
   title: string;
@@ -47,15 +32,6 @@ export interface TechItem {
   icon: LucideIcon | IconType;
 }
 
-export interface Projectsdata {
-  id: number;
-  stack: string;
-  title: string;
-  description: string;
-  skills1: string;
-  skills2: string;
-  skills3: string;
-}
 export interface BlogPost {
   id: number;
   slug: string;
@@ -95,7 +71,7 @@ export interface GalleryItem {
   height: number;
 }
 
-export interface workdata{
+export interface WorkProject {
   id: number
   slug: string
   year?: string
@@ -108,9 +84,10 @@ export interface workdata{
   featured: boolean
   title: string
   description: string
-  skills: string[]       // ← array instead of skills1, skills2, skills3
+  skills: string[]
   github: string
-  live: string | null ;}
+  live: string | null;
+}
 
 export interface Testimonial {
   id: number;
@@ -167,4 +144,34 @@ export interface GameItem {
   tech: string[];
   download: string | null;
   source: string | null;
+}
+
+/* which part of the stack a tool belongs to, used to group the unlock log */
+export type SkillArea =
+  | "frontend"
+  | "backend"
+  | "spatial"
+  | "vision"
+  | "engine"
+  | "other";
+
+/* one unlocked tool. every field is derived from the projects that shipped
+   with it, so nothing here can be claimed without something backing it */
+export interface SkillUnlock {
+  name: string;
+  area: SkillArea;
+  /* the year it first shipped */
+  year: string;
+  /* the project that first used it */
+  project: string;
+  href: string;
+  /* how many shipped projects use it */
+  uses: number;
+}
+
+/* something being learned but not yet shipped — shown locked, on purpose */
+export interface SkillPursuit {
+  name: string;
+  area: SkillArea;
+  note: string;
 }

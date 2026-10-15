@@ -87,7 +87,7 @@ const Page = async ({ params }: Props) => {
 
       <section className="rail flex flex-col items-start gap-6 pb-10 pt-8 md:pt-10">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="borderbg amber-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
+          <span className="borderbg brand-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
             {game.status}
           </span>
           <span className="chip rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider">

@@ -31,7 +31,7 @@ const card = h(
   row(
     [
       h("div", {
-        style: { width: 14, height: 14, borderRadius: 999, background: "#ef9f27" },
+        style: { width: 14, height: 14, borderRadius: 999, background: "#e02020" },
       }),
       h(
         "div",
@@ -48,7 +48,7 @@ const card = h(
         { style: { fontSize: 88, fontWeight: 800, letterSpacing: -2, color: "#f2f0eb" } },
         NAME,
       ),
-      h("div", { style: { fontSize: 40, color: "#ef9f27" } }, ROLE),
+      h("div", { style: { fontSize: 40, color: "#e02020" } }, ROLE),
     ],
     { flexDirection: "column", gap: 24 },
   ),

@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { GameItem } from "@/@types/common.types";
 import MediaFrame from "./MediaFrame";
 
-interface prop {
+interface GameCardProps {
   game: GameItem;
   /* "split" is the wide row used on /games, "tile" the compact one on the
      home page — same card, the caller picks the shape */
@@ -22,7 +22,7 @@ const Meta = ({ game }: { game: GameItem }) => (
     <span className="chip rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider">
       {game.platforms[0]}
     </span>
-    <span className="borderbg amber-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
+    <span className="borderbg brand-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
       {game.status}
     </span>
     <span className="mono ml-auto text-[11px] tabular-nums text-ink-faint">
@@ -32,7 +32,7 @@ const Meta = ({ game }: { game: GameItem }) => (
 );
 
 /** one game, wherever it is listed: the cover, the pitch, and the way in */
-const GameCard = ({ game, layout = "split", priority = false }: prop) => {
+const GameCard = ({ game, layout = "split", priority = false }: GameCardProps) => {
   const href = `/games/${game.slug}`;
 
   const cover = (

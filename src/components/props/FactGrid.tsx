@@ -6,14 +6,14 @@ export interface Fact {
   value: string;
 }
 
-interface prop {
+interface FactGridProps {
   facts: Fact[];
   /* columns on desktop — work pages run four, games run five */
   className?: string;
 }
 
 /** the label/value strip used on every detail page */
-const FactGrid = ({ facts, className = "md:grid-cols-4" }: prop) => (
+const FactGrid = ({ facts, className = "md:grid-cols-4" }: FactGridProps) => (
   <dl
     className={`grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line ${className}`}
   >

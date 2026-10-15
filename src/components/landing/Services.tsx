@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { servicesdata } from "@/lib/constants/data";
-import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
 import { Stagger, StaggerItem } from "../motion";
 
@@ -14,16 +13,12 @@ const Services = () => {
 
       <Reveal>
         <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="flex flex-col items-start gap-5">
-            
-            <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-              Work I take on
-            </h2>
-          </div>
+          <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+            Work I take on
+          </h2>
 
           <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
-            Seven things I do well. Most projects are some combination of two
-            or three of them.
+            Most projects are some combination of two or three of these.
           </p>
         </div>
       </Reveal>
@@ -35,7 +30,7 @@ const Services = () => {
           return (
             <StaggerItem key={item.id} hover>
               <article className="surface lift flex h-full flex-col rounded-2xl p-6 md:p-7">
-                <span className="borderbg amber-bg mb-6 grid size-11 place-items-center rounded-[14px] text-brand-ink">
+                <span className="borderbg brand-bg mb-6 grid size-11 place-items-center rounded-[14px] text-brand-ink">
                   <Icon size={19} strokeWidth={1.6} />
                 </span>
 

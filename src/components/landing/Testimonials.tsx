@@ -5,7 +5,6 @@ import { ArrowUpRight, Quote } from "lucide-react";
 
 import type { Testimonial } from "@/@types/common.types";
 import { testimonialsdata, workprojects } from "@/lib/constants/data";
-import Headerbanner from "../props/Headerbanner";
 import Reveal from "../props/Reveal";
 import DragMarquee from "../motion/DragMarquee";
 
@@ -51,7 +50,7 @@ const Card = ({ item }: { item: Testimonial }) => {
             />
           ) : (
             /* no headshot yet, so the name carries it */
-            <span className="borderbg amber-bg grid size-11 shrink-0 place-items-center rounded-full mono text-[12px] font-bold text-brand-ink">
+            <span className="borderbg brand-bg grid size-11 shrink-0 place-items-center rounded-full mono text-[12px] font-bold text-brand-ink">
               {initialsOf(item)}
             </span>
           )}
@@ -112,6 +111,10 @@ const Card = ({ item }: { item: Testimonial }) => {
 const Testimonials = () => {
   if (testimonialsdata.length === 0) return null;
 
+  /* a row that scrolls needs something to scroll past. with one quote the
+     marquee would just show the same card twice, so it sits still instead */
+  const single = testimonialsdata.length === 1;
+
   return (
     <section className="py-16 md:py-24">
       <div className="rail">
@@ -119,28 +122,31 @@ const Testimonials = () => {
 
         <Reveal>
           <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-            <div className="flex flex-col items-start gap-5">
-              <Headerbanner header="kind words" />
-              <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-                What the people I
-                <span className="block text-brand-ink">built for say</span>
-              </h2>
-            </div>
+            <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+              Client feedback
+            </h2>
 
             <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
-              Short projects, long conversations. Drag the row, or leave it be
-              and it will keep going on its own.
+              Short projects, long conversations.
             </p>
           </div>
         </Reveal>
+
+        {single && (
+          <Reveal className="mt-12" delay={80}>
+            <Card item={testimonialsdata[0]} />
+          </Reveal>
+        )}
       </div>
 
       {/* full width like the tools row, so the movement has somewhere to go */}
-      <DragMarquee className="mt-12" speed={SPEED} gap="gap-4" pauseOnHover>
-        {testimonialsdata.map((item) => (
-          <Card key={item.id} item={item} />
-        ))}
-      </DragMarquee>
+      {!single && (
+        <DragMarquee className="mt-12" speed={SPEED} gap="gap-4" pauseOnHover>
+          {testimonialsdata.map((item) => (
+            <Card key={item.id} item={item} />
+          ))}
+        </DragMarquee>
+      )}
     </section>
   );
 };

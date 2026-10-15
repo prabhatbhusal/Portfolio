@@ -28,16 +28,16 @@ const Hero = () => {
         <StaggerItem>
           <h1 className="display max-w-5xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]">
             I&apos;m
-            <span className="block text-brand-ink">Prabhat </span>
+            <span className="block text-brand-ink">Prabhat</span>
           </h1>
         </StaggerItem>
 
         <StaggerItem>
           <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed">
-            I&apos;m Prabhat Bhusal — a full-stack developer and Geomatics
-            Engineer in Kathmandu. I build with React, Next.js and Django, and I
-            take the spatial half seriously: PostGIS, LiDAR and 3D Gaussian
-            Splatting — with a game engine background underneath it.
+            Full-stack developer and Geomatics Engineer, based in Kathmandu. I
+            build with React, Next.js and Django, and I take the spatial half
+            seriously: PostGIS, LiDAR and 3D Gaussian Splatting, with a game
+            engine background underneath it.
           </p>
         </StaggerItem>
 
@@ -58,7 +58,7 @@ const Hero = () => {
             href="/contact"
             className="btn-quiet inline-flex h-12 items-center rounded-full px-6 text-[15px] font-semibold"
           >
-            Let's Collaborate
+            Let&apos;s Collaborate
           </Link>
         </StaggerItem>
 
@@ -82,7 +82,7 @@ const Hero = () => {
         </StaggerItem>
       </Stagger>
 
-      <Marquee className="pb-14 md:pb-20" />
+      <Marquee className="" />
     </section>
   );
 };
