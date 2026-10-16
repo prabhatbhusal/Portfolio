@@ -3,17 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "node --env-file-if-exists=.env.local scripts/db.mjs && next build",
+    "dev": "next dev",
     "build:static": "node scripts/static.mjs",
     "lint": "eslint",
     "og": "node scripts/generate-og.mjs",
     "art": "node scripts/generate-game-art.mjs",
     "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test src/lib/blog/format.test.mjs",
     "db": "node --env-file-if-exists=.env.local scripts/db.mjs",
-    "start": "next start"
+    "start": "next start",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.12",
     "clsx": "^2.1.1",
     "lucide-react": "^1.17.0",
     "mammoth": "^1.13.0",
@@ -36,6 +41,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.151.1"
   }
 }
