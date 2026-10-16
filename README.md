@@ -180,6 +180,24 @@ them. They are served with `nosniff` and a sandboxing CSP.
 The backend is the Next.js server itself, so it goes wherever the site goes —
 there is no second service to host.
 
+### Static hosts (stopgap)
+
+Until the domain points at Vercel or Railway, `npm run build:static` builds
+the public pages as plain files in `out/`, from `content/`. No studio,
+sign-in or database there; the contact form opens the visitor's mail app
+instead. It removes the server routes from the checkout, so it runs in CI
+only.
+
+- **GitHub Pages** — [`.github/workflows/pages.yml`](.github/workflows/pages.yml)
+  runs it on every push. Needs **Settings → Pages → Source: GitHub Actions**
+  and the custom domain entered on that same page.
+- **Cloudflare Pages** — framework preset *None*, build command
+  `npm run build:static`, output directory `out`. Not
+  `@cloudflare/next-on-pages`: it runs every server route on the Edge
+  runtime, and this backend needs Node (scrypt, a Postgres connection).
+
+Use one of them, and delete it once you move.
+
 ### Vercel
 
 1. Import the repo in Vercel.

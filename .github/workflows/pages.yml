@@ -29,12 +29,9 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      # pages has no server: drop the routes that need one. the contact form
-      # falls back to the visitor's mail app when /api/contact is missing
-      - run: rm -rf src/app/api src/app/studio src/app/media
-      - run: npx next build
-        env:
-          STATIC_EXPORT: "1"
+      # pages has no server: the routes that need one are left out, and the
+      # contact form hands messages to the visitor's mail app instead
+      - run: npm run build:static
       - uses: actions/upload-pages-artifact@v5
         with:
           path: out

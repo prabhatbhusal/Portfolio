@@ -7,7 +7,7 @@ import { author } from "@/lib/seo/site";
 
 const budgets = ["under $5k", "$5k – $20k", "$20k+", "not sure yet"];
 
-type State = { kind: "idle" | "sending" | "sent" } | { kind: "error"; message: string };
+type State = { kind: "idle" | "sending" | "sent" | "mailed" } | { kind: "error"; message: string };
 
 const labelClass = "text-[11px] font-semibold uppercase leading-relaxed text-ink-faint";
 
@@ -26,6 +26,9 @@ const ContactForm = () => {
     const subject = encodeURIComponent(`Project enquiry — ${form.name}`);
     const body = encodeURIComponent(`${form.message}\n\nBudget: ${budget}\n\n— ${form.name}\n${form.email}`);
     window.location.href = `mailto:${author.email}?subject=${subject}&body=${body}`;
+    // the page stays put while the mail app opens, so the form must not
+    // be left stuck on "sending"
+    setState({ kind: "mailed" });
   };
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -37,8 +40,11 @@ const ContactForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, budget }),
       });
-      if (res.status === 503 || res.status === 404) return viaMailApp();
-      const data = await res.json().catch(() => ({}));
+      // only the api answers in json. anything else means there is no
+      // backend here — a static host says 404 or 405 with a page — and 503
+      // means it is offline: either way the mail app takes the message
+      const data = await res.json().catch(() => null);
+      if (!data || res.status === 503) return viaMailApp();
       if (!res.ok) return setState({ kind: "error", message: data.error ?? "That did not go through." });
       setState({ kind: "sent" });
     } catch {
@@ -160,7 +166,15 @@ const ContactForm = () => {
           <ArrowRight size={17} strokeWidth={2.5} className="transition-transform duration-300 group-hover:translate-x-1" />
         </button>
 
-        <p className="text-[11px] font-semibold leading-relaxed text-ink-soft">goes straight to my inbox</p>
+        <p role="status" className="text-[11px] font-semibold leading-relaxed text-ink-soft">
+          {state.kind === "mailed" ? (
+            <>
+              opened your mail app — nothing? write to <a href={`mailto:${author.email}`} className="text-brand-ink underline">{author.email}</a>
+            </>
+          ) : (
+            "goes straight to my inbox"
+          )}
+        </p>
       </div>
     </form>
   );

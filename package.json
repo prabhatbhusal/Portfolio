@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node --env-file-if-exists=.env.local scripts/db.mjs && next build",
+    "build:static": "node scripts/static.mjs",
     "lint": "eslint",
     "og": "node scripts/generate-og.mjs",
     "art": "node scripts/generate-game-art.mjs",
