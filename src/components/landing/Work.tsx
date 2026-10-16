@@ -15,9 +15,12 @@ const Work = async () => {
       <div className="hairline mb-16 md:mb-24" />
 
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-        <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-          Things I have built
-        </h2>
+        <div className="flex flex-col items-start gap-5">
+          <p className="eyebrow">03 · shipped</p>
+          <h2 className="display pixel-end text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+            Things I have built
+          </h2>
+        </div>
 
         <Link
           href="/work"

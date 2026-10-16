@@ -30,8 +30,9 @@ const Contact = ({ heading = true }: ContactProps) => {
           {/* left column — the invitation */}
           <div className="flex flex-col items-start">
             {heading && (
-              <Reveal>
-                <h2 className="display text-4xl font-extrabold leading-[1.03] text-ink md:text-5xl lg:text-6xl">
+              <Reveal className="flex flex-col items-start gap-5">
+                <p className="eyebrow">09 · talk to me</p>
+                <h2 className="display pixel-end text-4xl font-extrabold leading-[1.03] text-ink md:text-5xl lg:text-6xl">
                   Let&apos;s build something solid
                 </h2>
               </Reveal>
@@ -39,8 +40,8 @@ const Contact = ({ heading = true }: ContactProps) => {
 
             <Reveal delay={80}>
               <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ink-soft md:text-base">
-                Open to full-stack and geospatial work, freelance or full time.
-                Tell me what you are building.
+                Open to game development first, then full-stack and geospatial
+                work — freelance or full time. Tell me what you are building.
               </p>
             </Reveal>
 

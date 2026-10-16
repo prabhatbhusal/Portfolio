@@ -7,6 +7,14 @@ import Marquee from "./Marquee";
 import { ScrollFade, Stagger, StaggerItem } from "../motion";
 import ScrollCue from "../motion/ScrollCue";
 
+/* the numbers, laid over the tech they were built with */
+const stats = [
+  { value: "2", label: "games in the works" },
+  { value: "6", label: "builds shipped" },
+  { value: "3", label: "fields" },
+  { value: "<1d", label: "reply time" },
+];
+
 /* viewfinder corners framing the scan, like a capture app's hud */
 const Corner = ({ className }: { className: string }) => (
   <span aria-hidden="true" className={`absolute size-6 border-(--hud) opacity-60 ${className}`} />
@@ -59,7 +67,7 @@ const Hero = () => (
           </StaggerItem>
 
           <StaggerItem>
-            <h1 className="display text-[clamp(3.2rem,10vw,8.5rem)] font-bold leading-[0.95] text-ink">
+            <h1 className="display pixel-end pixel-blink text-[clamp(2.9rem,9vw,8rem)] leading-[0.95] text-ink">
               Prabhat Bhusal
             </h1>
           </StaggerItem>
@@ -111,7 +119,22 @@ const Hero = () => (
       </div>
     </section>
 
-    <Marquee />
+    <div className="relative">
+      <Marquee />
+      <ul className="stats-pill relative mx-4 mb-8 grid grid-cols-2 gap-x-6 gap-y-3 rounded-xl px-5 py-4 text-[11px] uppercase tracking-[0.18em] text-ink-faint sm:mx-auto sm:w-fit lg:absolute lg:left-1/2 lg:top-1/2 lg:m-0 lg:flex lg:-translate-x-1/2 lg:-translate-y-1/2 lg:items-center lg:gap-0 lg:py-3">
+        {stats.map((stat, i) => (
+          <li key={stat.label} className="flex items-baseline gap-2 whitespace-nowrap">
+            {i > 0 && (
+              <span aria-hidden="true" className="hidden px-4 text-(--hud) lg:inline">
+                ·
+              </span>
+            )}
+            <strong className="text-[13px] font-bold text-ink">{stat.value}</strong>
+            {stat.label}
+          </li>
+        ))}
+      </ul>
+    </div>
   </>
 );
 

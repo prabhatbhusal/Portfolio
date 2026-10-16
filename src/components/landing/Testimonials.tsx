@@ -124,9 +124,12 @@ const Testimonials = async () => {
 
         <Reveal>
           <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className="display max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-              Client feedback
-            </h2>
+            <div className="flex flex-col items-start gap-5">
+              <p className="eyebrow">08 · reviews</p>
+              <h2 className="display pixel-end max-w-2xl text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+                Client feedback
+              </h2>
+            </div>
 
             <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
               Short projects, long conversations.

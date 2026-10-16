@@ -59,7 +59,15 @@ const Logo = ({ onClick }: { onClick?: () => void }) => (
       pb
       <span aria-hidden="true" className="absolute -inset-1 rounded-[10px] border border-dashed border-brand/50" />
     </span>
-    <span className="snav-word">Prabhat Bhusal</span>
+    <span className="snav-word">
+      <span className="block leading-none">Prabhat Bhusal</span>
+      {/* five pips, lit one by one as the page scrolls */}
+      <span aria-hidden="true" className="snav-pips">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <i key={i} style={vars(i)} />
+        ))}
+      </span>
+    </span>
   </Link>
 );
 

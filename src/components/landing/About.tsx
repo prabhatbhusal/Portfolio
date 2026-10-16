@@ -33,9 +33,10 @@ const About = () => {
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal className="flex flex-col items-start gap-5">
+          <p className="eyebrow">06 · player profile</p>
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             A game developer who
-            <span className="block text-brand-ink">reads the map</span>
+            <span className="pixel-end block text-brand-ink">reads the map</span>
           </h2>
 
           <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">

@@ -65,9 +65,12 @@ const DisciplineStack = ({ items }: { items: StackItem[] }) => {
   return (
     <section id="disciplines" ref={ref} className="relative py-20 md:py-28">
       <div className="rail flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <h2 className="display max-w-2xl text-4xl font-bold leading-[1.05] text-ink md:text-5xl">
-          Three fields, one way of thinking
-        </h2>
+        <div className="flex flex-col items-start gap-5">
+          <p className="eyebrow">02 · three fields</p>
+          <h2 className="display pixel-end max-w-2xl text-4xl font-bold leading-[1.05] text-ink md:text-5xl">
+            Three fields, one way of thinking
+          </h2>
+        </div>
         <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
           They look separate on a CV. In practice they all come down to
           modelling space and then making it interactive.
@@ -114,8 +117,15 @@ const DisciplineStack = ({ items }: { items: StackItem[] }) => {
               data-model={item.model}
               data-under={i < active ? "" : undefined}
               style={vars(i)}
-              className="stack-card rounded-[28px] border border-line bg-raised p-7 md:p-9"
+              className="stack-card overflow-hidden rounded-[28px] border border-line bg-raised p-7 md:p-9"
             >
+              {/* the level number, huge and faint behind the card */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -bottom-10 -right-4 select-none display text-[11rem] leading-none text-ink opacity-[0.045] md:text-[14rem]"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <div className="flex items-center justify-between">
                 <span className="grid size-12 place-items-center rounded-2xl bg-(--brand-soft) text-brand-ink [&_svg]:size-6">
                   {item.icon}

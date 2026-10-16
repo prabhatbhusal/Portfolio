@@ -11,7 +11,8 @@ const Faq = () => {
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="flex flex-col items-start gap-5">
-          <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+          <p className="eyebrow">07 · faq</p>
+          <h2 className="display pixel-end text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             Before you write in
           </h2>
           <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">

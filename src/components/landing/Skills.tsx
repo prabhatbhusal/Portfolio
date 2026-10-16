@@ -87,9 +87,12 @@ const Skills = async ({ heading = true }: SkillsProps) => {
 
       {heading && (
         <div className="mb-12 flex flex-col items-start gap-4 md:flex-row md:items-end md:justify-between">
-          <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-            Skills
-          </h2>
+          <div className="flex flex-col items-start gap-5">
+            <p className="eyebrow">05 · skill tree</p>
+            <h2 className="display pixel-end text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+              Skills
+            </h2>
+          </div>
 
           <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
             The web stack I ship with, and the spatial work that sits underneath

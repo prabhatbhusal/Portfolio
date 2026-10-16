@@ -7,10 +7,11 @@
   --color-foreground: var(--ink);
   --color-border: var(--line);
 
-  /* typography — one grotesque for body and display, the way the
-     reference pages set everything in a single family */
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  /* typography — mono for everything, body, display and labels alike, the
+     way a terminal or a game hud sets type. posts keep the grotesque for
+     long reading (.prose-post) */
+  --font-sans: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-geist-mono), ui-monospace, monospace;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 
   /* palette */
@@ -152,7 +153,9 @@
   }
 
   body {
-    background-color: var(--canvas);
+    /* a faint dot grid under everything */
+    background: radial-gradient(color-mix(in srgb, var(--ink) 7%, transparent) 1px, transparent 1.3px) 0 0 / 24px 24px,
+      var(--canvas);
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     transition: background-color 400ms ease, color 400ms ease;
@@ -184,8 +187,46 @@
 }
 
 .display {
-  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  letter-spacing: -0.035em;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+}
+
+/* "[ 01 · the games ]" over a section title */
+.eyebrow {
+  font: 500 11px/1.4 var(--font-geist-mono), ui-monospace, monospace;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  color: var(--hud);
+}
+
+.eyebrow::before {
+  content: "[ ";
+}
+
+.eyebrow::after {
+  content: " ]";
+}
+
+/* a title ends on one lit pixel instead of a full stop */
+.pixel-end::after {
+  content: "";
+  display: inline-block;
+  width: 0.17em;
+  height: 0.17em;
+  margin-left: 0.08em;
+  background: var(--hud);
+  box-shadow: 0 0 0.25em color-mix(in srgb, var(--hud) 70%, transparent);
+}
+
+/* ...and the name in the hero blinks, like a cursor waiting for input */
+.pixel-blink::after {
+  animation: caret 1.1s steps(1) infinite;
 }
 
 /* the blue-to-indigo wash the reference uses on feature titles,
@@ -359,6 +400,38 @@
   overflow: hidden;
   white-space: nowrap;
   transition: max-width 550ms var(--ease-panel), opacity 300ms ease 120ms;
+}
+
+/* five pips under the wordmark, lit one by one as the page scrolls */
+.snav-pips {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.snav-pips i {
+  width: 4px;
+  height: 4px;
+  background: var(--line-strong);
+}
+
+.snav-pips i:first-child {
+  background: var(--hud);
+}
+
+@supports (animation-timeline: scroll()) {
+  .snav-pips i:not(:first-child) {
+    animation: pip linear both;
+    animation-timeline: scroll(root block);
+    animation-range: calc(var(--i) * 20%) calc(var(--i) * 20% + 3%);
+  }
+}
+
+@keyframes pip {
+  to {
+    background: var(--hud);
+    box-shadow: 0 0 6px var(--hud);
+  }
 }
 
 .snav-links {
@@ -1283,6 +1356,58 @@ html.booted .loader {
 }
 
 /* ------------------------------------------------------------------ *
+ * ticker band (Ticker.tsx) — a tilted strip of game words running across
+ * the page between sections; two copies, wrapped at -50%
+ * ------------------------------------------------------------------ */
+
+.ticker {
+  rotate: -2.5deg;
+  margin-inline: -4vw;
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background: color-mix(in srgb, var(--canvas) 80%, transparent);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 38s linear infinite;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* stats laid over the tech marquee under the hero */
+.stats-pill {
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--canvas) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* a short lit segment runs along its top edge */
+.stats-pill::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 18%;
+  height: 1px;
+  background: var(--hud);
+  box-shadow: 0 0 8px var(--hud);
+  animation: stats-run 5s var(--ease-panel) infinite alternate;
+}
+
+@keyframes stats-run {
+  to {
+    left: 82%;
+  }
+}
+
+/* ------------------------------------------------------------------ *
  * hud cursor — corner brackets that snap onto targets, a crosshair, a
  * coordinate readout and a ping per click
  * ------------------------------------------------------------------ */
@@ -1620,6 +1745,11 @@ html.booted .loader {
 }
 
 /* long-form post body */
+/* long reading stays in the grotesque */
+.prose-post {
+  font-family: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
 .prose-post a {
   color: var(--brand-ink);
   text-decoration: underline;

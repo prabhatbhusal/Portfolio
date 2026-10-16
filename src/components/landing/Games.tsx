@@ -16,7 +16,8 @@ const Games = async () => {
 
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col items-start gap-5">
-          <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
+          <p className="eyebrow">01 · the games</p>
+          <h2 className="display pixel-end text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             Games I am building
           </h2>
           <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">

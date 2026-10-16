@@ -12,12 +12,6 @@ const lines = [
   "And the full-stack web — backends, tools and sites — to ship them.",
 ];
 
-const stats = [
-  { value: "2", label: "games in the works" },
-  { value: "6", label: "web & spatial builds" },
-  { value: "<1d", label: "typical reply time" },
-];
-
 /* each line lights up in turn while the card is pinned */
 const Line = ({ progress, index, text }: { progress: MotionValue<number>; index: number; text: string }) => {
   const start = 0.12 + index * 0.2;
@@ -66,7 +60,7 @@ const Statement = () => {
           <div className="rail relative flex flex-col items-center gap-10 text-center md:gap-14">
             <div className="flex flex-col items-center gap-5">
               <span className="mono text-[11px] uppercase tracking-[0.22em] text-[#8eaaff]">
-                what I build
+                [ what I build ]
               </span>
               <h2 className="display max-w-4xl text-[clamp(2.2rem,5.5vw,4.25rem)] font-bold leading-[1.02] text-white">
                 Games that know where they are.
@@ -79,14 +73,6 @@ const Statement = () => {
               ))}
             </div>
 
-            <dl className="grid w-full max-w-3xl grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10">
-              {stats.map((stat) => (
-                <div key={stat.label} className="bg-[#070a18]/80 px-3 py-5 backdrop-blur md:px-5 md:py-6">
-                  <dt className="display text-2xl font-bold text-white md:text-3xl">{stat.value}</dt>
-                  <dd className="mt-1 mono text-[10px] text-white/55 md:text-[11px]">{stat.label}</dd>
-                </div>
-              ))}
-            </dl>
           </div>
 
           <div
