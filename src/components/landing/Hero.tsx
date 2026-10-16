@@ -1,101 +1,118 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
 import HeroBackdrop from "../props/HeroBackdrop";
+import HeroScene from "../three/HeroScene";
 import Marquee from "./Marquee";
-import { Stagger, StaggerItem } from "../motion";
+import { ScrollFade, Stagger, StaggerItem } from "../motion";
 import ScrollCue from "../motion/ScrollCue";
 
-const stats = [
-  { id: 1, value: "6", label: "projects shipped" },
-  { id: 2, value: "3", label: "web · geomatics · games" },
-  { id: 3, value: "<1d", label: "typical reply time" },
-];
-
-const DecorativeStar = ({ className = "" }: { className?: string }) => (
-  <div className={`relative ${className}`} aria-hidden="true">
-    <span className="absolute left-1/2 top-0 h-full w-[0.16rem] -translate-x-1/2 rounded-full bg-ink/80 dark:bg-[#f7f5f2]" />
-    <span className="absolute left-0 top-1/2 h-[0.16rem] w-full -translate-y-1/2 rounded-full bg-ink/80 dark:bg-[#f7f5f2]" />
-  </div>
+/* viewfinder corners framing the scan, like a capture app's hud */
+const Corner = ({ className }: { className: string }) => (
+  <span aria-hidden="true" className={`absolute size-6 border-(--hud) opacity-60 ${className}`} />
 );
 
-const Hero = () => {
-  return (
-    <section className="relative isolate overflow-hidden">
-      <HeroBackdrop className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none opacity-70 dark:opacity-60" />
+/* full-bleed under the bar: a live lidar scan of a valley, a big name over
+   it, two pills, and the readouts a capture rig would show */
+const Hero = () => (
+  <>
+    <section
+      id="overview"
+      className="relative isolate -mt-(--nav-h) flex h-svh min-h-[640px] flex-col overflow-hidden"
+    >
+      <HeroScene className="absolute inset-0 -z-10">
+        <HeroBackdrop className="h-full w-full select-none opacity-70 dark:opacity-60" />
+      </HeroScene>
 
-      <DecorativeStar className="absolute left-[7%] top-[17%] h-10 w-10 opacity-80 md:h-12 md:w-12" />
-      
-      <DecorativeStar className="absolute left-[10%] bottom-[20%] h-9 w-9 opacity-75 md:h-11 md:w-11" />
-      <DecorativeStar className="absolute right-[9%] bottom-[18%] h-10 w-10 opacity-80 md:h-12 md:w-12" />
+      {/* lifts the type off the cloud without hiding it */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(55%_38%_at_50%_45%,var(--canvas)_0%,transparent_100%)] opacity-60"
+      />
 
-      <Stagger
-        immediate
-        delay={250}
-        stagger={0.12}
-        className="rail flex flex-col items-center gap-7 pb-12 pt-12 text-center md:pb-16 md:pt-16"
-      >
-        
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-4 bottom-6 top-[calc(var(--nav-h)+16px)] sm:inset-x-8">
+        <Corner className="left-0 top-0 border-l-2 border-t-2" />
+        <Corner className="right-0 top-0 border-r-2 border-t-2" />
+        <Corner className="bottom-0 left-0 border-b-2 border-l-2" />
+        <Corner className="bottom-0 right-0 border-b-2 border-r-2" />
+        <span className="absolute left-8 top-1 hidden mono text-[10px] uppercase tracking-[0.2em] text-(--hud) opacity-80 sm:block">
+          <span className="pulse-dot mr-2 inline-block size-1.5 rounded-full bg-(--hud) align-middle" />
+          loading world · lvl 01
+        </span>
+        <span className="absolute right-8 top-1 hidden mono text-[10px] uppercase tracking-[0.2em] text-ink-faint sm:block">
+          27.7172° n · 85.3240° e
+        </span>
+      </div>
 
-        <StaggerItem>
-          <h1 className="display max-w-5xl text-[2.6rem] font-extrabold leading-[1.02] text-ink sm:text-6xl md:text-7xl lg:text-[5rem]">
-            I&apos;m
-            <span className="block text-brand-ink">Prabhat</span>
-          </h1>
-        </StaggerItem>
+      <ScrollFade className="flex flex-1">
+        <Stagger
+          immediate
+          delay={150}
+          stagger={0.12}
+          className="rail flex flex-1 flex-col items-center justify-center gap-6 pt-(--nav-h) text-center md:gap-7"
+        >
+          <StaggerItem>
+            <span className="chip inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[12px] font-medium backdrop-blur">
+              <span className="pulse-dot size-1.5 rounded-full bg-ok" />
+              Open for new work · Kathmandu
+            </span>
+          </StaggerItem>
 
-        <StaggerItem>
-          <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed">
-            Full-stack developer and Geomatics Engineer, based in Kathmandu. I
-            build with React, Next.js and Django, and I take the spatial half
-            seriously: PostGIS, LiDAR and 3D Gaussian Splatting, with a game
-            engine background underneath it.
-          </p>
-        </StaggerItem>
+          <StaggerItem>
+            <h1 className="display text-[clamp(3.2rem,10vw,8.5rem)] font-bold leading-[0.95] text-ink">
+              Prabhat Bhusal
+            </h1>
+          </StaggerItem>
 
-        <StaggerItem className="flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/work"
-            className="btn-solid group inline-flex h-12 items-center gap-2.5 rounded-full px-6 text-[15px] font-semibold"
-          >
-            View my work
-            <ArrowRight
-              size={17}
-              strokeWidth={2.5}
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
+          <StaggerItem>
+            <p className="text-gradient text-[clamp(1.25rem,2.6vw,2.25rem)] font-bold tracking-tight">
+              Game developer &amp; full-stack engineer
+            </p>
+          </StaggerItem>
 
-          <Link
-            href="/contact"
-            className="btn-quiet inline-flex h-12 items-center rounded-full px-6 text-[15px] font-semibold"
-          >
-            Let&apos;s Collaborate
-          </Link>
-        </StaggerItem>
+          <StaggerItem>
+            <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed">
+              Gameplay systems and tools in Unity and Unreal Engine 5.
+              Next.js and Django for the web around them. LiDAR and
+              real-world terrain from a geomatics degree underneath both.
+            </p>
+          </StaggerItem>
 
-        <StaggerItem className="mt-8 w-full">
-          <dl className="mx-auto grid w-full max-w-4xl grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-3">
-            {stats.map((stat) => (
-              <div key={stat.id} className="bg-canvas px-5 py-6">
-                <dt className="display text-2xl font-extrabold text-ink md:text-3xl">
-                  {stat.value}
-                </dt>
-                <dd className="mt-1 mono text-[11px] text-ink-faint">
-                  {stat.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </StaggerItem>
+          <StaggerItem className="mt-2 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/games"
+              className="btn-solid group inline-flex h-13 items-center gap-2.5 rounded-full px-7 text-[15px] font-semibold"
+            >
+              Play my games
+              <ArrowRight
+                size={17}
+                strokeWidth={2.5}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
 
-        <StaggerItem className="mt-2">
-          <ScrollCue to="#disciplines" href="#disciplines" />
-        </StaggerItem>
-      </Stagger>
+            <Link
+              href="/contact"
+              className="btn-glass inline-flex h-13 items-center rounded-full px-7 text-[15px] font-semibold"
+            >
+              Let&apos;s collaborate
+            </Link>
+          </StaggerItem>
+        </Stagger>
+      </ScrollFade>
 
-      <Marquee className="" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-linear-to-b from-transparent to-canvas"
+      />
+
+      <div className="absolute inset-x-0 bottom-10 flex justify-center">
+        <ScrollCue to="#statement" href="#statement" />
+      </div>
     </section>
-  );
-};
+
+    <Marquee />
+  </>
+);
 
 export default Hero;

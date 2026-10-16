@@ -1,0 +1,29 @@
+{
+  "slug": "postgis-nearest-rider",
+  "title": "Finding the nearest rider without melting the database",
+  "excerpt": "The naive version loops every rider in Python. The version that survives production is a single spatial query with the right index behind it.",
+  "date": "2026-02-14",
+  "tags": [
+    "PostGIS",
+    "Django",
+    "performance"
+  ],
+  "blocks": [
+    {
+      "type": "p",
+      "text": "When I started the food delivery WebGIS project, nearest-rider matching looked trivial. Pull every active rider, compute the distance to the restaurant, sort, take the first. It works. It works right up until you have a few hundred riders online and every order does a full table scan."
+    },
+    {
+      "type": "p",
+      "text": "The fix is to stop treating coordinates as two float columns. With PostGIS, rider positions become a geography column, and the query becomes a single ORDER BY distance LIMIT 1 that Postgres can plan properly."
+    },
+    {
+      "type": "p",
+      "text": "The part people miss is the index. Without a GiST index on the position column, PostGIS will still do the work honestly and slowly. With one, the planner switches to an index scan and the query time stops scaling with the number of riders."
+    },
+    {
+      "type": "p",
+      "text": "There is a second trap worth mentioning: distance on geometry is in degrees, not metres. If you are comparing against a radius in kilometres you want geography, or you want to project first. Getting this wrong produces results that look plausible near the equator and wrong everywhere else."
+    }
+  ]
+}

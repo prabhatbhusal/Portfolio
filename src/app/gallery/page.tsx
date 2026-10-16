@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Camera } from "lucide-react";
 
 import PagesBanner from "@/components/props/PagesBanner";
-import Reveal from "@/components/props/Reveal";
-import { gallerydata } from "@/lib/constants/data";
+import { Reveal } from "@/components/motion";
+import { getPhotos } from "@/server/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -26,7 +26,8 @@ const frames = [
   { id: 6, ratio: "aspect-[5/4]" },
 ];
 
-const Page = () => {
+const Page = async () => {
+  const gallerydata = await getPhotos();
   return (
     <main>
       <PagesBanner
@@ -83,10 +84,11 @@ const Page = () => {
                 <figure className="surface group mb-4 break-inside-avoid overflow-hidden rounded-2xl">
                   <div className="overflow-hidden">
                     <Image
-                      src={scene.src}
-                      alt={scene.title}
-                      width={scene.width}
-                      height={scene.height}
+                      src={scene.image.src}
+                      alt={scene.image.alt || scene.title}
+                      width={scene.image.width}
+                      height={scene.image.height}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                       className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                   </div>

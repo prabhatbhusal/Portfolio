@@ -78,7 +78,6 @@ function DragMarquee({
       velocity: 0,
       travel: 0,
     };
-    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
   const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
@@ -94,6 +93,11 @@ function DragMarquee({
     drag.current.lastX = event.clientX;
     drag.current.lastT = now;
     drag.current.travel += Math.abs(moved);
+    /* capture only once it is clearly a drag. capturing on press retargets
+       the click to this track, so links inside the row never fired */
+    if (drag.current.travel > DRAG_SLOP && !event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
     drag.current.velocity = Math.max(
       -MAX_THROW,
       Math.min(MAX_THROW, percent / seconds)
@@ -103,7 +107,9 @@ function DragMarquee({
   const endDrag = (event: React.PointerEvent<HTMLDivElement>) => {
     if (!drag.current.active) return;
     drag.current.active = false;
-    event.currentTarget.releasePointerCapture(event.pointerId);
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
   };
 
   /* a drag that ends on top of a link must not also follow it */

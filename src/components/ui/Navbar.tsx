@@ -1,358 +1,518 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- panel thumbnails are small
+   decorative crops of images that are already cached by the pages */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-import { AnimatePresence, motion } from "motion/react";
-import { ArrowRight, ChevronDown, Download, Menu, X } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronDown,
+  CircleHelp,
+  Download,
+  Images,
+  Layers,
+  Mail,
+  Plus,
+  User,
+} from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
-import { NavLinks } from "@/lib/constants/data";
+import type { NavIcon, NavItem } from "@/@types/navbar.types";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 
-const ease = [0.2, 0.8, 0.2, 1] as const;
+/* the floating nav from the 3dgs platform, in this site's colours:
+ *  - a glass pill; scrolling down past FOLD_AFTER folds it to just the
+ *    links, any scroll up opens it again; a scan line along its foot is
+ *    drawn by the page's scroll (the section nav is ScrollRail, down the
+ *    right edge);
+ *  - the current page wears a viewfinder that glides from link to link;
+ *    hover grows a faint pill from the middle;
+ *  - menus open a panel that unrolls like a curtain behind a scan line,
+ *    framed by corner brackets, items arriving one after another;
+ *  - below lg a Menu button grows the bar into one card of numbered
+ *    chapters.
+ * styles: globals.css "navbar" (.snav-*, .mnav-*) */
 
 const RESUME_URL = "/Prabhat_s_Resume.pdf";
 const GITHUB_URL = "https://github.com/prabhatbhusal";
 
+/* past this the bar folds on the way down; any scroll up opens it again */
+const FOLD_AFTER = 200;
+
+const ICONS: Record<NavIcon, React.ElementType> = {
+  user: User,
+  layers: Layers,
+  image: Images,
+  help: CircleHelp,
+  mail: Mail,
+};
+
+const vars = (i: number) => ({ "--i": i }) as React.CSSProperties;
+
 const Logo = ({ onClick }: { onClick?: () => void }) => (
-  <Link
-    href="/"
-    onClick={onClick}
-    aria-label="Prabhat Bhusal home"
-    className="grid size-11 shrink-0 place-items-center rounded-[14px] bg-raised shadow-[0_1px_2px_rgba(0,0,0,0.14)] transition-transform duration-300 hover:scale-105"
-  >
-    <span className="text-[11px] font-extrabold tracking-tighter text-ink">
-      {"<"}
-      <span className="text-brand">pb</span>
-      {"/>"}
+  <Link href="/" onClick={onClick} aria-label="Prabhat Bhusal home" className="snav-brand">
+    <span className="relative grid size-8 shrink-0 place-items-center rounded-lg bg-brand text-[10px] font-extrabold tracking-tighter text-white">
+      pb
+      <span aria-hidden="true" className="absolute -inset-1 rounded-[10px] border border-dashed border-brand/50" />
     </span>
+    <span className="snav-word">Prabhat Bhusal</span>
   </Link>
 );
 
-const Navbar = () => {
+/* the square beside an item's title */
+const Tile = ({ child }: { child: NonNullable<NavItem["children"]>[number] }) => {
+  const Icon = child.icon ? ICONS[child.icon] : null;
+  return (
+    <span className="snav-tile row-span-2 grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl bg-(--brand-soft) text-brand-ink">
+      {child.thumb ? (
+        <img src={child.thumb} alt="" className="size-full object-cover" loading="lazy" />
+      ) : Icon ? (
+        <Icon size={18} strokeWidth={1.7} />
+      ) : (
+        <span className="mono text-[11px] font-semibold">{child.tile}</span>
+      )}
+    </span>
+  );
+};
+
+const Navbar = ({ links }: { links: NavItem[] }) => {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = useState(false);
-  const [openDesktop, setOpenDesktop] = useState<number | null>(null);
-  const [openMobile, setOpenMobile] = useState<number | null>(null);
+  const [open, setOpen] = useState<string | null>(null);
+  const [menu, setMenu] = useState(false);
+  const [unfolded, setUnfolded] = useState<string | null>(null);
+  const timer = useRef<number | undefined>(undefined);
+  const bar = useRef<HTMLElement>(null);
+  const linksRef = useRef<HTMLElement>(null);
+  const drop = useRef<HTMLDivElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+
+  const isActive = (url: string) => (url === "/" ? pathname === "/" : pathname.startsWith(url));
+  const panel = links.find((item) => item.url === open && item.children);
+
+  // the panel keeps its last menu while the curtain rolls back up
+  const [shown, setShown] = useState(panel);
+  if (panel && panel.url !== shown?.url) setShown(panel);
 
   const closeAll = () => {
-    setIsOpen(false);
-    setOpenDesktop(null);
-    setOpenMobile(null);
+    window.clearTimeout(timer.current);
+    setOpen(null);
+    setMenu(false);
   };
 
-  // stop the page scrolling behind the mobile sheet
+  /* fold on the way down, open on the way up. written to <html> as an
+     attribute, so css does the morph and nothing re-renders while the
+     page moves */
   useEffect(() => {
-    if (!isOpen) return;
+    const root = document.documentElement;
+    let last = window.scrollY;
+    let frame = 0;
+
+    // the folded pill is exactly the links plus the mark
+    const measure = () => {
+      const width = linksRef.current?.scrollWidth ?? 0;
+      if (width) root.style.setProperty("--merged-w", `${width + 72}px`);
+    };
+
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      let folded = root.hasAttribute("data-folded");
+      if (y <= FOLD_AFTER) {
+        folded = false;
+        last = y;
+      } else if (Math.abs(y - last) > 6) {
+        // compared against the last turn, not the last frame, so a slow
+        // trackpad scroll still adds up to a fold
+        folded = y > last;
+        last = y;
+      }
+      if (folded === root.hasAttribute("data-folded")) return;
+      root.toggleAttribute("data-folded", folded);
+      // the bar changes shape under an open panel — close it rather than
+      // let it jump
+      setOpen(null);
+    };
+
+    const onScroll = () => {
+      frame ||= requestAnimationFrame(update);
+    };
+
+    measure();
+    document.fonts?.ready.then(measure);
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", measure);
+      cancelAnimationFrame(frame);
+      root.removeAttribute("data-folded");
+    };
+  }, []);
+
+  // esc shuts the panel or the menu, focus back on what opened it
+  useEffect(() => {
+    if (!open && !menu) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (menu) menuButton.current?.focus();
+      else bar.current?.querySelector<HTMLElement>(`[data-drop="${open}"]`)?.focus();
+      setOpen(null);
+      setMenu(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, menu]);
+
+  // the dimmed page lets clicks through, so a click anywhere else shuts it
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (!bar.current?.contains(target) && !drop.current?.contains(target)) setOpen(null);
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => document.removeEventListener("pointerdown", onDown);
+  }, [open]);
+
+  // the open menu holds the page still under it
+  useEffect(() => {
+    if (!menu) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = previous;
     };
-  }, [isOpen]);
+  }, [menu]);
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      setIsOpen(false);
-      setOpenDesktop(null);
-      setOpenMobile(null);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  /* hover intent: a beat before the first panel opens, so sweeping across
+     the bar does not flash it; instant when moving between open panels;
+     a grace period on the way out so the pointer can cross the gap */
+  const openSoon = (url: string) => (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setOpen(url), open === null ? 90 : 0);
+  };
 
-  const isActive = (url: string) =>
-    url === "/" ? pathname === "/" : pathname.startsWith(url);
+  const closeNow = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    window.clearTimeout(timer.current);
+    setOpen(null);
+  };
+
+  const closeSoon = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setOpen(null), 180);
+  };
+
+  const keep = () => window.clearTimeout(timer.current);
 
   return (
     <>
-      <header className="fixed inset-x-0 top-3 z-50 px-3 sm:top-4 sm:px-4">
-        <nav className="glass mx-auto flex w-full max-w-336 items-center gap-1 rounded-[28px] p-2.5 backdrop-blur-xl">
-          <Logo />
+      <div aria-hidden="true" data-open={panel ? "" : undefined} className="snav-scrim" />
 
-          <Link
-            href="/contact"
-            className="btn-solid ml-1 hidden h-11 items-center gap-6 rounded-full pl-5 pr-4 text-[14px] font-bold xl:inline-flex"
-          >
-            Let&apos;s Collaborate
-            <ArrowRight size={16} strokeWidth={2.5} />
-          </Link>
+      <header
+        ref={bar}
+        data-menu={menu ? "" : undefined}
+        onPointerLeave={closeSoon}
+        onPointerEnter={keep}
+        className="snav"
+      >
+        <Logo onClick={closeAll} />
 
-          <div className="ml-1 hidden items-center gap-0.5 md:flex xl:ml-2">
-            {NavLinks.map((item) =>
-              item.children ? (
-                <div key={item.id} className="relative">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setOpenDesktop(openDesktop === item.id ? null : item.id)
-                    }
-                    aria-expanded={openDesktop === item.id}
-                    aria-haspopup="menu"
-                    className={cn(
-                      "glass-link inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-[15px] font-semibold",
-                      (openDesktop === item.id || isActive(item.url)) &&
-                        "bg-(--glass-hover)"
-                    )}
-                  >
-                    {item.title}
-                    <ChevronDown
-                      size={16}
-                      strokeWidth={2.5}
-                      className={cn(
-                        "transition-transform duration-300",
-                        openDesktop === item.id && "rotate-180"
-                      )}
-                    />
-                  </button>
+        <nav ref={linksRef} aria-label="Main" className="snav-links">
+          {links.map((item) => {
+            const on = isActive(item.url);
+            const link = (
+              <Link
+                key={item.url}
+                href={item.url}
+                onClick={closeAll}
+                onPointerEnter={item.children ? undefined : closeNow}
+                aria-current={on ? "page" : undefined}
+                data-open={open === item.url ? "" : undefined}
+                className="snav-link"
+              >
+                {on && (
+                  <motion.span
+                    layoutId="snav-vf"
+                    aria-hidden="true"
+                    className="snav-vf"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="relative">{item.title}</span>
+              </Link>
+            );
+            if (!item.children) return link;
 
-                  {openDesktop === item.id && (
-                    <button
-                      type="button"
-                      tabIndex={-1}
-                      aria-hidden="true"
-                      onClick={() => setOpenDesktop(null)}
-                      className="fixed inset-0 -z-10 cursor-default"
-                    />
-                  )}
-
-                  <AnimatePresence>
-                    {openDesktop === item.id && (
-                      <motion.div
-                        key="menu"
-                        role="menu"
-                        initial={{ opacity: 0, y: -6, scale: 0.97 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -6, scale: 0.97 }}
-                        transition={{ duration: 0.22, ease }}
-                        className="absolute left-0 top-[calc(100%+12px)] w-72 origin-top-left rounded-2xl border border-line bg-raised p-2 shadow-[0_24px_60px_-16px_rgba(0,0,0,0.45)]"
-                      >
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.id}
-                            href={child.url}
-                            role="menuitem"
-                            onClick={closeAll}
-                            className="block rounded-xl px-3 py-2.5 transition-colors duration-200 hover:bg-(--surface-bg-hover)"
-                          >
-                            <span className="block text-[14px] font-semibold text-ink">
-                              {child.title}
-                            </span>
-                            <span className="mt-0.5 block text-[12px] font-medium text-ink-faint">
-                              {child.description}
-                            </span>
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <Link
-                  key={item.id}
-                  href={item.url}
-                  className={cn(
-                    "glass-link inline-flex h-11 items-center rounded-full px-4 text-[15px] font-semibold",
-                    isActive(item.url) && "bg-(--glass-hover)"
-                  )}
+            /* a split trigger: the label goes to the section, the chevron
+               opens the panel; hover opens it too */
+            return (
+              <span key={item.url} className="snav-drop-at" onPointerEnter={openSoon(item.url)}>
+                {link}
+                <button
+                  type="button"
+                  data-drop={item.url}
+                  onClick={() => setOpen(open === item.url ? null : item.url)}
+                  // keyboard focus opens it; a tap focuses and clicks at
+                  // once, and letting both act would open then shut it
+                  onFocus={(e) => e.currentTarget.matches(":focus-visible") && setOpen(item.url)}
+                  aria-label={`Show ${item.title} menu`}
+                  aria-haspopup="true"
+                  aria-expanded={open === item.url}
+                  aria-controls="snav-drop"
+                  className="snav-drop-btn"
                 >
-                  {item.title}
-                </Link>
-              )
-            )}
-          </div>
-
-          <div className="ml-auto flex items-center gap-2">
-            <Link
-              href="/contact"
-              className="btn-quiet hidden h-11 items-center gap-2 rounded-full px-4 text-[14px] font-semibold lg:inline-flex"
-            >
-              status
-              <span className="rounded-full bg-(--ok-soft) px-2 py-0.5 text-[11px] font-bold text-ok-ink">
-                open
+                  <ChevronDown
+                    size={14}
+                    strokeWidth={2.4}
+                    className={cn("transition-transform duration-300", open === item.url && "rotate-180")}
+                  />
+                </button>
               </span>
-            </Link>
-
-            <ThemeToggle className="btn-quiet grid size-11 shrink-0 place-items-center rounded-full" />
-
-            <a
-              href={RESUME_URL}
-              download
-              className="btn-quiet hidden h-11 items-center gap-2 rounded-full px-5 text-[14px] font-bold md:inline-flex"
-            >
-              <Download size={17} strokeWidth={2.2} />
-              resume
-            </a>
-
-            <button
-              type="button"
-              onClick={() => setIsOpen(true)}
-              aria-label="Open menu"
-              aria-expanded={isOpen}
-              className="btn-quiet grid size-11 shrink-0 place-items-center rounded-full md:hidden"
-            >
-              <Menu size={20} strokeWidth={2.2} />
-            </button>
-          </div>
+            );
+          })}
         </nav>
+
+        <div className="snav-actions" onPointerEnter={closeNow}>
+          <ThemeToggle className="snav-icon" />
+          <a href={RESUME_URL} download className="snav-quiet hidden xl:inline-flex">
+            <Download size={14} strokeWidth={2.2} />
+            Resume
+          </a>
+          <Link href="/contact" onClick={closeAll} className="snav-primary">
+            Let&apos;s collaborate
+          </Link>
+        </div>
+
+        <button
+          ref={menuButton}
+          type="button"
+          onClick={() => setMenu(!menu)}
+          aria-expanded={menu}
+          aria-controls="snav-menu"
+          className="snav-menu-btn"
+        >
+          <span className="snav-menu-word">{menu ? "Close" : "Menu"}</span>
+          <span className="snav-menu-ic" aria-hidden="true">
+            <i />
+            <i />
+          </span>
+        </button>
       </header>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            key="sheet"
-            initial={{ opacity: 0, y: -14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.32, ease }}
-            className="sheet-items fixed inset-0 z-60 flex flex-col overflow-y-auto bg-canvas px-4 pb-10 pt-3 sm:pt-4 md:hidden"
-          >
-          <div className="flex items-center justify-between">
-            <Logo onClick={closeAll} />
+      {/* a sibling of the bar, not a child: the bar's backdrop-filter would
+          become this panel's containing block */}
+      <div
+        ref={drop}
+        id="snav-drop"
+        data-open={panel ? "" : undefined}
+        inert={!panel}
+        onPointerEnter={keep}
+        onPointerLeave={closeSoon}
+        className="snav-drop hidden lg:block"
+      >
+        <span className="snav-drop-corners" aria-hidden="true" />
+        {shown && (
+          <div key={shown.url} className="snav-drop-in grid grid-cols-[minmax(0,1fr)_minmax(220px,0.36fr)] gap-x-10 gap-y-6">
+            <ul className="grid grid-cols-2 content-start gap-1.5">
+              {shown.children!.map((child, i) => (
+                <li key={child.url} className="snav-rise" style={vars(i)}>
+                  <Link href={child.url} onClick={closeAll} className="snav-item group/i">
+                    <Tile child={child} />
+                    <span className="truncate text-[14px] font-bold tracking-tight text-ink">{child.title}</span>
+                    <span className="col-start-2 line-clamp-1 text-[12px] leading-relaxed text-ink-faint">
+                      {child.description}
+                    </span>
+                    {child.tags && child.tags.length > 0 && (
+                      <span className="col-start-2 mt-1.5 flex flex-wrap gap-1.5">
+                        {child.tags.map((tag) => (
+                          <span key={tag} className="chip rounded-full px-2 py-0.5 text-[11px] font-medium">
+                            {tag}
+                          </span>
+                        ))}
+                      </span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-            <div className="flex items-center gap-2">
-              <ThemeToggle className="btn-quiet grid size-11 shrink-0 place-items-center rounded-full" />
-              <button
-                type="button"
-                onClick={closeAll}
-                aria-label="Close menu"
-                className="btn-quiet grid size-11 shrink-0 place-items-center rounded-full"
-              >
-                <X size={20} strokeWidth={2.2} />
-              </button>
-            </div>
-          </div>
-
-          <Link
-            href="/contact"
-            onClick={closeAll}
-            className="btn-solid mt-6 flex h-16 shrink-0 items-center justify-between rounded-2xl px-5 text-[17px] font-bold"
-          >
-            Let's Collaborate
-            <ArrowRight size={20} strokeWidth={2.5} />
-          </Link>
-
-          <div className="mt-4 flex flex-col gap-3">
-            {NavLinks.map((item) => {
-              const Icon = item.icon;
-
-              if (item.children) {
-                const expanded = openMobile === item.id;
-
-                return (
-                  <div
-                    key={item.id}
-                    className="overflow-hidden rounded-2xl border border-line bg-raised"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setOpenMobile(expanded ? null : item.id)}
-                      aria-expanded={expanded}
-                      className="flex h-16 w-full items-center justify-between px-5 text-[17px] font-semibold text-ink"
-                    >
-                      {item.title}
-                      <ChevronDown
-                        size={20}
-                        strokeWidth={2.5}
-                        className={cn(
-                          "transition-transform duration-300",
-                          expanded && "rotate-180"
-                        )}
-                      />
-                    </button>
-
-                    <AnimatePresence initial={false}>
-                      {expanded && (
-                        <motion.div
-                          key="sub"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.28, ease }}
-                          className="overflow-hidden"
-                        >
-                          <div className="border-t border-line p-2">
-                            {item.children.map((child) => (
-                              <Link
-                                key={child.id}
-                                href={child.url}
-                                onClick={closeAll}
-                                className="block rounded-xl px-3 py-2.5"
-                              >
-                                <span className="block text-[15px] font-semibold text-ink">
-                                  {child.title}
-                                </span>
-                                <span className="mt-0.5 block text-[12px] font-medium text-ink-faint">
-                                  {child.description}
-                                </span>
-                              </Link>
-                            ))}
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              }
-
-              return (
+            <aside className="snav-rise grid content-start gap-3.5 pt-1" style={vars(2)}>
+              <p className="mono text-[11px] uppercase tracking-widest text-ink-faint">{shown.title}</p>
+              {shown.feature && (
                 <Link
-                  key={item.id}
-                  href={item.url}
+                  href={shown.feature.url}
                   onClick={closeAll}
-                  className="flex h-16 shrink-0 items-center gap-4 rounded-2xl border border-line bg-raised px-5 text-[17px] font-semibold text-ink"
+                  className="group relative flex min-h-52 overflow-hidden rounded-xl bg-[#05060b] text-left"
                 >
-                  {Icon && <Icon size={22} strokeWidth={1.8} />}
-                  {item.title}
+                  {shown.feature.image ? (
+                    <img
+                      src={shown.feature.image}
+                      alt=""
+                      className="absolute inset-0 size-full object-cover opacity-80 saturate-50 transition-[transform,filter] duration-700 ease-(--ease-reveal) group-hover:scale-105 group-hover:saturate-100"
+                    />
+                  ) : (
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 bg-[radial-gradient(120%_90%_at_80%_110%,#1d3aa0_0%,#0b1026_60%)]"
+                    />
+                  )}
+                  <span aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent" />
+                  <span aria-hidden="true" className="scanline absolute inset-x-0 top-0 h-px" />
+
+                  <span className="relative mt-auto flex flex-col gap-1.5 p-4">
+                    <span className="mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8eaaff]">
+                      {shown.feature.eyebrow}
+                    </span>
+                    <span className="text-[16px] font-bold leading-snug tracking-tight text-white">
+                      {shown.feature.title}
+                    </span>
+                    <span className="mt-1 inline-flex items-center gap-2 text-[12px] font-semibold text-white">
+                      {shown.feature.cta}
+                      <span className="grid size-5 place-items-center rounded-full bg-white text-black transition-transform duration-300 group-hover:rotate-45">
+                        <ArrowUpRight size={12} strokeWidth={2.5} />
+                      </span>
+                    </span>
+                  </span>
                 </Link>
+              )}
+              <Link href={shown.url} onClick={closeAll} className="snav-all">
+                {shown.more ?? `All ${shown.title.toLowerCase()}`}
+                <ArrowRight size={14} />
+              </Link>
+            </aside>
+          </div>
+        )}
+      </div>
+
+      {/* phone menu: the bar's own shape, grown to the screen */}
+      <div aria-hidden="true" data-open={menu ? "" : undefined} onClick={closeAll} className="mnav-scrim lg:hidden" />
+      <div
+        id="snav-menu"
+        data-open={menu ? "" : undefined}
+        inert={!menu}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        className="mnav lg:hidden"
+      >
+        <span className="mnav-scan" aria-hidden="true" />
+        <nav aria-label="Pages" className="mnav-body">
+          <ol>
+            {links.map((item, i) => {
+              const on = isActive(item.url);
+              const sub = unfolded === item.url;
+              return (
+                <li key={item.url} className="mnav-line border-b border-line" style={vars(i)}>
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={item.url}
+                      onClick={closeAll}
+                      aria-current={on ? "page" : undefined}
+                      className="flex flex-1 items-baseline gap-3.5 pb-3.5 pt-4 text-ink"
+                    >
+                      <span
+                        className={cn(
+                          "mono -translate-y-[0.45em] text-[11px] tabular-nums",
+                          on ? "text-brand-ink" : "text-ink-faint"
+                        )}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="mnav-t">
+                        {item.title}
+                        {on && (
+                          <span aria-hidden="true" className="ml-3 inline-block size-2 rounded-full bg-brand align-[0.35em]" />
+                        )}
+                      </span>
+                    </Link>
+                    {item.children && (
+                      <button
+                        type="button"
+                        onClick={() => setUnfolded(sub ? null : item.url)}
+                        aria-expanded={sub}
+                        aria-controls={`mnav-${i}`}
+                        aria-label={`${item.title}: ${sub ? "hide" : "show"} the list`}
+                        className="mnav-more"
+                      >
+                        <Plus size={20} />
+                      </button>
+                    )}
+                  </div>
+                  {item.children && (
+                    <div id={`mnav-${i}`} data-open={sub ? "" : undefined} inert={!sub} className="mnav-sub">
+                      <ul className="min-h-0 overflow-hidden pl-8">
+                        {item.children.map((child) => (
+                          <li key={child.url}>
+                            <Link
+                              href={child.url}
+                              onClick={closeAll}
+                              className="block py-2 text-[15px] text-ink-soft transition-colors hover:text-brand-ink"
+                            >
+                              {child.title}
+                            </Link>
+                          </li>
+                        ))}
+                        <li className="pb-3.5">
+                          <Link
+                            href={item.url}
+                            onClick={closeAll}
+                            className="block py-2 text-[15px] font-medium text-brand-ink"
+                          >
+                            {item.more ?? `All ${item.title.toLowerCase()}`}
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </li>
               );
             })}
+          </ol>
 
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="flex h-16 shrink-0 items-center gap-4 rounded-2xl border border-line bg-raised px-5 text-[17px] font-semibold text-ink"
+          <div className="mnav-line mt-auto grid gap-2.5 pt-7" style={vars(links.length)}>
+            <Link
+              href="/contact"
+              onClick={closeAll}
+              className="btn-solid flex h-[50px] items-center justify-between rounded-2xl px-5 text-[15px] font-semibold"
             >
-              <FaGithub size={22} />
-              github
-            </a>
+              Let&apos;s collaborate
+              <ArrowRight size={20} strokeWidth={2.5} />
+            </Link>
+            <div className="grid grid-cols-[1fr_1fr_auto] gap-2.5">
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-quiet flex h-[50px] items-center justify-center gap-2 rounded-2xl text-[15px] font-semibold"
+              >
+                <FaGithub size={17} />
+                GitHub
+              </a>
+              <a
+                href={RESUME_URL}
+                download
+                onClick={closeAll}
+                className="btn-quiet flex h-[50px] items-center justify-center gap-2 rounded-2xl text-[15px] font-semibold"
+              >
+                <Download size={17} strokeWidth={2} />
+                Resume
+              </a>
+              <ThemeToggle className="btn-quiet grid size-[50px] place-items-center rounded-2xl" />
+            </div>
+            <p aria-hidden="true" className="mt-1 text-center mono text-[11px] tracking-wider text-ink-faint">
+              Kathmandu · 27.72° N, 85.32° E
+            </p>
           </div>
-
-          <div className="my-6 h-px shrink-0 bg-line" />
-
-          <Link
-            href="/contact"
-            onClick={closeAll}
-            className="flex h-16 shrink-0 items-center justify-between rounded-2xl border border-line bg-raised px-5 text-[17px] font-semibold text-ink"
-          >
-            status
-            <span className="rounded-full bg-(--ok-soft) px-2.5 py-1 text-[12px] font-bold text-ok-ink">
-              open
-            </span>
-          </Link>
-
-          <div className="my-6 h-px shrink-0 bg-line" />
-
-          <a
-            href={RESUME_URL}
-            download
-            onClick={closeAll}
-            className="btn-solid flex h-16 shrink-0 items-center gap-4 rounded-2xl px-5 text-[17px] font-bold"
-          >
-            <Download size={22} strokeWidth={2} />
-            resume
-          </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* the bar is fixed, this keeps page content clear of it */}
-      <div aria-hidden="true" className="h-20 sm:h-22" />
+        </nav>
+      </div>
     </>
   );
 };

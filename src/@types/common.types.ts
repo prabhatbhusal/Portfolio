@@ -12,14 +12,6 @@ interface Stack {
   lang: string;
 }
 
-export interface ProcessStep {
-  id: number;
-  step: string;
-  title: string;
-  description: string;
-  icon: LucideIcon | IconType;
-}
-
 export interface FaqItem {
   id: number;
   question: string;
@@ -32,17 +24,6 @@ export interface TechItem {
   icon: LucideIcon | IconType;
 }
 
-export interface BlogPost {
-  id: number;
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  tags: string[];
-  readingTime: string;
-  body: string[];
-}
-
 export interface DisciplineItem {
   id: number;
   title: string;
@@ -50,6 +31,8 @@ export interface DisciplineItem {
   description: string;
   tools: string[];
   icon: LucideIcon | IconType;
+  /** the object the disciplines turntable brings round for it */
+  model: "d20" | "code" | "globe";
 }
 
 export interface ServiceItem {
@@ -66,9 +49,7 @@ export interface GalleryItem {
   title: string;
   location: string;
   date: string;
-  src: string;
-  width: number;
-  height: number;
+  image: GameShot;
 }
 
 export interface WorkProject {
@@ -85,8 +66,10 @@ export interface WorkProject {
   title: string
   description: string
   skills: string[]
-  github: string
+  github: string | null
   live: string | null;
+  /* optional — shown in the navbar's work panel and on the detail page */
+  cover?: GameShot;
 }
 
 export interface Testimonial {

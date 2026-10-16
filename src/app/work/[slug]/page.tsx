@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { workprojects } from "@/lib/constants/data";
+import { getProjects } from "@/server/content";
 import FactGrid from "@/components/props/FactGrid";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema, projectSchema } from "@/lib/seo/schema";
@@ -14,16 +14,14 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// a static export serves only the slugs listed below; anything else is a 404
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return workprojects.map((project) => ({ slug: project.slug }));
+// prerendered at build; a project added later renders on first visit
+export async function generateStaticParams() {
+  return (await getProjects()).map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = workprojects.find((item) => item.slug === slug);
+  const project = (await getProjects()).find((item) => item.slug === slug);
 
   if (!project) return { title: "Not found" };
 
@@ -36,6 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const Page = async ({ params }: Props) => {
   const { slug } = await params;
+  const workprojects = await getProjects();
   const project = workprojects.find((item) => item.slug === slug);
 
   if (!project) notFound();

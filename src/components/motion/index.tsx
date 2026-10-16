@@ -1,11 +1,19 @@
 "use client";
 
-import React from "react";
-import { motion, type Transition, type Variants } from "motion/react";
+import React, { useRef } from "react";
+import {
+  motion,
+  transform,
+  useScroll,
+  useTransform,
+  type MotionValue,
+  type Transition,
+  type Variants,
+} from "motion/react";
 
-/* the same curve the css animations use, so motion-driven and css-driven
-   movement on the page read as one system */
-export const ease = [0.22, 0.7, 0.25, 1] as const;
+/* --ease-reveal in globals.css, so motion-driven and css-driven movement
+   read as one system: a fast start and a long, soft landing */
+export const ease = [0.16, 1, 0.3, 1] as const;
 
 /* cards lift on hover. this used to be `.lift` in css — motion owns the
    transform now so the two never fight over the same property */
@@ -41,8 +49,8 @@ export const Reveal = ({
   children,
   className = "",
   delay = 0,
-  y = 24,
-  duration = 0.8,
+  y = 40,
+  duration = 0.9,
   amount = 0.2,
   once = true,
 }: RevealProps) => (
@@ -114,8 +122,8 @@ interface StaggerItemProps extends Omit<Common, "delay"> {
 export const StaggerItem = ({
   children,
   className = "",
-  y = 18,
-  duration = 0.5,
+  y = 24,
+  duration = 0.7,
   hover = false,
 }: StaggerItemProps) => {
   const variants: Variants = {
@@ -155,5 +163,35 @@ export const Lift = ({ children, className = "" }: Omit<Common, "delay">) => (
     {children}
   </motion.div>
 );
+
+/* ------------------------------------------------------------------ *
+ * ScrollFade — content that drifts up, shrinks a touch and fades as its
+ * section scrolls away, so the next one reads as sliding over it
+ * ------------------------------------------------------------------ */
+
+/* scroll progress mapped onto a range, clamped. this is useTransform in its
+   function form on purpose: the array form gets handed to the browser's
+   ViewTimeline when motion thinks it can, and for a target taller than the
+   viewport that path maps the range wrong (values lag, then snap back to
+   the start once the target scrolls past). the function form always runs
+   in js, on motion's own frame loop, and is exact */
+export const useRange = (value: MotionValue<number>, input: number[], output: number[]) =>
+  useTransform(value, (v) => transform(v, input, output));
+
+export const ScrollFade = ({ children, className = "" }: Omit<Common, "delay">) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const opacity = useRange(scrollYProgress, [0, 0.6], [1, 0]);
+  const y = useRange(scrollYProgress, [0, 1], [0, -120]);
+  const scale = useRange(scrollYProgress, [0, 1], [1, 0.94]);
+
+  return (
+    <div ref={ref} className={className}>
+      <motion.div style={{ opacity, y, scale }} className="flex size-full">
+        {children}
+      </motion.div>
+    </div>
+  );
+};
 
 export default Reveal;

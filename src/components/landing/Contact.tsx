@@ -2,11 +2,12 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 
 import { contactdata } from "@/lib/constants/data";
-import Reveal from "../props/Reveal";
+import { author } from "@/lib/seo/site";
+import { Reveal } from "../motion";
 import LocalTime from "../ui/LocalTime";
 import ContactForm from "./ContactForm";
 
-const EMAIL = "prabhatbhusal777@gmail.com";
+const EMAIL = author.email;
 
 interface ContactProps {
   // off on the /contact page, which has its own masthead
@@ -19,7 +20,7 @@ const Contact = ({ heading = true }: ContactProps) => {
   );
 
   return (
-    <section className="relative isolate overflow-hidden">
+    <section id="contact" className="relative isolate overflow-hidden">
       <span aria-hidden="true" className="aurora" />
 
       <div className="rail py-16 md:py-24">
@@ -39,7 +40,7 @@ const Contact = ({ heading = true }: ContactProps) => {
             <Reveal delay={80}>
               <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ink-soft md:text-base">
                 Open to full-stack and geospatial work, freelance or full time.
-                Tell me what you are building .
+                Tell me what you are building.
               </p>
             </Reveal>
 
@@ -92,7 +93,7 @@ const Contact = ({ heading = true }: ContactProps) => {
                       key={item.id}
                       href={item.url}
                       target={external ? "_blank" : undefined}
-                      rel={external ? "noreferrer" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
                       className="btn-quiet lift group inline-flex h-11 items-center gap-2.5 rounded-full px-4 text-[13px] font-semibold"
                     >
                       <Icon size={15} strokeWidth={1.8} />
@@ -116,7 +117,7 @@ const Contact = ({ heading = true }: ContactProps) => {
                 <h3 className="display text-xl font-bold text-ink md:text-2xl">
                   Let&apos;s collaborate
                 </h3>
-                <span className="text-[11px] leading-relaxed uppercase  font-semibold text-ink-faint">
+                <span className="text-[11px] font-semibold uppercase leading-relaxed text-ink-faint">
                   4 fields
                 </span>
               </div>

@@ -3,9 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Quote } from "lucide-react";
 
-import type { Testimonial } from "@/@types/common.types";
-import { testimonialsdata, workprojects } from "@/lib/constants/data";
-import Reveal from "../props/Reveal";
+import type { Testimonial, WorkProject } from "@/@types/common.types";
+import { testimonialsdata } from "@/lib/constants/data";
+import { getProjects } from "@/server/content";
+import { Reveal } from "../motion";
 import DragMarquee from "../motion/DragMarquee";
 
 /* slower than the tools row — these are sentences, not logos */
@@ -21,8 +22,8 @@ const initialsOf = (item: Testimonial) =>
     .join("")
     .toUpperCase();
 
-const Card = ({ item }: { item: Testimonial }) => {
-  const project = workprojects.find((entry) => entry.slug === item.projectSlug);
+const Card = ({ item, projects }: { item: Testimonial; projects: WorkProject[] }) => {
+  const project = projects.find((entry) => entry.slug === item.projectSlug);
 
   return (
     <figure className="surface lift flex h-full w-[min(84vw,30rem)] shrink-0 flex-col rounded-[28px] p-8 md:p-10">
@@ -108,15 +109,16 @@ const Card = ({ item }: { item: Testimonial }) => {
   );
 };
 
-const Testimonials = () => {
+const Testimonials = async () => {
   if (testimonialsdata.length === 0) return null;
+  const projects = await getProjects();
 
   /* a row that scrolls needs something to scroll past. with one quote the
      marquee would just show the same card twice, so it sits still instead */
   const single = testimonialsdata.length === 1;
 
   return (
-    <section className="py-16 md:py-24">
+    <section id="testimonials" className="py-16 md:py-24">
       <div className="rail">
         <div className="hairline mb-16 md:mb-24" />
 
@@ -134,7 +136,7 @@ const Testimonials = () => {
 
         {single && (
           <Reveal className="mt-12" delay={80}>
-            <Card item={testimonialsdata[0]} />
+            <Card item={testimonialsdata[0]} projects={projects} />
           </Reveal>
         )}
       </div>
@@ -143,7 +145,7 @@ const Testimonials = () => {
       {!single && (
         <DragMarquee className="mt-12" speed={SPEED} gap="gap-4" pauseOnHover>
           {testimonialsdata.map((item) => (
-            <Card key={item.id} item={item} />
+            <Card key={item.id} item={item} projects={projects} />
           ))}
         </DragMarquee>
       )}

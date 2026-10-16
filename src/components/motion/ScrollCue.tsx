@@ -2,11 +2,10 @@
 
 import { motion } from "motion/react";
 import ScrollLink from "./ScrollLink";
+import { ease } from ".";
 
 /* one lap of the segment around the capsule, and one draw of the arrow */
 const LOOP = 2.6;
-
-const ease = [0.22, 0.7, 0.25, 1] as const;
 
 /* stem first, then the head — one path so the two draw as a single stroke */
 const ARROW = "M14 15.5 L14 27.5 M9.6 23 L14 27.5 L18.4 23";

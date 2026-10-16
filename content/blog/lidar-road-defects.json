@@ -1,0 +1,29 @@
+{
+  "slug": "lidar-road-defects",
+  "title": "What LiDAR taught me about road defects",
+  "excerpt": "My undergraduate thesis put point clouds and YOLOv8 in the same pipeline. Most of the work was not the model.",
+  "date": "2025-11-08",
+  "tags": [
+    "LiDAR",
+    "YOLOv8",
+    "thesis"
+  ],
+  "blocks": [
+    {
+      "type": "p",
+      "text": "The thesis was about automated road condition monitoring: take LiDAR scans of a road, find the defects, and produce something a maintenance team can act on. The model was the part everyone asked about. It was not the part that took the time."
+    },
+    {
+      "type": "p",
+      "text": "Point clouds do not arrive ready to classify. Before YOLOv8 sees anything, the cloud has to be filtered, the road surface separated from everything beside it, and the result rasterised into an image the detector can work with. Each of those steps has decisions in it that change the final numbers more than the model architecture does."
+    },
+    {
+      "type": "p",
+      "text": "Training took 2.34 hours across 754,391 points and landed at a PSNR of 24.31. Respectable for an undergraduate project, and much less interesting than the fact that the output exports cleanly as GIS layers."
+    },
+    {
+      "type": "p",
+      "text": "That last part is the whole point. A model that emits bounding boxes in image space is a demo. A model whose output lands in a GIS as georeferenced defect polygons is something a municipality can put on a map and send a crew to."
+    }
+  ]
+}

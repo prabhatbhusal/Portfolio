@@ -4,11 +4,10 @@ export const siteUrl = "https://www.prabhatbhusal.com.np";
 
 export const siteName = "Prabhat Bhusal";
 
-export const siteTitle =
-  "Prabhat Bhusal | Full-stack Developer & Geomatics Engineer";
+export const siteTitle = "Prabhat Bhusal | Game Developer & Full-stack Engineer";
 
 export const siteDescription =
-  "Portfolio of Prabhat Bhusal — full-stack developer and Geomatics Engineer building web applications with React, Next.js, Django and spatial data.";
+  "Portfolio of Prabhat Bhusal — game developer building gameplay systems and tools in Unity and Unreal Engine, with the full-stack web and geomatics background to ship them.";
 
 export const siteLocale = "en_US";
 
@@ -18,12 +17,12 @@ export const ogImage = {
   type: "image/png",
   width: 1200,
   height: 630,
-  alt: "Prabhat Bhusal — Full-stack Developer & Geomatics Engineer",
+  alt: "Prabhat Bhusal — Game Developer & Full-stack Engineer",
 };
 
 export const author = {
   name: "Prabhat Bhusal",
-  jobTitle: "Full-stack Developer & Geomatics Engineer",
+  jobTitle: "Game Developer & Full-stack Engineer",
   email: "prabhatbhusal777@gmail.com",
   location: "Kathmandu, Nepal",
   // profiles google uses to tie the site to a real person
@@ -35,6 +34,11 @@ export const author = {
 
 export const siteKeywords = [
   "Prabhat Bhusal",
+  "game developer",
+  "Unity developer",
+  "Unreal Engine developer",
+  "gameplay programmer",
+  "game developer Nepal",
   "full-stack developer",
   "geomatics engineer",
   "WebGIS developer",
@@ -50,3 +54,11 @@ export const siteKeywords = [
 /** absolute url for a site-relative path — sitemap, og tags and JSON-LD all need one */
 export const absoluteUrl = (path = "/") =>
   path === "/" ? siteUrl : `${siteUrl}${path}`;
+
+/** the repo the blog admin commits posts into. pushing to the branch
+ *  triggers the pages workflow, which rebuilds and deploys the site */
+export const repo = {
+  owner: "prabhatbhusal",
+  name: "Portfolio",
+  branch: "main",
+};

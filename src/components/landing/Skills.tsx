@@ -2,28 +2,26 @@ import React from "react";
 import Link from "next/link";
 import { Check, Lock } from "lucide-react";
 
-import type { SkillArea } from "@/@types/common.types";
+import type { SkillArea, SkillUnlock } from "@/@types/common.types";
 import {
   skillAreaLabel,
   skillAreaOrder,
   skillpursuits,
-  skillunlocks,
+  deriveUnlocks,
 } from "@/lib/constants/data";
+import { getGames, getProjects } from "@/server/content";
 import { Stagger, StaggerItem } from "../motion";
-import Reveal from "../props/Reveal";
+import { Reveal } from "../motion";
 
 interface SkillsProps {
   // the /skills page already has a masthead, so it turns this off
   heading?: boolean;
 }
 
-const unlocked = skillunlocks.length;
-const total = unlocked + skillpursuits.length;
-const percent = Math.round((unlocked / total) * 100);
 
 /* an unlock is only listed once something has shipped with it, so the row
    always has a project to point at */
-const Unlocked = ({ item }: { item: (typeof skillunlocks)[number] }) => (
+const Unlocked = ({ item }: { item: SkillUnlock }) => (
   <div className="surface group/row relative flex items-center gap-3.5 rounded-xl px-4 py-3.5">
     <span className="borderbg brand-bg grid size-9 shrink-0 place-items-center rounded-[10px] text-brand-ink">
       <Check size={14} strokeWidth={3} />
@@ -77,9 +75,14 @@ const Locked = ({ item }: { item: (typeof skillpursuits)[number] }) => (
   </div>
 );
 
-const Skills = ({ heading = true }: SkillsProps) => {
+const Skills = async ({ heading = true }: SkillsProps) => {
+  const skillunlocks = deriveUnlocks(await getProjects(), await getGames());
+  const unlocked = skillunlocks.length;
+  const total = unlocked + skillpursuits.length;
+  const percent = Math.round((unlocked / total) * 100);
+
   return (
-    <section className="rail py-16 md:py-24">
+    <section id="skills" className="rail py-16 md:py-24">
       {heading && <div className="hairline mb-16 md:mb-24" />}
 
       {heading && (

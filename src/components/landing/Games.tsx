@@ -4,19 +4,20 @@ import { ArrowUpRight } from "lucide-react";
 
 import GameCard from "../props/GameCard";
 import { Stagger, StaggerItem } from "../motion";
-import { gamesdata } from "@/lib/constants/data";
+import { getGames } from "@/server/content";
 
-const Games = () => {
+const Games = async () => {
+  const gamesdata = await getGames();
   if (gamesdata.length === 0) return null;
 
   return (
-    <section className="rail py-16 md:py-24">
+    <section id="games" className="rail py-16 md:py-24">
       <div className="hairline mb-16 md:mb-24" />
 
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col items-start gap-5">
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-            Games I have shipped
+            Games I am building
           </h2>
           <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
             PC builds where the engine work is the point — terrain tooling,

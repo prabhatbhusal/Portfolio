@@ -9,7 +9,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
-    "Get in touch with Prabhat Bhusal — full-stack developer and Geomatics Engineer based in Kathmandu.",
+    "Get in touch with Prabhat Bhusal — game developer and full-stack engineer based in Kathmandu.",
   path: "/contact",
 });
 
@@ -18,7 +18,7 @@ const Page = () => {
     <main>
       <PagesBanner
         title="Contact"
-        desc="Open to full-stack and geospatial work, freelance or full time. Tell me what you are building."
+        desc="Open to game development, full-stack and geospatial work, freelance or full time. Tell me what you are building."
       />
       <Contact heading={false} />
       <Faq />

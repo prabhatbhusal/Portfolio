@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { servicesdata } from "@/lib/constants/data";
-import Reveal from "../props/Reveal";
+import { Reveal } from "../motion";
 import { Stagger, StaggerItem } from "../motion";
 
 const Services = () => {

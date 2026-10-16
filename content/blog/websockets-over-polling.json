@@ -1,0 +1,29 @@
+{
+  "slug": "websockets-over-polling",
+  "title": "Why I stopped polling for live positions",
+  "excerpt": "Polling every two seconds is easy to write and expensive to run. Moving rider tracking onto WebSockets changed the shape of the whole app.",
+  "date": "2026-01-27",
+  "tags": [
+    "WebSocket",
+    "Django",
+    "architecture"
+  ],
+  "blocks": [
+    {
+      "type": "p",
+      "text": "The first version of live tracking polled an endpoint every two seconds. Every client, all the time, whether or not anything had moved. It is the obvious thing to build and it is quietly terrible."
+    },
+    {
+      "type": "p",
+      "text": "The cost is not just requests per second. It is that your map is always somewhere between zero and two seconds stale, and you cannot tell which. The interface ends up feeling laggy in a way that no amount of animation smoothing fixes."
+    },
+    {
+      "type": "p",
+      "text": "Switching to WebSockets inverted it. Riders push position updates, the server fans them out to the clients watching that order, and the map updates when something actually changes."
+    },
+    {
+      "type": "p",
+      "text": "The interesting consequence was on the front end. Once updates arrive as events rather than snapshots, you stop re-rendering the whole layer and start moving individual markers. Splitting the Leaflet layers by concern — riders, routes, zones — meant each one could update on its own without touching the others."
+    }
+  ]
+}

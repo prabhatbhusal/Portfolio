@@ -1,0 +1,153 @@
+[
+  {
+    "slug": "food-delivery-webgis",
+    "year": "2025",
+    "role": "Design, frontend and backend",
+    "highlights": [
+      "Rider positions stream over WebSockets instead of polling, so the map stays live without hammering the API.",
+      "Nearest-rider matching runs as a PostGIS spatial query with a GiST index, not a distance loop in Python.",
+      "Leaflet layers are split by concern — riders, routes, delivery zones — so each can update independently."
+    ],
+    "stack": "Full Stack",
+    "sector": "GIS",
+    "badge": "geospatial",
+    "featured": true,
+    "title": "Food Delivery WebGIS APP",
+    "description": "Real-time position tracking for a food delivery platform. Riders locations update live on an interactive map using WebSockets. Spatial queries powered by PostGIS for nearest-rider matching.",
+    "skills": [
+      "React",
+      "Django",
+      "PostGIS",
+      "Leaflet",
+      "WebSocket",
+      "PostgreSQL"
+    ],
+    "github": "https://github.com/prabhatbhusal/food-delivery",
+    "live": null
+  },
+  {
+    "slug": "padel-shot-classification",
+    "year": "2025",
+    "role": "Computer vision pipeline",
+    "highlights": [
+      "YOLOv8 detects players and ball per frame; MOG2 background subtraction cleans up the court.",
+      "A Kalman filter smooths tracking through occlusion, which is where naive frame-to-frame tracking falls apart.",
+      "Shots are classified from the resulting trajectory rather than from single frames."
+    ],
+    "stack": "ML",
+    "sector": "Computer Vision",
+    "badge": "machine learning",
+    "featured": false,
+    "title": "Padel Shot Classification",
+    "description": "AI shot classifier from video using YOLOv8 object detection, MOG2 background subtraction and Kalman filter for stable player tracking.",
+    "skills": [
+      "YOLOv8",
+      "OpenCV",
+      "Python",
+      "Kalman filter",
+      "MOG2"
+    ],
+    "github": "https://github.com/prabhatbhusal/shot-classification",
+    "live": null
+  },
+  {
+    "slug": "automax-ecommerce",
+    "year": "2026",
+    "role": "Full stack",
+    "highlights": [
+      "JWT auth with refresh rotation, and an admin dashboard scoped by role.",
+      "Khalti payment integration handled server side so no key ever reaches the browser.",
+      "Product listing and cart state built to survive a page reload."
+    ],
+    "stack": "Full Stack",
+    "sector": "Ecommerce",
+    "badge": "in progress",
+    "featured": false,
+    "title": "Automax Ecommerce Platform",
+    "description": "Full-stack ecommerce platform with product listings, cart, JWT auth, admin dashboard and Khalti payment integration.",
+    "skills": [
+      "Next.js",
+      "TypeScript",
+      "Django",
+      "DRF",
+      "Khalti",
+      "PostgreSQL"
+    ],
+    "github": "https://github.com/prabhatbhusal/automax",
+    "live": null
+  },
+  {
+    "slug": "lidar-road-monitor",
+    "year": "2024",
+    "role": "Undergraduate thesis",
+    "highlights": [
+      "LiDAR point clouds processed into road surface rasters ready for detection.",
+      "YOLOv8 trained to classify defect types — cracking, ravelling, potholes.",
+      "Output exported as GIS layers so a maintenance team can act on it directly."
+    ],
+    "stack": "ML",
+    "sector": "Research",
+    "badge": "thesis",
+    "featured": false,
+    "title": "LiDAR Road Condition Monitor",
+    "description": "Undergraduate thesis. LiDAR point cloud processing pipeline with YOLOv8 for automated road defect classification and monitoring.",
+    "skills": [
+      "LiDAR",
+      "YOLOv8",
+      "Point Cloud",
+      "Python",
+      "GIS"
+    ],
+    "github": null,
+    "live": "https://researchgate.net"
+  },
+  {
+    "slug": "bhumlu-construction",
+    "year": "2025",
+    "role": "Design and build",
+    "highlights": [
+      "Project portfolio built as structured data, so adding a completed job is one entry.",
+      "Enquiry flow kept to the few fields a site manager will actually fill in.",
+      "Image-heavy pages held to a real performance budget on Nepali mobile connections."
+    ],
+    "stack": "Full Stack",
+    "sector": "Construction",
+    "badge": "client work",
+    "featured": false,
+    "title": "Bhumlu Construction",
+    "description": "Marketing and project-portfolio site for Bhumlu Construction. Services, completed works with galleries, and an enquiry flow that reaches the right person.",
+    "skills": [
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS",
+      "Django",
+      "PostgreSQL"
+    ],
+    "github": null,
+    "live": "https://bhumluconstruction.com.np"
+  },
+  {
+    "slug": "url-shortener",
+    "year": "2025",
+    "role": "Full stack",
+    "highlights": [
+      "Short codes generated from a base62 counter rather than random strings, so there are no collisions to retry.",
+      "Redirects resolve on a single indexed lookup and nothing else sits in that path.",
+      "Click counts recorded without blocking the redirect the visitor is waiting on."
+    ],
+    "stack": "Full Stack",
+    "sector": "Web",
+    "badge": "tooling",
+    "featured": false,
+    "title": "URL Shortener",
+    "description": "A small, fast URL shortening service. Custom short codes, click tracking, and a redirect path kept deliberately boring so it stays quick.",
+    "skills": [
+      "React",
+      "Django",
+      "PostgreSQL",
+      "REST API"
+    ],
+    "github": "https://github.com/prabhatbhusal/url-shortener",
+    "live": null
+  }
+]

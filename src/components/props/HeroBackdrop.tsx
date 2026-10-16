@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useId } from "react";
 
 /*
   Decorative backdrop. A triangulated irregular network is the one shape
@@ -53,6 +53,9 @@ const cloud = [
 ];
 
 const HeroBackdrop = ({ className = "" }: { className?: string }) => {
+  // unique per instance: the page draws this more than once, and duplicate
+  // mask ids break rendering when an earlier copy is display:none
+  const id = useId().replace(/\W/g, "");
   const edges: string[] = [];
 
   rows.forEach((row, r) => {
@@ -87,18 +90,18 @@ const HeroBackdrop = ({ className = "" }: { className?: string }) => {
     >
       <defs>
         {/* fades the whole thing out at the edges so it never fights the text */}
-        <radialGradient id="hb-fade" cx="50%" cy="45%" r="62%">
+        <radialGradient id={`${id}-fade`} cx="50%" cy="45%" r="62%">
           <stop offset="0%" stopColor="white" stopOpacity="1" />
           <stop offset="60%" stopColor="white" stopOpacity="0.55" />
           <stop offset="100%" stopColor="white" stopOpacity="0" />
         </radialGradient>
 
-        <mask id="hb-mask">
-          <rect width="820" height="580" fill="url(#hb-fade)" />
+        <mask id={`${id}-mask`}>
+          <rect width="820" height="580" fill={`url(#${id}-fade)`} />
         </mask>
 
         <pattern
-          id="hb-grid"
+          id={`${id}-grid`}
           width="41"
           height="41"
           patternUnits="userSpaceOnUse"
@@ -112,9 +115,9 @@ const HeroBackdrop = ({ className = "" }: { className?: string }) => {
         </pattern>
       </defs>
 
-      <g mask="url(#hb-mask)" className="text-ink-faint">
+      <g mask={`url(#${id}-mask)`} className="text-ink-faint">
         {/* graticule */}
-        <rect width="820" height="580" fill="url(#hb-grid)" />
+        <rect width="820" height="580" fill={`url(#${id}-grid)`} />
 
         <g className="mesh-drift">
           {/* contours, drawn as a slow scan */}

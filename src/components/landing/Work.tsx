@@ -2,16 +2,16 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { workprojects } from "@/lib/constants/data";
+import { getProjects } from "@/server/content";
 import WorkRow from "../props/WorkRow";
 import { Stagger, StaggerItem } from "../motion";
 
-/* the homepage shows the top of the index and hands off to /work */
-const shown = workprojects.slice(0, 4);
 
-const Work = () => {
+const Work = async () => {
+  // the homepage shows the top of the index and hands off to /work
+  const shown = (await getProjects()).slice(0, 4);
   return (
-    <section className="rail py-16 md:py-24">
+    <section id="work" className="rail py-16 md:py-24">
       <div className="hairline mb-16 md:mb-24" />
 
       <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">

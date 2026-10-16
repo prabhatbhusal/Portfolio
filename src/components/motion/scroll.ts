@@ -1,11 +1,11 @@
 "use client";
 
 import { animate } from "motion/react";
+import { ease } from ".";
 
-/* matches scroll-padding-top, so a section never lands under the navbar */
-const NAV_OFFSET = 96;
-
-const ease = [0.22, 0.7, 0.25, 1] as const;
+/* matches scroll-padding-top, so a section never lands under the navbar
+   and the section nav below it */
+const NAV_OFFSET = 136;
 
 /* resolves a css selector, or "top", to a document offset */
 const resolve = (target: string) => {

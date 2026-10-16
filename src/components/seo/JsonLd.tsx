@@ -5,12 +5,14 @@ type Props = {
   data: Record<string, unknown>;
 };
 
-/* structured data is invisible markup, so it is safe to inject as a script.
-   the payload is built in our own code, never from user input. */
+/* post titles and tags end up in here, and they come from uploaded files.
+   JSON.stringify does not escape "<", so a title containing </script> would
+   close this tag and run whatever followed. the json escape for "<" keeps
+   the data identical for parsers and inert for the html tokenizer */
 const JsonLd = ({ data }: Props) => (
   <script
     type="application/ld+json"
-    dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }}
   />
 );
 

@@ -3,18 +3,12 @@ import {
   MapPin,
   FileText,
   Phone,
-  Briefcase,
-  Layers,
   MonitorSmartphone,
   Server,
   Globe2,
   Gamepad2,
-  Compass,
   Boxes,
   Code2,
-  Rocket,
-  Newspaper,
-  Images,
   Map,
   Radar,
   ScanEye,
@@ -39,19 +33,15 @@ import {
 } from "react-icons/si";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
-import { NavItem } from "@/@types/navbar.types";
 import {
   SkillsData,
-  WorkProject,
   SkillArea,
   SkillUnlock,
   SkillPursuit,
-  ProcessStep,
+  WorkProject,
+  GameItem,
   FaqItem,
   TechItem,
-  BlogPost,
-  GalleryItem,
-  GameItem,
   ServiceItem,
   DisciplineItem,
   Testimonial,
@@ -244,153 +234,11 @@ export const contactdata: ContactData[] = [
   },
 ];
 
-export const workprojects: WorkProject[] = [
-  {
-    id: 1,
-    slug: "food-delivery-webgis",
-    year: "2025",
-    role: "Design, frontend and backend",
-    highlights: [
-      "Rider positions stream over WebSockets instead of polling, so the map stays live without hammering the API.",
-      "Nearest-rider matching runs as a PostGIS spatial query with a GiST index, not a distance loop in Python.",
-      "Leaflet layers are split by concern — riders, routes, delivery zones — so each can update independently.",
-    ],
-    index: "01",
-    stack: "Full Stack",
-    sector: "GIS",
-    badge: "geospatial",
-    featured: true,
-    title: "Food Delivery WebGIS APP",
-    description:
-      "Real-time position tracking for a food delivery platform. Riders locations update live on an interactive map using WebSockets. Spatial queries powered by PostGIS for nearest-rider matching.",
-    skills: [
-      "React",
-      "Django",
-      "PostGIS",
-      "Leaflet",
-      "WebSocket",
-      "PostgreSQL",
-    ],
-    github: "https://github.com/prabhatbhusal/food-delivery",
-    live: null,
-  },
-  {
-    id: 2,
-    slug: "padel-shot-classification",
-    year: "2025",
-    role: "Computer vision pipeline",
-    highlights: [
-      "YOLOv8 detects players and ball per frame; MOG2 background subtraction cleans up the court.",
-      "A Kalman filter smooths tracking through occlusion, which is where naive frame-to-frame tracking falls apart.",
-      "Shots are classified from the resulting trajectory rather than from single frames.",
-    ],
-    index: "02",
-    stack: "ML",
-    sector: "Computer Vision",
-    badge: "machine learning",
-    featured: false,
-    title: "Padel Shot Classification",
-    description:
-      "AI shot classifier from video using YOLOv8 object detection, MOG2 background subtraction and Kalman filter for stable player tracking.",
-    skills: ["YOLOv8", "OpenCV", "Python", "Kalman filter", "MOG2"],
-    github: "https://github.com/prabhatbhusal/shot-classification",
-    live: null,
-  },
-  {
-    id: 3,
-    slug: "automax-ecommerce",
-    year: "2026",
-    role: "Full stack",
-    highlights: [
-      "JWT auth with refresh rotation, and an admin dashboard scoped by role.",
-      "Khalti payment integration handled server side so no key ever reaches the browser.",
-      "Product listing and cart state built to survive a page reload.",
-    ],
-    index: "03",
-    stack: "Full Stack",
-    sector: "Ecommerce",
-    badge: "in progress",
-    featured: false,
-    title: "Automax Ecommerce Platform",
-    description:
-      "Full-stack ecommerce platform with product listings, cart, JWT auth, admin dashboard and Khalti payment integration.",
-    skills: ["Next.js", "TypeScript", "Django", "DRF", "Khalti", "PostgreSQL"],
-    github: "https://github.com/prabhatbhusal/automax",
-    live: null,
-  },
-  {
-    id: 4,
-    slug: "lidar-road-monitor",
-    year: "2024",
-    role: "Undergraduate thesis",
-    highlights: [
-      "LiDAR point clouds processed into road surface rasters ready for detection.",
-      "YOLOv8 trained to classify defect types — cracking, ravelling, potholes.",
-      "Output exported as GIS layers so a maintenance team can act on it directly.",
-    ],
-    index: "04",
-    stack: "ML",
-    sector: "Research",
-    badge: "thesis",
-    featured: false,
-    title: "LiDAR Road Condition Monitor",
-    description:
-      "Undergraduate thesis. LiDAR point cloud processing pipeline with YOLOv8 for automated road defect classification and monitoring.",
-    skills: ["LiDAR", "YOLOv8", "Point Cloud", "Python", "GIS"],
-    github: "",
-    live: "https://researchgate.net",
-  },
-  {
-    id: 5,
-    slug: "bhumlu-construction",
-    year: "2025",
-    role: "Design and build",
-    highlights: [
-      "Project portfolio built as structured data, so adding a completed job is one entry.",
-      "Enquiry flow kept to the few fields a site manager will actually fill in.",
-      "Image-heavy pages held to a real performance budget on Nepali mobile connections.",
-    ],
-    index: "05",
-    stack: "Full Stack",
-    sector: "Construction",
-    badge: "client work",
-    featured: false,
-    title: "Bhumlu Construction",
-    description:
-      "Marketing and project-portfolio site for Bhumlu Construction. Services, completed works with galleries, and an enquiry flow that reaches the right person.",
-    skills: ["Next.js", "TypeScript", "TailwindCSS", "Django", "PostgreSQL"],
-    github: "",
-    live: "https://bhumluconstruction.com.np",
-  },
-
-  {
-    id: 6,
-    slug: "url-shortener",
-    year: "2025",
-    role: "Full stack",
-    highlights: [
-      "Short codes generated from a base62 counter rather than random strings, so there are no collisions to retry.",
-      "Redirects resolve on a single indexed lookup and nothing else sits in that path.",
-      "Click counts recorded without blocking the redirect the visitor is waiting on.",
-    ],
-    index: "06",
-    stack: "Full Stack",
-    sector: "Web",
-    badge: "tooling",
-    featured: false,
-    title: "URL Shortener",
-    description:
-      "A small, fast URL shortening service. Custom short codes, click tracking, and a redirect path kept deliberately boring so it stays quick.",
-    skills: ["React", "Django", "PostgreSQL", "REST API"],
-    github: "https://github.com/prabhatbhusal/url-shortener",
-    live: null,
-  },
-];
-
-
-
-
 export const techstack: TechItem[] = [
+  { id: 12, name: "Unity", icon: SiUnity },
+  { id: 13, name: "Unreal Engine", icon: SiUnrealengine },
+  { id: 14, name: "Digital Twin", icon: Boxes },
+  { id: 15, name: "Gaussian Splatting", icon: Sparkles },
   { id: 1, name: "React", icon: SiReact },
   { id: 2, name: "Next.js", icon: SiNextdotjs },
   { id: 3, name: "TypeScript", icon: SiTypescript },
@@ -402,45 +250,6 @@ export const techstack: TechItem[] = [
   { id: 9, name: "OpenCV", icon: SiOpencv },
   { id: 10, name: "Leaflet", icon: SiLeaflet },
   { id: 11, name: "QGIS", icon: SiQgis },
-  { id: 12, name: "Unity", icon: SiUnity },
-  { id: 13, name: "Unreal Engine", icon: SiUnrealengine },
-  { id: 14, name: "Digital Twin", icon: Boxes },
-  { id: 15, name: "Gaussian Splatting", icon: Sparkles },
-];
-
-export const processdata: ProcessStep[] = [
-  {
-    id: 1,
-    step: "01",
-    title: "Scope it",
-    description:
-      "We agree on what the thing actually needs to do before a line of code exists. Fewer features, clearer ones.",
-    icon: Compass,
-  },
-  {
-    id: 2,
-    step: "02",
-    title: "Design the data",
-    description:
-      "Models, endpoints and spatial schema first. Get this right and the interface almost writes itself.",
-    icon: Boxes,
-  },
-  {
-    id: 3,
-    step: "03",
-    title: "Build in the open",
-    description:
-      "Small commits, working deploys early. You see progress every week rather than at the end.",
-    icon: Code2,
-  },
-  {
-    id: 4,
-    step: "04",
-    title: "Ship and hand over",
-    description:
-      "Dockerised, documented and yours. No black boxes and nothing that only I can maintain.",
-    icon: Rocket,
-  },
 ];
 
 export const faqdata: FaqItem[] = [
@@ -448,19 +257,19 @@ export const faqdata: FaqItem[] = [
     id: 1,
     question: "What kind of work are you available for?",
     answer:
-      "Full-stack web projects and geospatial work — freelance, contract or full time. I am based in Kathmandu and work with teams in any timezone.",
+      "Game development first — gameplay programming, prototypes and tools in Unity or Unreal — then full-stack web and geospatial work. Freelance, contract or full time; I am based in Kathmandu and work with teams in any timezone.",
   },
   {
     id: 2,
     question: "What does your stack usually look like?",
     answer:
-      "Next.js and TypeScript on the front, Django REST on the back, PostgreSQL with PostGIS when the data has coordinates. Docker for anything that needs to run somewhere other than my machine.",
+      "For games, Unity with C# or Unreal Engine 5 with C++ and Blueprints. For the web around them, Next.js and TypeScript on the front, Django REST on the back, PostgreSQL with PostGIS when the data has coordinates.",
   },
   {
     id: 3,
     question: "What makes the geospatial part different?",
     answer:
-      "Most developers treat location as two float columns. I studied Geomatics, so I work with real projections, spatial indexes and LiDAR point clouds — which matters the moment your queries stop being simple.",
+      "Most developers treat location as two float columns. I studied Geomatics, so I work with real projections, spatial indexes and LiDAR point clouds — which matters the moment your queries stop being simple, or your level has to sit on real ground.",
   },
   {
     id: 4,
@@ -484,6 +293,14 @@ export const faqdata: FaqItem[] = [
 
 
 export const servicesdata: ServiceItem[] = [
+  {
+    id: 7,
+    title: "Game development",
+    description:
+      "Gameplay systems, prototypes and vertical slices — engine work, level design and the tools underneath.",
+    deliverables: ["Unity / C#", "Unreal Engine 5 / C++", "editor tools"],
+    icon: Gamepad2,
+  },
   {
     id: 1,
     title: "Web applications",
@@ -512,7 +329,7 @@ export const servicesdata: ServiceItem[] = [
     id: 4,
     title: "LiDAR and point clouds",
     description:
-      "Processing pipelines that turn raw scans into layers you can act on.",
+      "Pipelines that turn raw scans into layers you can act on — or terrain a level can stand on.",
     deliverables: ["classification", "rasterisation", "GIS export"],
     icon: Radar,
   },
@@ -533,188 +350,25 @@ export const servicesdata: ServiceItem[] = [
     icon: Plug,
   },
 
-  {
-    id: 7,
-    title: "Games and interactive 3D",
-    description:
-      "Playable builds and interactive scenes — engine work, level design and the systems underneath.",
-    deliverables: ["Unity", "Unreal Engine", "C# / C++"],
-    icon: Gamepad2,
-  },
 ];
 
 // drafts — written from my own project notes, edit the prose before publishing
-export const blogdata: BlogPost[] = [
-  {
-    id: 1,
-    slug: "postgis-nearest-rider",
-    title: "Finding the nearest rider without melting the database",
-    excerpt:
-      "The naive version loops every rider in Python. The version that survives production is a single spatial query with the right index behind it.",
-    date: "2026-02-14",
-    tags: ["PostGIS", "Django", "performance"],
-    readingTime: "6 min read",
-    body: [
-      "When I started the food delivery WebGIS project, nearest-rider matching looked trivial. Pull every active rider, compute the distance to the restaurant, sort, take the first. It works. It works right up until you have a few hundred riders online and every order does a full table scan.",
-      "The fix is to stop treating coordinates as two float columns. With PostGIS, rider positions become a geography column, and the query becomes a single ORDER BY distance LIMIT 1 that Postgres can plan properly.",
-      "The part people miss is the index. Without a GiST index on the position column, PostGIS will still do the work honestly and slowly. With one, the planner switches to an index scan and the query time stops scaling with the number of riders.",
-      "There is a second trap worth mentioning: distance on geometry is in degrees, not metres. If you are comparing against a radius in kilometres you want geography, or you want to project first. Getting this wrong produces results that look plausible near the equator and wrong everywhere else.",
-    ],
-  },
-  {
-    id: 2,
-    slug: "websockets-over-polling",
-    title: "Why I stopped polling for live positions",
-    excerpt:
-      "Polling every two seconds is easy to write and expensive to run. Moving rider tracking onto WebSockets changed the shape of the whole app.",
-    date: "2026-01-27",
-    tags: ["WebSocket", "Django", "architecture"],
-    readingTime: "5 min read",
-    body: [
-      "The first version of live tracking polled an endpoint every two seconds. Every client, all the time, whether or not anything had moved. It is the obvious thing to build and it is quietly terrible.",
-      "The cost is not just requests per second. It is that your map is always somewhere between zero and two seconds stale, and you cannot tell which. The interface ends up feeling laggy in a way that no amount of animation smoothing fixes.",
-      "Switching to WebSockets inverted it. Riders push position updates, the server fans them out to the clients watching that order, and the map updates when something actually changes.",
-      "The interesting consequence was on the front end. Once updates arrive as events rather than snapshots, you stop re-rendering the whole layer and start moving individual markers. Splitting the Leaflet layers by concern — riders, routes, zones — meant each one could update on its own without touching the others.",
-    ],
-  },
-  {
-    id: 3,
-    slug: "lidar-road-defects",
-    title: "What LiDAR taught me about road defects",
-    excerpt:
-      "My undergraduate thesis put point clouds and YOLOv8 in the same pipeline. Most of the work was not the model.",
-    date: "2025-11-08",
-    tags: ["LiDAR", "YOLOv8", "thesis"],
-    readingTime: "8 min read",
-    body: [
-      "The thesis was about automated road condition monitoring: take LiDAR scans of a road, find the defects, and produce something a maintenance team can act on. The model was the part everyone asked about. It was not the part that took the time.",
-      "Point clouds do not arrive ready to classify. Before YOLOv8 sees anything, the cloud has to be filtered, the road surface separated from everything beside it, and the result rasterised into an image the detector can work with. Each of those steps has decisions in it that change the final numbers more than the model architecture does.",
-      "Training took 2.34 hours across 754,391 points and landed at a PSNR of 24.31. Respectable for an undergraduate project, and much less interesting than the fact that the output exports cleanly as GIS layers.",
-      "That last part is the whole point. A model that emits bounding boxes in image space is a demo. A model whose output lands in a GIS as georeferenced defect polygons is something a municipality can put on a map and send a crew to.",
-    ],
-  },
-];
-
 // scenes go here: drop files in /public/gallery and add a row
-export const gallerydata: GalleryItem[] = [
-  {
-    id: 1,
-    slug: "nuwakot-clock-tower",
-    title: "Nuwakot Clock Tower",
-    location: "Nuwakot, Nepal",
-    // year only — set the real capture date when you have it
-    date: "2026",
-    src: "/gallery/nuwakot_clock_tower.jpeg",
-    width: 1200,
-    height: 1599,
-  },
-];
-
 /* SAMPLE ENTRIES — two PC builds, written to size the pages. the art in
    /public/games is generated placeholder art (npm run art), so swap the
    copy and drop real captures in before this goes live. */
-export const gamesdata: GameItem[] = [
-  {
-    id: 1,
-    slug: "ridge-runner",
-    title: "Ridge Runner",
-    tagline: "A traversal game built on real terrain data",
-    description:
-      "A first-person traversal game where the level is a heightmap. Ridge lines are generated from DEM tiles, then carved into something you can actually run along — the survey work I do by day, turned into a playground.",
-    engine: "Unity",
-    platforms: ["PC (Windows)"],
-    genre: "Traversal / arcade",
-    year: "2025",
-    role: "Solo — design, gameplay and tools",
-    status: "prototype",
-    featured: true,
-    cover: {
-      src: "/games/ridge-runner-cover.png",
-      alt: "Ridge Runner cover art",
-      width: 1600,
-      height: 900,
-    },
-    shots: [
-      {
-        src: "/games/ridge-runner-shot.png",
-        alt: "Ridge Runner in-game view of the generated ridge line",
-        width: 1600,
-        height: 900,
-        caption: "Terrain streamed in from DEM tiles, no hand-placed geometry.",
-      },
-    ],
-    features: [
-      "Heightmaps imported straight from DEM tiles, so the ridge you run is a real one.",
-      "Momentum-based movement — speed is kept or lost by how you take a slope, not by a boost button.",
-      "Chunked terrain streaming, so the view distance does not cost a frame budget.",
-      "An in-editor tool that turns a GeoTIFF into a playable mesh in one pass.",
-    ],
-    tech: ["Unity", "C#", "URP", "GDAL", "ScriptableObjects"],
-    download: null,
-    source: null,
-  },
-  {
-    id: 2,
-    slug: "signal-depth",
-    title: "Signal Depth",
-    tagline: "A flooded survey station, one working instrument",
-    description:
-      "An exploration game set in a survey station that is half underwater. You carry one working instrument and read the building through it — depth, signal, and whatever the last crew left behind.",
-    engine: "Unreal Engine",
-    platforms: ["PC (Windows)"],
-    genre: "Exploration / atmospheric",
-    year: "2024",
-    role: "Design, blueprints and level layout",
-    status: "in development",
-    cover: {
-      src: "/games/signal-depth-cover.png",
-      alt: "Signal Depth cover art",
-      width: 1600,
-      height: 900,
-    },
-    shots: [
-      {
-        src: "/games/signal-depth-shot.png",
-        alt: "Signal Depth in-game view of the instrument overlay",
-        width: 1600,
-        height: 900,
-        caption: "The instrument is the whole HUD — there is nothing else on screen.",
-      },
-    ],
-    features: [
-      "One diegetic instrument instead of a HUD, so every reading costs you a look.",
-      "Water volumes that change how sound carries, which is how you find the way out.",
-      "Level built as a loop, so the station teaches its own layout without a map.",
-      "Lighting passes done in Lumen, tuned for a room lit by one working lamp.",
-    ],
-    tech: ["Unreal Engine 5", "Blueprints", "C++", "Lumen", "MetaSounds"],
-    download: null,
-    source: null,
-  },
-];
-
 // declared last so the work dropdown can be built from the projects above
-export const NavLinks: NavItem[] = [
-  {
-    id: 1,
-    title: "Work",
-    url: "/work",
-    icon: Briefcase,
-    children: workprojects.map((project) => ({
-      id: project.id,
-      title: project.title,
-      description: project.skills.slice(0, 3).join(" · "),
-      url: `/work/${project.slug}`,
-    })),
-  },
-  { id: 2, title: "Games", url: "/games", icon: Gamepad2 },
-  { id: 3, title: "Skills", url: "/skills", icon: Layers },
-  { id: 4, title: "Blog", url: "/blog", icon: Newspaper },
-  { id: 5, title: "Gallery", url: "/gallery", icon: Images },
-  { id: 6, title: "Contact", url: "/contact", icon: Mail },
-];
-
 export const disciplinesdata: DisciplineItem[] = [
+  {
+    id: 3,
+    title: "Game development",
+    tagline: "systems you can play",
+    description:
+      "Gameplay systems, engine work and level design in Unity and Unreal. Where I learned to think in 3D space — and still the work I care about most.",
+    tools: ["Unity", "Unreal Engine 5", "C#", "C++"],
+    icon: Gamepad2,
+    model: "d20",
+  },
   {
     id: 1,
     title: "Web engineering",
@@ -723,6 +377,7 @@ export const disciplinesdata: DisciplineItem[] = [
       "Full-stack applications end to end — interface, API, database and the deploy that puts them in front of someone.",
     tools: ["React", "Next.js", "Django", "PostgreSQL"],
     icon: Code2,
+    model: "code",
   },
   {
     id: 2,
@@ -732,15 +387,7 @@ export const disciplinesdata: DisciplineItem[] = [
       "Real projections, spatial indexes, LiDAR and digital twins. The half most stacks fudge until it breaks.",
     tools: ["PostGIS", "LiDAR", "Digital Twin", "3D Gaussian Splatting"],
     icon: Globe2,
-  },
-  {
-    id: 3,
-    title: "Game development",
-    tagline: "systems you can play",
-    description:
-      "Engine work, level design and gameplay systems. It is where I learned to think in 3D space before it was my job.",
-    tools: ["Unity", "Unreal Engine", "C#", "C++"],
-    icon: Gamepad2,
+    model: "globe",
   },
 ];
 
@@ -847,23 +494,25 @@ export const skillAreaLabel: Record<SkillArea, string> = {
 };
 
 export const skillAreaOrder: SkillArea[] = [
+  "engine",
   "frontend",
   "backend",
   "spatial",
   "vision",
-  "engine",
   "other",
 ];
 
-export const skillunlocks: SkillUnlock[] = (() => {
+/* every unlock is derived from what actually shipped — pass in the live
+   projects and games, so adding one in the studio updates this too */
+export const deriveUnlocks = (projects: WorkProject[], games: GameItem[]): SkillUnlock[] => {
   const sources = [
-    ...workprojects.map((project) => ({
+    ...projects.map((project) => ({
       title: project.title,
       href: `/work/${project.slug}`,
       year: project.year ?? "",
       tools: project.skills,
     })),
-    ...gamesdata.map((game) => ({
+    ...games.map((game) => ({
       title: game.title,
       href: `/games/${game.slug}`,
       year: game.year,
@@ -904,7 +553,7 @@ export const skillunlocks: SkillUnlock[] = (() => {
   return Object.values(found).sort(
     (a, b) => a.year.localeCompare(b.year) || a.name.localeCompare(b.name),
   );
-})();
+};
 
 /* the honest other half: in flight, nothing shipped with it yet. these are
    the only hand-written entries, and they show as locked */

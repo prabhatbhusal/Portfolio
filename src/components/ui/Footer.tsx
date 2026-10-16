@@ -3,16 +3,20 @@ import React from "react";
 import { ArrowUp } from "lucide-react";
 import ScrollLink from "@/components/motion/ScrollLink";
 
-import {
-  NavLinks,
-  blogdata,
-  contactdata,
-  servicesdata,
-  workprojects,
-} from "@/lib/constants/data";
+import { contactdata, servicesdata } from "@/lib/constants/data";
+import { getPosts, getProjects } from "@/server/content";
+
+const explore = [
+  { title: "Work", url: "/work" },
+  { title: "Games", url: "/games" },
+  { title: "Skills", url: "/skills" },
+  { title: "Blog", url: "/blog" },
+  { title: "Gallery", url: "/gallery" },
+  { title: "Contact", url: "/contact" },
+];
 
 type FooterLink = {
-  id: number;
+  id: number | string;
   label: string;
   href: string;
   external?: boolean;
@@ -28,13 +32,14 @@ type FooterColumn = {
 
 const year = new Date().getFullYear();
 
-const Footer = () => {
+const Footer = async () => {
+  const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
   const columns: FooterColumn[] = [
     {
       id: 1,
       heading: "explore",
-      links: NavLinks.map((item) => ({
-        id: item.id,
+      links: explore.map((item) => ({
+        id: item.url,
         label: item.title,
         href: item.url,
       })),
@@ -52,7 +57,7 @@ const Footer = () => {
     {
       id: 3,
       heading: "work",
-      links: workprojects.slice(0, 5).map((item) => ({
+      links: projects.slice(0, 5).map((item) => ({
         id: item.id,
         label: item.title,
         href: `/work/${item.slug}`,
@@ -62,8 +67,8 @@ const Footer = () => {
     {
       id: 4,
       heading: "blog",
-      links: blogdata.slice(0, 4).map((item) => ({
-        id: item.id,
+      links: posts.slice(0, 4).map((item) => ({
+        id: item.slug,
         label: item.title,
         href: `/blog/${item.slug}`,
         clamp: true,
@@ -87,9 +92,10 @@ const Footer = () => {
             </h2>
 
             <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink-soft">
-              Full-stack developer and Geomatics Engineer based in Kathmandu. I
-              build web applications with React, Next.js and Django, and work
-              with spatial data — PostGIS, LiDAR and everything in between.
+              Game developer and full-stack engineer based in Kathmandu. I
+              build gameplay systems and tools in Unity and Unreal, the web
+              around them with Next.js and Django, and worlds on real terrain
+              from LiDAR.
             </p>
 
             {/* icons only up here — the labels would repeat the columns */}
@@ -156,19 +162,15 @@ const Footer = () => {
             © {year} Prabhat Bhusal. Built in Kathmandu.
           </p>
 
-          
-          
+          <ScrollLink
+            to="top"
+            href="#top"
+            aria-label="Back to top"
+            className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-white transition-transform duration-300 hover:-translate-y-0.5"
+          >
+            <ArrowUp size={18} strokeWidth={2.5} />
+          </ScrollLink>
         </div>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-6"> 
-            <ScrollLink
-              to="top"
-              href="#top"
-              aria-label="Back to top"
-              className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-white transition-transform duration-300 hover:-translate-y-0.5"
-            >
-              <ArrowUp size={18} strokeWidth={2.5} />
-            </ScrollLink>
-          </div>
       </div>
     </footer>
   );

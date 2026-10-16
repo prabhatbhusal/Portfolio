@@ -1,10 +1,11 @@
 import React from "react";
 
-import { workprojects } from "@/lib/constants/data";
+import { getProjects } from "@/server/content";
 import WorkRow from "../props/WorkRow";
 import { Stagger, StaggerItem } from "../motion";
 
-const Projects = () => {
+const Projects = async () => {
+  const workprojects = await getProjects();
   return (
     <div className="rail py-14 md:py-20">
       <Stagger className="flex flex-col" stagger={0.06}>

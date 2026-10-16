@@ -3,14 +3,12 @@
 import React from "react";
 import { smoothScrollTo } from "./scroll";
 
-interface Props {
+type Props = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   /* a css selector, or "top" */
   to: string;
   href: string;
-  className?: string;
-  "aria-label"?: string;
-  children: React.ReactNode;
-}
+  [data: `data-${string}`]: string | undefined;
+};
 
 /* still a real anchor, so it works with no javascript and keeps its
    keyboard and right-click behaviour */

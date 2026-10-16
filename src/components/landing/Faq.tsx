@@ -6,7 +6,7 @@ import { Stagger, StaggerItem } from "../motion";
 
 const Faq = () => {
   return (
-    <section className="rail py-16 md:py-24">
+    <section id="faq" data-label="FAQ" className="rail py-16 md:py-24">
       <div className="hairline mb-16 md:mb-24" />
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr]">

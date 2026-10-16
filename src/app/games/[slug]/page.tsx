@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { gamesdata } from "@/lib/constants/data";
+import { getGames } from "@/server/content";
 import FactGrid from "@/components/props/FactGrid";
 import MediaFrame from "@/components/props/MediaFrame";
 import JsonLd from "@/components/seo/JsonLd";
@@ -15,16 +15,14 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// a static export serves only the slugs listed below; anything else is a 404
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return gamesdata.map((game) => ({ slug: game.slug }));
+// prerendered at build; a game added later renders on first visit
+export async function generateStaticParams() {
+  return (await getGames()).map((game) => ({ slug: game.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const game = gamesdata.find((item) => item.slug === slug);
+  const game = (await getGames()).find((item) => item.slug === slug);
 
   if (!game) return { title: "Not found" };
 
@@ -35,7 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // the cover shares better than the site-wide card here
     image: {
       url: game.cover.src,
-      type: "image/png",
       width: game.cover.width,
       height: game.cover.height,
       alt: game.cover.alt,
@@ -45,6 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const Page = async ({ params }: Props) => {
   const { slug } = await params;
+  const gamesdata = await getGames();
   const game = gamesdata.find((item) => item.slug === slug);
 
   if (!game) notFound();

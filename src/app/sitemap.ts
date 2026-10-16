@@ -1,14 +1,13 @@
 import type { MetadataRoute } from "next";
 
-import { blogdata, gamesdata, workprojects } from "@/lib/constants/data";
+import { getGames, getPosts, getProjects } from "@/server/content";
 import { absoluteUrl } from "@/lib/seo/site";
 
-// static export, so this is written once at build time into out/sitemap.xml
-export const dynamic = "force-static";
+// rebuilt with the rest of the site whenever content changes in the studio
 
 const buildDate = new Date();
 
-const sitemap = (): MetadataRoute.Sitemap => {
+const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const staticRoutes: MetadataRoute.Sitemap = (
     [
       { path: "/", changeFrequency: "monthly", priority: 1 },
@@ -25,14 +24,14 @@ const sitemap = (): MetadataRoute.Sitemap => {
     lastModified: buildDate,
   }));
 
-  const workRoutes: MetadataRoute.Sitemap = workprojects.map((project) => ({
+  const workRoutes: MetadataRoute.Sitemap = (await getProjects()).map((project) => ({
     url: absoluteUrl(`/work/${project.slug}`),
     lastModified: buildDate,
     changeFrequency: "yearly",
     priority: 0.7,
   }));
 
-  const gameRoutes: MetadataRoute.Sitemap = gamesdata.map((game) => ({
+  const gameRoutes: MetadataRoute.Sitemap = (await getGames()).map((game) => ({
     url: absoluteUrl(`/games/${game.slug}`),
     lastModified: buildDate,
     changeFrequency: "yearly",
@@ -40,7 +39,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
   }));
 
   // posts carry a real publish date, so use it instead of the build stamp
-  const blogRoutes: MetadataRoute.Sitemap = blogdata.map((post) => ({
+  const blogRoutes: MetadataRoute.Sitemap = (await getPosts()).map((post) => ({
     url: absoluteUrl(`/blog/${post.slug}`),
     lastModified: new Date(post.date),
     changeFrequency: "yearly",

@@ -4,12 +4,15 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import Footer from "@/components/ui/Footer";
 import Navbar from "@/components/ui/Navbar";
+import ScrollRail from "@/components/ui/ScrollRail";
+import Loader from "@/components/ui/Loader";
 import MotionProvider from "@/components/motion/MotionProvider";
 import Cursor from "@/components/motion/Cursor";
-import Loader from "@/components/motion/Loader";
 import { Geist, Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
 import JsonLd from "@/components/seo/JsonLd";
+import type { NavItem } from "@/@types/navbar.types";
+import { formatDate } from "@/lib/blog/format";
+import { getGames, getPosts, getProjects } from "@/server/content";
 import { personSchema, websiteSchema } from "@/lib/seo/schema";
 import {
   author,
@@ -32,33 +35,104 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-// titles only — body copy stays on Geist
-const acorn = localFont({
-  src: [
-    { path: "../../public/Acorn/Acorn-Thin.otf", weight: "100", style: "normal" },
-    { path: "../../public/Acorn/Acorn-ExtraLight.otf", weight: "200", style: "normal" },
-    { path: "../../public/Acorn/Acorn-Light.otf", weight: "300", style: "normal" },
-    { path: "../../public/Acorn/Acorn-Regular.otf", weight: "400", style: "normal" },
-    { path: "../../public/Acorn/Acorn-Medium.otf", weight: "500", style: "normal" },
-    { path: "../../public/Acorn/Acorn-SemiBold.otf", weight: "600", style: "normal" },
-    { path: "../../public/Acorn/Acorn-Bold.otf", weight: "700", style: "normal" },
-  ],
-  variable: "--font-acorn",
-  display: "swap",
-});
-
-// runs before paint so the saved theme is applied without a flash
+// runs before paint so the saved theme is applied without a flash.
+// dark unless the reader picked light — the reference design is dark-first
 const themeScript = `
 (function(){
   try {
-    var t = localStorage.getItem('theme');
-    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var t = localStorage.getItem('theme') || 'dark';
     if (t === 'dark') document.documentElement.classList.add('dark');
     document.documentElement.classList.add('js');
     document.documentElement.style.colorScheme = t;
+    // the boot screen plays once per visit
+    if (sessionStorage.getItem('booted')) document.documentElement.classList.add('booted');
   } catch (e) {}
 })();
 `;
+
+/* the four panels of the navbar, filled from whatever is live */
+async function navLinks(): Promise<NavItem[]> {
+  const [projects, games, posts] = await Promise.all([getProjects(), getGames(), getPosts()]);
+  const featured = projects.find((p) => p.featured && p.cover) ?? projects.find((p) => p.featured);
+  const featuredGame = games.find((g) => g.featured) ?? games[0];
+  const latest = posts[0];
+
+  return [
+    {
+      title: "Games",
+      url: "/games",
+      more: "Every build",
+      children: games.slice(0, 6).map((g) => ({
+        title: g.title,
+        description: g.tagline,
+        url: `/games/${g.slug}`,
+        thumb: g.cover.src,
+        tags: [g.engine, g.status],
+      })),
+      feature: featuredGame && {
+        eyebrow: "Play it",
+        title: featuredGame.tagline,
+        cta: `Open ${featuredGame.title}`,
+        url: `/games/${featuredGame.slug}`,
+        image: featuredGame.cover.src,
+      },
+    },
+    {
+      title: "Work",
+      url: "/work",
+      more: "See every project",
+      children: projects.slice(0, 6).map((p) => ({
+        title: p.title,
+        description: [p.sector, p.year].filter(Boolean).join(" · "),
+        url: `/work/${p.slug}`,
+        tile: p.index,
+        tags: p.skills.slice(0, 2),
+      })),
+      feature: featured && {
+        eyebrow: "Featured build",
+        title: featured.title,
+        cta: "See how it was built",
+        url: `/work/${featured.slug}`,
+        image: featured.cover?.src,
+      },
+    },
+    {
+      title: "Blog",
+      url: "/blog",
+      more: "All writing",
+      children: posts.slice(0, 6).map((post) => ({
+        title: post.title,
+        description: post.excerpt,
+        url: `/blog/${post.slug}`,
+        tile: formatDate(post.date).split(" ").slice(0, 2).join(" "),
+      })),
+      feature: latest && {
+        eyebrow: "Latest note",
+        title: latest.title,
+        cta: "Read it",
+        url: `/blog/${latest.slug}`,
+        image: latest.cover?.src,
+      },
+    },
+    {
+      title: "About",
+      url: "/skills",
+      children: [
+        { title: "Skills", description: "Unlocked by shipping, not by rating", url: "/skills", icon: "layers" },
+        { title: "About me", description: "Where games, the web and maps meet", url: "/#about", icon: "user" },
+        { title: "Gallery", description: "Scenes from the field", url: "/gallery", icon: "image" },
+        { title: "FAQ", description: "Quick answers", url: "/#faq", icon: "help" },
+        { title: "Contact", description: "Tell me what you are building", url: "/contact", icon: "mail" },
+      ],
+      feature: {
+        eyebrow: "Open for work",
+        title: "Games, and the tools and web behind them — let's build one.",
+        cta: "Start a conversation",
+        url: "/contact",
+      },
+    },
+  ];
+}
 
 export const metadata: Metadata = {
   // makes every relative url below (og images, canonicals) resolve absolutely
@@ -114,13 +188,13 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f3ef" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#07080d" },
   ],
   colorScheme: "light dark",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -132,8 +206,7 @@ export default function RootLayout({
       className={cn(
         "h-full w-full antialiased",
         geist.variable,
-        geistMono.variable,
-        acorn.variable
+        geistMono.variable
       )}
     >
       <head>
@@ -141,7 +214,7 @@ export default function RootLayout({
         {/* motion renders its start state inline, so without javascript
             these elements would never be revealed */}
         <noscript>
-          <style>{`[data-motion]{opacity:1!important;transform:none!important}[data-loader]{display:none!important}`}</style>
+          <style>{`[data-motion]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
       <body id="top" className="w-full overflow-x-hidden">
@@ -149,10 +222,14 @@ export default function RootLayout({
         <JsonLd data={personSchema} />
         <JsonLd data={websiteSchema} />
 
+        <Loader />
         <MotionProvider>
-          <Loader />
           <Cursor />
-          <Navbar />
+          <Navbar links={await navLinks()} />
+          <ScrollRail />
+          {/* the bar floats; this keeps page content clear of it. the home
+              hero pulls itself back up underneath to run full-bleed */}
+          <div aria-hidden="true" className="h-(--nav-h)" />
           {children}
           <Footer />
         </MotionProvider>

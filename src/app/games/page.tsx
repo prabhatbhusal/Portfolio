@@ -6,7 +6,7 @@ import { Gamepad2 } from "lucide-react";
 import PagesBanner from "@/components/props/PagesBanner";
 import GameCard from "@/components/props/GameCard";
 import { Stagger, StaggerItem } from "@/components/motion";
-import { gamesdata } from "@/lib/constants/data";
+import { getGames } from "@/server/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -16,7 +16,8 @@ export const metadata: Metadata = pageMetadata({
   path: "/games",
 });
 
-const Page = () => {
+const Page = async () => {
+  const gamesdata = await getGames();
   return (
     <main>
       <PagesBanner

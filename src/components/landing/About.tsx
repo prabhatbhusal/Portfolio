@@ -1,13 +1,13 @@
 import React from "react";
 import { Check } from "lucide-react";
 
-import Reveal from "../props/Reveal";
+import { Reveal } from "../motion";
 
 const points = [
   {
     id: 1,
-    title: "Two disciplines, one build",
-    text: "I write the application and I understand the spatial data underneath it. That is usually two people.",
+    title: "Three disciplines, one build",
+    text: "I build the game, the tools and web stack around it, and I understand the spatial data underneath. That is usually three people.",
   },
   {
     id: 2,
@@ -28,21 +28,22 @@ const points = [
 
 const About = () => {
   return (
-    <section className="rail py-16 md:py-24">
+    <section id="about" className="rail py-16 md:py-24">
       <div className="hairline mb-16 md:mb-24" />
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal className="flex flex-col items-start gap-5">
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
-            A developer who
+            A game developer who
             <span className="block text-brand-ink">reads the map</span>
           </h2>
 
           <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
-            I trained as a Geomatics Engineer and ended up building for the web.
-            The overlap turned out to be the interesting part — most products
-            eventually need to know where something is, and that is where a
-            generic stack starts to creak.
+            Games taught me to think in 3D space, a Geomatics degree taught
+            me to measure it, and the web is how the work gets shipped. The
+            overlap is the interesting part — levels built on real terrain,
+            and the tools and backends around a game where a generic stack
+            starts to creak.
           </p>
         </Reveal>
 
