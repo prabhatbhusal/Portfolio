@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Auth from "@/components/studio/Auth";
 import Studio from "@/components/studio/Studio";
 import { currentUser, ownerExists } from "@/server/auth";
-import { sql } from "@/server/db";
+import { hasDb } from "@/server/db";
 
 export const metadata: Metadata = {
   title: "Studio",
@@ -16,7 +16,7 @@ export const dynamic = "force-dynamic";
 /* not linked from anywhere. the address is not the security — the account
    is: one owner, password + emailed code to create, rate-limited sign-in */
 export default async function Page() {
-  if (!sql) {
+  if (!hasDb()) {
     return (
       <main className="rail py-24">
         <h1 className="display text-3xl font-bold text-ink">The studio needs a database</h1>

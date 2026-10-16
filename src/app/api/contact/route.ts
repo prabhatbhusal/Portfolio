@@ -1,4 +1,4 @@
-import { sql } from "@/server/db";
+import { db, hasDb } from "@/server/db";
 import { HttpError, clientKey, email, limit, readJson, route, str } from "@/server/http";
 import { ownerInbox, sendMail } from "@/server/mail";
 
@@ -18,11 +18,11 @@ export const POST = route(async (req) => {
 
   // without a database there is nowhere to count requests, so production
   // refuses rather than becoming an open relay. the form falls back to mailto
-  if (!sql) {
+  if (!hasDb()) {
     if (process.env.NODE_ENV === "production") throw new HttpError(503, "The form is offline.");
   } else {
     await limit(`contact:${clientKey(req)}`, 5, 3600);
-    await sql`insert into messages (name, email, budget, body) values (${name}, ${from}, ${budget}, ${message})`;
+    await db()`insert into messages (name, email, budget, body) values (${name}, ${from}, ${budget}, ${message})`;
   }
 
   const to = ownerInbox();
@@ -37,7 +37,7 @@ export const POST = route(async (req) => {
     });
   } catch (error) {
     // saved in the studio inbox already — a mail hiccup is not the sender's problem
-    if (!sql) throw error;
+    if (!hasDb()) throw error;
     console.error(error);
   }
 

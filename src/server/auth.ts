@@ -1,36 +1,39 @@
-import { randomBytes, randomInt, scrypt, timingSafeEqual, type ScryptOptions } from "node:crypto";
+import { randomBytes, randomInt, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 
-import { db, sql } from "./db";
+import { db, hasDb } from "./db";
 import { HttpError, sha256 } from "./http";
 
 // ------------------------------------------------------------------
-// passwords — scrypt from node's own crypto, owasp's recommended cost
+// passwords — pbkdf2-sha256 through web crypto, at owasp's iteration count.
+// it runs natively on node and on cloudflare workers alike; scrypt at its
+// recommended cost needs 128 MB, which is a whole worker's memory
 // ------------------------------------------------------------------
 
-const COST: ScryptOptions = { N: 2 ** 17, r: 8, p: 1, maxmem: 256 * 1024 * 1024 };
+const ITERATIONS = 600_000;
 
-const derive = (password: string, salt: Buffer, length: number, options: ScryptOptions) =>
-  new Promise<Buffer>((resolve, reject) =>
-    scrypt(password.normalize("NFKC"), salt, length, options, (error, key) =>
-      error ? reject(error) : resolve(key)
-    )
+async function derive(password: string, salt: Uint8Array<ArrayBuffer>, iterations: number) {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(password.normalize("NFKC")),
+    "PBKDF2",
+    false,
+    ["deriveBits"]
   );
+  return Buffer.from(await crypto.subtle.deriveBits({ name: "PBKDF2", hash: "SHA-256", salt, iterations }, key, 256));
+}
 
 export async function hashPassword(password: string) {
-  const salt = randomBytes(16);
-  const key = await derive(password, salt, 32, COST);
-  return `scrypt$${COST.N}$${salt.toString("base64url")}$${key.toString("base64url")}`;
+  const salt = new Uint8Array(randomBytes(16));
+  const key = await derive(password, salt, ITERATIONS);
+  return `pbkdf2$${ITERATIONS}$${Buffer.from(salt).toString("base64url")}$${key.toString("base64url")}`;
 }
 
 export async function verifyPassword(password: string, stored: string) {
-  const [, n, salt, key] = stored.split("$");
+  const [, iterations, salt, key] = stored.split("$");
   const expected = Buffer.from(key, "base64url");
-  const actual = await derive(password, Buffer.from(salt, "base64url"), expected.length, {
-    ...COST,
-    N: Number(n),
-  });
-  return timingSafeEqual(actual, expected);
+  const actual = await derive(password, new Uint8Array(Buffer.from(salt, "base64url")), Number(iterations));
+  return actual.length === expected.length && timingSafeEqual(actual, expected);
 }
 
 /* checked against when the email is unknown, so "no such user" and "wrong
@@ -50,8 +53,8 @@ export const checkPasswordRules = (password: string) => {
 export const ownerEmail = () => (process.env.OWNER_EMAIL ?? "").trim().toLowerCase();
 
 export async function ownerExists() {
-  if (!sql) return false;
-  const [row] = await sql`select exists (select 1 from users) as taken`;
+  if (!hasDb()) return false;
+  const [row] = await db()`select exists (select 1 from users) as taken`;
   return row.taken as boolean;
 }
 
@@ -82,10 +85,10 @@ export async function startSession(userId: number) {
 }
 
 export async function currentUser(): Promise<{ id: number; email: string } | null> {
-  if (!sql) return null;
+  if (!hasDb()) return null;
   const token = (await cookies()).get(COOKIE)?.value;
   if (!token) return null;
-  const [user] = await sql`
+  const [user] = await db()`
     select u.id, u.email from sessions s join users u on u.id = s.user_id
     where s.token_hash = ${sha256(token)} and s.expires_at > now()`;
   return (user as { id: number; email: string }) ?? null;
@@ -100,7 +103,7 @@ export async function requireOwner() {
 export async function endSession() {
   const jar = await cookies();
   const token = jar.get(COOKIE)?.value;
-  if (token && sql) await sql`delete from sessions where token_hash = ${sha256(token)}`;
+  if (token && hasDb()) await db()`delete from sessions where token_hash = ${sha256(token)}`;
   jar.delete(COOKIE);
 }
 

@@ -5,7 +5,7 @@ import { cache } from "react";
 import type { GalleryItem, GameItem, WorkProject } from "@/@types/common.types";
 import { validatePost, type BlogPost } from "@/lib/blog/format";
 import { KINDS, type Kind } from "@/lib/content/kinds";
-import { sql } from "./db";
+import { db, hasDb } from "./db";
 import { HttpError } from "./http";
 
 /* with DATABASE_URL the site reads the database. without it — a fresh clone,
@@ -25,8 +25,8 @@ const fromFiles = (kind: Kind): unknown[] => {
 };
 
 const published = cache(async (kind: Kind): Promise<unknown[]> => {
-  if (!sql) return fromFiles(kind);
-  const rows = await sql`
+  if (!hasDb()) return fromFiles(kind);
+  const rows = await db()`
     select data from content where kind = ${kind} and published
     order by sort, updated_at desc`;
   return rows.map((row) => row.data);

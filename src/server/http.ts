@@ -2,6 +2,9 @@ import { createHash } from "node:crypto";
 
 import { db } from "./db";
 
+/** running on cloudflare workers (opennext), not a node server */
+export const onWorkers = typeof navigator !== "undefined" && navigator.userAgent === "Cloudflare-Workers";
+
 export class HttpError extends Error {
   constructor(
     public status: number,
@@ -75,13 +78,17 @@ export const email = (body: Record<string, unknown>) => {
 
 export const sha256 = (value: string | Buffer) => createHash("sha256").update(value).digest("hex");
 
-/* the address the host's own proxy saw. vercel and railway both overwrite
-   x-real-ip at their edge; failing that, the last x-forwarded-for hop is the
-   one the nearest proxy appended. the first is whatever the client claimed,
-   and trusting it let anyone mint a fresh rate-limit bucket per request.
-   only a hash is ever stored */
+/* the address the host's own edge saw. cloudflare sets cf-connecting-ip on
+   every request a worker gets, and passes a client's own x-real-ip through
+   untouched, so there only the former counts. vercel and railway overwrite
+   x-real-ip; failing that, the last x-forwarded-for hop is the one the
+   nearest proxy appended. the first is whatever the client claimed, and
+   trusting it let anyone mint a fresh rate-limit bucket per request. only a
+   hash is ever stored */
 export const clientKey = (req: Request) => {
-  const ip = req.headers.get("x-real-ip") ?? req.headers.get("x-forwarded-for")?.split(",").at(-1);
+  const ip = onWorkers
+    ? req.headers.get("cf-connecting-ip")
+    : (req.headers.get("x-real-ip") ?? req.headers.get("x-forwarded-for")?.split(",").at(-1));
   return sha256(ip?.trim() || "local").slice(0, 24);
 };
 

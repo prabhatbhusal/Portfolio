@@ -180,23 +180,34 @@ them. They are served with `nosniff` and a sandboxing CSP.
 The backend is the Next.js server itself, so it goes wherever the site goes —
 there is no second service to host.
 
-### Static hosts (stopgap)
+### Cloudflare (Workers, through OpenNext)
 
-Until the domain points at Vercel or Railway, `npm run build:static` builds
-the public pages as plain files in `out/`, from `content/`. No studio,
-sign-in or database there; the contact form opens the visitor's mail app
-instead. It removes the server routes from the checkout, so it runs in CI
-only.
+The whole site — pages, studio and api — runs as one Worker
+([`wrangler.jsonc`](wrangler.jsonc), [`open-next.config.ts`](open-next.config.ts)).
 
-- **GitHub Pages** — [`.github/workflows/pages.yml`](.github/workflows/pages.yml)
-  runs it on every push. Needs **Settings → Pages → Source: GitHub Actions**
-  and the custom domain entered on that same page.
-- **Cloudflare Pages** — framework preset *None*, build command
-  `npm run build:static`, output directory `out`. Not
-  `@cloudflare/next-on-pages`: it runs every server route on the Edge
-  runtime, and this backend needs Node (scrypt, a Postgres connection).
+1. **Workers & Pages → Create → Import a repository** (a *Worker*, not a
+   Pages project). Name it `frontend`, as in `wrangler.jsonc`, or rename
+   both. Build command `npx opennextjs-cloudflare build`, deploy command
+   `npx opennextjs-cloudflare deploy`.
+2. A Postgres that takes outside connections: Neon (free) works as is.
+3. Worker **Settings → Variables and Secrets**: `DATABASE_URL` and
+   `RESEND_API_KEY` as secrets, `OWNER_EMAIL` as text. Add `DATABASE_URL`
+   under **Build → Variables** too: the build migrates the database and
+   prerenders from it.
+4. **Settings → Domains & Routes → Custom domain**:
+   `www.prabhatbhusal.com.np` (remove the old record pointing at GitHub
+   Pages first).
 
-Use one of them, and delete it once you move.
+How it differs from a node host, all handled in code: each request opens
+its own database connection (a Worker cannot share one across requests);
+passwords use PBKDF2 through Web Crypto (scrypt at full cost needs a whole
+Worker's 128 MB); rate limits key on `CF-Connecting-IP`. With no cache
+configured, pages render per request, so studio edits show at once.
+
+Mind the plan: Workers **Free** allows 10 ms of CPU per request. A sign-in
+spends about 60 ms hashing, so the studio needs **Workers Paid**. On Free,
+`npm run build:static` with output `out/` gives the public pages as plain
+files instead, without the studio.
 
 ### Vercel
 
