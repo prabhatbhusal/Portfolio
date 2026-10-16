@@ -257,7 +257,7 @@ export const faqdata: FaqItem[] = [
     id: 1,
     question: "What kind of work are you available for?",
     answer:
-      "Game development first — gameplay programming, prototypes and tools in Unity or Unreal — then full-stack web and geospatial work. Freelance, contract or full time; I am based in Kathmandu and work with teams in any timezone.",
+      "Game and VR development first — gameplay programming, prototypes and tools in Unity or Unreal — then full-stack web and geospatial work. I build VR and the studio platform at RCAAS Technology, and take on freelance or contract work alongside it; I am based in Kathmandu and work with teams in any timezone.",
   },
   {
     id: 2,

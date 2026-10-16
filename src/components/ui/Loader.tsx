@@ -86,7 +86,7 @@ const Loader = () => {
         prabhat bhusal · game developer
       </span>
       <span className="absolute bottom-6 right-14 hidden mono text-[10px] uppercase tracking-[0.2em] text-ink-faint sm:block">
-        lvl 01 · 27.72° n 85.32° e
+        kathmandu · 27.72° n 85.32° e
       </span>
       <span className="loader-scan" />
     </div>

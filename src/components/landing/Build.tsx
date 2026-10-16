@@ -88,7 +88,7 @@ const Chapter = ({ progress, index }: { progress: MotionValue<number>; index: nu
   return (
     <motion.div style={{ opacity, y, pointerEvents }} className={cn("absolute flex flex-col gap-4", place[c.side])}>
       <span className="mono text-[11px] uppercase tracking-[0.22em] text-[#5ad8ff]">
-        {String(index + 1).padStart(2, "0")} · {c.label}
+        {c.label}
       </span>
       <h3
         className={cn(
@@ -179,8 +179,7 @@ const Build = () => {
           aria-hidden="true"
           className="absolute inset-x-4 bottom-5 flex items-center gap-4 mono text-[10px] uppercase tracking-[0.2em] text-white/55 sm:inset-x-8"
         >
-          <span className="shrink-0 text-[#5ad8ff]">lvl {String(current + 1).padStart(2, "0")}/05</span>
-          <span className="hidden shrink-0 sm:inline">{chapters[current].label}</span>
+          <span className="shrink-0 text-[#5ad8ff]">{chapters[current].label}</span>
           <span className="relative h-px flex-1 bg-white/12">
             <motion.span
               style={{ scaleX: scrollYProgress }}

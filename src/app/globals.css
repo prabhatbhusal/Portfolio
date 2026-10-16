@@ -1127,11 +1127,6 @@
   transition: opacity 250ms var(--ease-hover), translate 350ms var(--ease-menu), color 200ms;
 }
 
-.srail-n {
-  margin-inline-end: 7px;
-  color: var(--hud);
-}
-
 /* the vertical name: rides along the track to the active tick, clamped so
    it never runs off either end */
 .srail-now {
@@ -1553,6 +1548,36 @@ html.booted .loader {
   border-color: var(--brand-line);
   background: var(--brand-soft);
   color: var(--ink);
+}
+
+/* contact: one bordered row per channel */
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface-bg);
+  transition: border-color 300ms, background-color 300ms;
+}
+
+.contact-row:hover {
+  border-color: var(--brand-line);
+  background: var(--surface-bg-hover);
+}
+
+.stack-pip {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--line-strong);
+  transition: background-color 300ms, box-shadow 300ms;
+}
+
+.stack-option[aria-current] .stack-pip {
+  background: var(--hud);
+  box-shadow: 0 0 8px var(--hud);
 }
 
 .stack-option[aria-current]::before {

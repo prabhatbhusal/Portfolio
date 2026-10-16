@@ -39,12 +39,7 @@ export const getPosts = cache(async () =>
   ((await published("post")) as BlogPost[]).toSorted((a, b) => b.date.localeCompare(a.date))
 );
 
-export const getProjects = cache(async () =>
-  numbered<WorkProject>(await published("project")).map((p) => ({
-    ...p,
-    index: String(p.id).padStart(2, "0"),
-  }))
-);
+export const getProjects = cache(async () => numbered<WorkProject>(await published("project")));
 
 export const getGames = cache(async () => numbered<GameItem>(await published("game")));
 

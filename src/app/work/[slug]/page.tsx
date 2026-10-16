@@ -76,9 +76,6 @@ const Page = async ({ params }: Props) => {
 
       <section className="rail flex flex-col items-start gap-6 pb-12 pt-8 md:pb-16 md:pt-10">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="mono text-[11px] tabular-nums text-brand-ink">
-            {project.index}
-          </span>
           {project.featured && (
             <span className="borderbg brand-bg rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider text-brand-ink">
               featured
@@ -146,9 +143,7 @@ const Page = async ({ params }: Props) => {
             <ul className="mt-8 flex flex-col gap-6">
               {project.highlights.map((highlight, idx) => (
                 <li key={idx} className="flex gap-4">
-                  <span className="mono mt-0.5 shrink-0 text-[11px] tabular-nums text-brand-ink">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
+                  <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 bg-(--hud)" />
                   <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
                     {highlight}
                   </p>

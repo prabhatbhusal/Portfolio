@@ -1,7 +1,7 @@
 // plain, serialisable data — built on the server from the database and
 // handed to the client navbar as a prop
 
-export type NavIcon = "user" | "layers" | "image" | "help" | "mail";
+export type NavIcon = "user" | "layers" | "image" | "help" | "mail" | "live";
 
 export interface NavChild {
   title: string;

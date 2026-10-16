@@ -91,7 +91,9 @@ single place and nothing drifts between themes.
 - **Scroll scenes** — the hero fades away under the next section; an inset
   card opens out to full-bleed (clip-path, so no relayout) and its lines light
   up while it is pinned.
-- **Type** — Geist and Geist Mono, one grotesque doing body, display and code.
+- **Type** — Geist Mono for everything, body, display and labels, the way a
+  terminal or a game HUD sets type; posts keep Geist for long reading. Titles
+  end on one lit pixel, and small `[ bracketed ]` labels sit over them.
 
 ## Built with
 

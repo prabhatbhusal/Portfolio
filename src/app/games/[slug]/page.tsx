@@ -167,9 +167,7 @@ const Page = async ({ params }: Props) => {
           <ul className="mt-8 flex flex-col gap-6">
             {game.features.map((feature, idx) => (
               <li key={idx} className="flex gap-4">
-                <span className="mono mt-0.5 shrink-0 text-[11px] tabular-nums text-brand-ink">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
+                <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 bg-(--hud)" />
                 <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
                   {feature}
                 </p>

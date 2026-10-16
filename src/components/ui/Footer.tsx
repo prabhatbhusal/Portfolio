@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { ArrowUp } from "lucide-react";
 import ScrollLink from "@/components/motion/ScrollLink";
+import LocalTime from "./LocalTime";
 
 import { contactdata, servicesdata } from "@/lib/constants/data";
 import { getPosts, getProjects } from "@/server/content";
@@ -92,19 +93,16 @@ const Footer = async () => {
             </h2>
 
             <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink-soft">
-              Game developer and full-stack engineer based in Kathmandu. I
-              build gameplay systems and tools in Unity and Unreal, the web
-              around them with Next.js and Django, and worlds on real terrain
-              from LiDAR.
+              Game and VR developer based in Kathmandu, building the
+              RCAAS.tech studio platform. Gameplay systems in Unity and
+              Unreal, the web around them in Next.js and Django, and worlds
+              on real terrain from LiDAR.
             </p>
 
-            {/* icons only up here — the labels would repeat the columns */}
             <div className="mt-10">
-              <h3 className="text-[11px] leading-relaxed uppercase  font-semibold">
-                elsewhere
-              </h3>
+              <h3 className="eyebrow">follow</h3>
 
-              <div className="mt-5 flex flex-wrap gap-3">
+              <div className="mt-5 flex flex-wrap gap-2">
                 {elsewhere.map((item) => {
                   const Icon = item.icon;
                   const external = item.url.startsWith("http");
@@ -115,11 +113,10 @@ const Footer = async () => {
                       href={item.url}
                       target={external ? "_blank" : undefined}
                       rel={external ? "noreferrer" : undefined}
-                      aria-label={item.label}
-                      title={item.label}
-                      className="grid size-12 shrink-0 place-items-center rounded-2xl border border-line bg-(--chip-bg) text-ink-soft transition-colors duration-300 hover:border-(--brand-line) hover:bg-(--brand-soft) hover:text-brand-ink"
+                      className="inline-flex h-11 items-center gap-2.5 rounded-full border border-line px-4 text-[13px] text-ink-soft transition-colors duration-300 hover:border-(--brand-line) hover:bg-(--brand-soft) hover:text-brand-ink"
                     >
-                      <Icon size={19} strokeWidth={1.8} />
+                      <Icon size={15} strokeWidth={1.8} />
+                      {item.label}
                     </Link>
                   );
                 })}
@@ -130,9 +127,7 @@ const Footer = async () => {
           <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4">
             {columns.map((column) => (
               <div key={column.id}>
-                <h3 className="text-[11px] leading-relaxed uppercase  font-semibold">
-                  {column.heading}
-                </h3>
+                <h3 className="eyebrow">{column.heading}</h3>
 
                 <ul className="mt-6 flex flex-col gap-4">
                   {column.links.map((link) => (
@@ -157,9 +152,20 @@ const Footer = async () => {
 
         <div className="hairline mt-16 md:mt-20" />
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
-          <p className="text-[12px] leading-relaxed uppercase text-ink-soft font-bold">
-            © {year} Prabhat Bhusal. Built in Kathmandu.
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
+          {/* where, and what time it is there */}
+          <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.14em] text-ink-soft">
+            <span className="inline-flex h-9 items-center gap-2 rounded-full border border-line px-3.5">
+              <span className="pulse-dot size-1.5 rounded-full bg-(--hud)" />
+              <strong className="font-bold text-ink">kathmandu</strong> · np · <LocalTime />
+            </span>
+            <span className="inline-flex h-9 items-center rounded-full border border-line px-3.5">
+              games · vr · web · spatial
+            </span>
+          </div>
+
+          <p className="text-[11px] uppercase tracking-[0.14em] text-ink-faint">
+            © {year} Prabhat Bhusal · built in Kathmandu
           </p>
 
           <ScrollLink

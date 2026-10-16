@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 
 import { contactdata } from "@/lib/constants/data";
 import { author } from "@/lib/seo/site";
@@ -31,7 +31,7 @@ const Contact = ({ heading = true }: ContactProps) => {
           <div className="flex flex-col items-start">
             {heading && (
               <Reveal className="flex flex-col items-start gap-5">
-                <p className="eyebrow">09 · talk to me</p>
+                <p className="eyebrow">talk to me</p>
                 <h2 className="display pixel-end text-4xl font-extrabold leading-[1.03] text-ink md:text-5xl lg:text-6xl">
                   Let&apos;s build something solid
                 </h2>
@@ -82,32 +82,37 @@ const Contact = ({ heading = true }: ContactProps) => {
               </div>
             </Reveal>
 
-            {/* everywhere else */}
-            <Reveal delay={280} className="mt-6 w-[50%] sm:w-[40%] md:w-[30%] lg:w-[50%]">
-              <div className="grid grid-cols-2 gap-2">
+            {/* everywhere else, one row each */}
+            <Reveal delay={280} className="mt-6 w-full">
+              <ul className="flex flex-col gap-2">
                 {elsewhere.map((item) => {
                   const Icon = item.icon;
                   const external = item.url.startsWith("http");
 
                   return (
-                    <Link
-                      key={item.id}
-                      href={item.url}
-                      target={external ? "_blank" : undefined}
-                      rel={external ? "noopener noreferrer" : undefined}
-                      className="btn-quiet lift group inline-flex h-11 items-center gap-2.5 rounded-full px-4 text-[13px] font-semibold"
-                    >
-                      <Icon size={15} strokeWidth={1.8} />
-                      {item.label}
-                      <ArrowUpRight
-                        size={14}
-                        strokeWidth={2.5}
-                        className="opacity-50 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100"
-                      />
-                    </Link>
+                    <li key={item.id}>
+                      <Link
+                        href={item.url}
+                        target={external ? "_blank" : undefined}
+                        rel={external ? "noopener noreferrer" : undefined}
+                        className="contact-row group"
+                      >
+                        <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line text-ink-soft transition-colors duration-300 group-hover:border-(--brand-line) group-hover:text-brand-ink">
+                          <Icon size={16} strokeWidth={1.8} />
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-[14px] font-bold text-ink">{item.label}</span>
+                          <span className="block truncate text-[12px] text-ink-faint">{item.value}</span>
+                        </span>
+                        <ArrowRight
+                          size={16}
+                          className="shrink-0 text-ink-faint transition-transform duration-300 group-hover:translate-x-1 group-hover:text-brand-ink"
+                        />
+                      </Link>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </Reveal>
           </div>
 

@@ -7,9 +7,9 @@ import { createElement as h } from "react";
 import { ImageResponse } from "next/og.js";
 
 const NAME = "Prabhat Bhusal";
-const ROLE = "Game Developer & Full-stack Engineer";
+const ROLE = "Game & VR Developer, Full-stack Engineer";
 const DOMAIN = "prabhatbhusal.com.np";
-const STACK = ["Unity", "Unreal Engine 5", "C# / C++", "Next.js", "LiDAR"];
+const STACK = ["Unity", "Unreal Engine 5", "VR", "Gaussian splats", "Next.js"];
 
 const row = (children, style) =>
   h("div", { style: { display: "flex", ...style } }, ...children);

@@ -66,7 +66,7 @@ const DisciplineStack = ({ items }: { items: StackItem[] }) => {
     <section id="disciplines" ref={ref} className="relative py-20 md:py-28">
       <div className="rail flex flex-col items-start gap-6 lg:flex-row lg:items-end lg:justify-between">
         <div className="flex flex-col items-start gap-5">
-          <p className="eyebrow">02 · three fields</p>
+          <p className="eyebrow">three fields</p>
           <h2 className="display pixel-end max-w-2xl text-4xl font-bold leading-[1.05] text-ink md:text-5xl">
             Three fields, one way of thinking
           </h2>
@@ -85,7 +85,7 @@ const DisciplineStack = ({ items }: { items: StackItem[] }) => {
               <div className="grid size-full place-items-center text-[#8eaaff] [&_svg]:size-16">{items[active]?.icon}</div>
             </LazyScene>
             <span className="absolute left-4 top-4 mono text-[10px] uppercase tracking-[0.2em] text-[#5ad8ff]">
-              {String(active + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+              {items[active]?.tagline}
             </span>
           </div>
 
@@ -98,7 +98,7 @@ const DisciplineStack = ({ items }: { items: StackItem[] }) => {
                   aria-current={active === i ? "step" : undefined}
                   className="stack-option"
                 >
-                  <span className="mono text-[11px] tabular-nums text-ink-faint">{String(i + 1).padStart(2, "0")}</span>
+                  <span aria-hidden="true" className="stack-pip" />
                   <span className="flex-1 text-left text-[15px] font-semibold">{item.title}</span>
                   <span className="mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">{item.tagline}</span>
                 </button>
@@ -119,21 +119,9 @@ const DisciplineStack = ({ items }: { items: StackItem[] }) => {
               style={vars(i)}
               className="stack-card overflow-hidden rounded-[28px] border border-line bg-raised p-7 md:p-9"
             >
-              {/* the level number, huge and faint behind the card */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -bottom-10 -right-4 select-none display text-[11rem] leading-none text-ink opacity-[0.045] md:text-[14rem]"
-              >
-                {String(i + 1).padStart(2, "0")}
+              <span className="grid size-12 place-items-center rounded-2xl bg-(--brand-soft) text-brand-ink [&_svg]:size-6">
+                {item.icon}
               </span>
-              <div className="flex items-center justify-between">
-                <span className="grid size-12 place-items-center rounded-2xl bg-(--brand-soft) text-brand-ink [&_svg]:size-6">
-                  {item.icon}
-                </span>
-                <span className="mono text-[11px] tabular-nums text-ink-faint">
-                  {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
-                </span>
-              </div>
               <h3 className="text-gradient display mt-6 text-3xl font-bold leading-tight md:text-[2.4rem]">{item.title}</h3>
               <p className="mt-2 mono text-[11px] uppercase tracking-[0.16em] text-ink-faint">{item.tagline}</p>
               <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-ink-soft md:text-[17px]">{item.description}</p>

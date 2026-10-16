@@ -19,9 +19,6 @@ const WorkRow = ({ item, detailed = true }: WorkRowProps) => (
 
     <div className="flex flex-col gap-4 py-7 md:flex-row md:gap-8 md:py-9">
       <div className="flex shrink-0 items-center gap-3 md:w-48 md:flex-col md:items-start md:gap-2.5">
-        <span className="mono text-[11px] tabular-nums text-brand-ink">
-          {item.index}
-        </span>
         <span className="mono text-[10px] uppercase tracking-[0.16em] text-ink-faint">
           {item.year ?? "—"} · {item.sector}
         </span>

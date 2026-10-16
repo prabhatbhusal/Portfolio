@@ -58,7 +58,6 @@ export interface WorkProject {
   year?: string
   role?: string
   highlights?: string[]
-  index: string
   stack: string
   sector: string
   badge: string

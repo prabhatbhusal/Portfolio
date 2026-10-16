@@ -89,14 +89,13 @@ const ScrollRail = () => {
       {/* the current section, written up the rail beside its tick */}
       <span aria-hidden="true" className="srail-now" style={{ "--at": index } as React.CSSProperties}>
         <span key={now?.id ?? page} className="srail-now-text">
-          {now && <span className="srail-n">{String(index + 1).padStart(2, "0")}</span>}
           {now?.label ?? page}
         </span>
       </span>
 
       <ol className="srail-list">
         {sections.length > 0 ? (
-          sections.map((s, i) => (
+          sections.map((s) => (
             <li key={s.id}>
               <ScrollLink
                 to={`#${s.id}`}
@@ -104,10 +103,7 @@ const ScrollRail = () => {
                 aria-current={active === s.id ? "true" : undefined}
                 className="srail-item"
               >
-                <span className="srail-label">
-                  <span className="srail-n">{String(i + 1).padStart(2, "0")}</span>
-                  {s.label}
-                </span>
+                <span className="srail-label">{s.label}</span>
                 <span aria-hidden="true" className="srail-tick" />
               </ScrollLink>
             </li>

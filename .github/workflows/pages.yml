@@ -1,0 +1,50 @@
+# a stopgap while the full site (studio, api, database) moves to vercel or
+# railway: the public pages, prerendered from content/*.json, published as
+# plain files on github pages. delete this file once the domain points at
+# the new host. needs Settings → Pages → Source: "GitHub Actions".
+name: Static site to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# one deploy at a time; a newer push waits rather than cancelling one mid-way
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # pages has no server: drop the routes that need one. the contact form
+      # falls back to the visitor's mail app when /api/contact is missing
+      - run: rm -rf src/app/api src/app/studio src/app/media
+      - run: npx next build
+        env:
+          STATIC_EXPORT: "1"
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

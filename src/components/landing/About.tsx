@@ -33,7 +33,7 @@ const About = () => {
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal className="flex flex-col items-start gap-5">
-          <p className="eyebrow">06 · player profile</p>
+          <p className="eyebrow">player profile</p>
           <h2 className="display text-4xl font-extrabold leading-[1.05] text-ink md:text-5xl">
             A game developer who
             <span className="pixel-end block text-brand-ink">reads the map</span>
@@ -41,10 +41,10 @@ const About = () => {
 
           <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
             Games taught me to think in 3D space, a Geomatics degree taught
-            me to measure it, and the web is how the work gets shipped. The
-            overlap is the interesting part — levels built on real terrain,
-            and the tools and backends around a game where a generic stack
-            starts to creak.
+            me to measure it, and the web is how the work gets shipped. Today
+            that overlap is my job: at RCAAS Technology I build VR and the
+            studio platform that turns captured places into tours people can
+            walk through.
           </p>
         </Reveal>
 

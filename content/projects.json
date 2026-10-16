@@ -1,5 +1,34 @@
 [
   {
+    "slug": "rcaas-studio-platform",
+    "year": "2026",
+    "role": "Developer — studio, viewer and API",
+    "highlights": [
+      "One workflow from capture to enquiry: import a LiDAR or 3D capture, author hotspots, viewpoints and branding in the studio, publish it as a tour.",
+      "Gaussian-splat tours run in the browser — walk, fly and orbit, camera tracks, a live floor map — with nothing to install on phone or desktop.",
+      "Hotspots that carry text, images, video, audio, portals and tables, a day/night switch that keeps the view, and English, Nepali and Chinese.",
+      "Behind it: a studio with version history, activity log and team roles, client sites with bookings and enquiries, and splat assets synced to Cloudflare R2."
+    ],
+    "stack": "Full Stack",
+    "sector": "Virtual tours",
+    "badge": "3d / vr",
+    "featured": true,
+    "title": "RCAAS.tech Studio Platform",
+    "description": "The platform behind RCAAS Technology: real places captured with LiDAR become Gaussian-splat virtual tours that open in any browser, authored in a private studio and published with in-tour enquiries and bookings.",
+    "skills": [
+      "Next.js",
+      "React 19",
+      "Three.js",
+      "React Three Fiber",
+      "Gaussian Splatting",
+      "Node.js",
+      "Express",
+      "Cloudflare R2"
+    ],
+    "github": "https://github.com/prabhatbhusal/Three-D-GS-platform",
+    "live": "https://rcaas.tech"
+  },
+  {
     "slug": "food-delivery-webgis",
     "year": "2025",
     "role": "Design, frontend and backend",

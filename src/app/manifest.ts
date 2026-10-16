@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
 
-import { siteDescription, siteName } from "@/lib/seo/site";
+import { author, siteDescription, siteName } from "@/lib/seo/site";
 
 export const dynamic = "force-static";
 
 const manifest = (): MetadataRoute.Manifest => ({
-  name: `${siteName} — Full-stack Developer & Geomatics Engineer`,
+  name: `${siteName} — ${author.jobTitle}`,
   short_name: siteName,
   description: siteDescription,
   start_url: "/",

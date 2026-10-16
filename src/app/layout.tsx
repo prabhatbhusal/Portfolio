@@ -85,7 +85,8 @@ async function navLinks(): Promise<NavItem[]> {
         title: p.title,
         description: [p.sector, p.year].filter(Boolean).join(" · "),
         url: `/work/${p.slug}`,
-        tile: p.index,
+        // initials, not a running number
+        tile: p.title.split(/\s+/).slice(0, 2).map((word) => word[0]).join("").toUpperCase(),
         tags: p.skills.slice(0, 2),
       })),
       feature: featured && {
@@ -119,6 +120,7 @@ async function navLinks(): Promise<NavItem[]> {
       url: "/skills",
       children: [
         { title: "Skills", description: "Unlocked by shipping, not by rating", url: "/skills", icon: "layers" },
+        { title: "Now", description: "VR and the RCAAS.tech studio", url: "/#now", icon: "live" },
         { title: "About me", description: "Where games, the web and maps meet", url: "/#about", icon: "user" },
         { title: "Gallery", description: "Scenes from the field", url: "/gallery", icon: "image" },
         { title: "FAQ", description: "Quick answers", url: "/#faq", icon: "help" },

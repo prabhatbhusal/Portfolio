@@ -14,6 +14,7 @@ import {
   Download,
   Images,
   Layers,
+  Activity,
   Mail,
   Plus,
   User,
@@ -49,6 +50,7 @@ const ICONS: Record<NavIcon, React.ElementType> = {
   image: Images,
   help: CircleHelp,
   mail: Mail,
+  live: Activity,
 };
 
 const vars = (i: number) => ({ "--i": i }) as React.CSSProperties;
@@ -426,14 +428,6 @@ const Navbar = ({ links }: { links: NavItem[] }) => {
                       aria-current={on ? "page" : undefined}
                       className="flex flex-1 items-baseline gap-3.5 pb-3.5 pt-4 text-ink"
                     >
-                      <span
-                        className={cn(
-                          "mono -translate-y-[0.45em] text-[11px] tabular-nums",
-                          on ? "text-brand-ink" : "text-ink-faint"
-                        )}
-                      >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
                       <span className="mnav-t">
                         {item.title}
                         {on && (
