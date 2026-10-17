@@ -18,7 +18,7 @@
 ---
 ### 👾 What I Do
 
-- 🔭 I’m currently engineering solutions for a **3D Gaussian Splatting (3DGS) platform**, bringing high-fidelity volumetric scenes to life.
+- 🔭 I’m currently engineering solutions for a **3D Gaussian Splatting (3DGS) platform**, bringing high-fidelity volumetric scenes to life...
 - 🕹️ Building games and interactive experiences using **Unreal Engine**.
 - 💻 Creating seamless, responsive user interfaces as a **Frontend Developer**.
 - 💬 Ask me about: **Game architectures, 3D rendering pipelines, React, C++, and Backend integrations.**
