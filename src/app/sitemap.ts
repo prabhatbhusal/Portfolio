@@ -1,12 +1,10 @@
 import type { MetadataRoute } from "next";
 
-import { getGames, getPosts, getProjects } from "@/server/content";
+import { getGames, getPosts, getProjects } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo/site";
 
 // built once with the site (and as a plain file in the static export)
 export const dynamic = "force-static";
-
-// rebuilt with the rest of the site whenever content changes in the studio
 
 const buildDate = new Date();
 

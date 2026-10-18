@@ -5,7 +5,7 @@ import { ArrowUpRight, Quote } from "lucide-react";
 
 import type { Testimonial, WorkProject } from "@/@types/common.types";
 import { testimonialsdata } from "@/lib/constants/data";
-import { getProjects } from "@/server/content";
+import { getProjects } from "@/lib/content";
 import { Reveal } from "../motion";
 import DragMarquee from "../motion/DragMarquee";
 

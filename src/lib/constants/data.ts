@@ -503,7 +503,7 @@ export const skillAreaOrder: SkillArea[] = [
 ];
 
 /* every unlock is derived from what actually shipped — pass in the live
-   projects and games, so adding one in the studio updates this too */
+   projects and games, so adding one to content/ updates this too */
 export const deriveUnlocks = (projects: WorkProject[], games: GameItem[]): SkillUnlock[] => {
   const sources = [
     ...projects.map((project) => ({

@@ -7,63 +7,24 @@ import { author } from "@/lib/seo/site";
 
 const budgets = ["under $5k", "$5k – $20k", "$20k+", "not sure yet"];
 
-type State = { kind: "idle" | "sending" | "sent" | "mailed" } | { kind: "error"; message: string };
-
 const labelClass = "text-[11px] font-semibold uppercase leading-relaxed text-ink-faint";
 
 const ContactForm = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "", company: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [budget, setBudget] = useState(budgets[3]);
-  const [state, setState] = useState<State>({ kind: "idle" });
+  const [mailed, setMailed] = useState(false);
 
   const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm({ ...form, [key]: e.target.value });
 
-  /* the server can be offline (no database or email configured yet); the
-     form then hands the message to the visitor's own mail app rather than
-     dropping it */
-  const viaMailApp = () => {
+  /* the site is static, so there is no server to post to: the message is
+     handed to the visitor's own mail app, already written */
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     const subject = encodeURIComponent(`Project enquiry — ${form.name}`);
     const body = encodeURIComponent(`${form.message}\n\nBudget: ${budget}\n\n— ${form.name}\n${form.email}`);
     window.location.href = `mailto:${author.email}?subject=${subject}&body=${body}`;
-    // the page stays put while the mail app opens, so the form must not
-    // be left stuck on "sending"
-    setState({ kind: "mailed" });
-  };
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setState({ kind: "sending" });
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, budget }),
-      });
-      // only the api answers in json. anything else means there is no
-      // backend here — a static host says 404 or 405 with a page — and 503
-      // means it is offline: either way the mail app takes the message
-      const data = await res.json().catch(() => null);
-      if (!data || res.status === 503) return viaMailApp();
-      if (!res.ok) return setState({ kind: "error", message: data.error ?? "That did not go through." });
-      setState({ kind: "sent" });
-    } catch {
-      viaMailApp();
-    }
-  }
-
-  if (state.kind === "sent") {
-    return (
-      <div role="status" className="flex flex-col items-start gap-4 py-6">
-        <span className="grid size-12 place-items-center rounded-full bg-(--ok-soft) text-ok-ink">
-          <Check size={22} strokeWidth={2.5} />
-        </span>
-        <p className="display text-2xl font-bold text-ink">Got it — thank you.</p>
-        <p className="text-[15px] leading-relaxed text-ink-soft">
-          It landed in my inbox. I usually reply within a day, from {author.email}.
-        </p>
-      </div>
-    );
+    setMailed(true);
   }
 
   return (
@@ -106,12 +67,6 @@ const ContactForm = () => {
         </div>
       </div>
 
-      {/* bots fill in every field they find; people never see this one */}
-      <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
-        <label htmlFor="company">company</label>
-        <input id="company" name="company" tabIndex={-1} autoComplete="off" value={form.company} onChange={set("company")} />
-      </div>
-
       <fieldset className="flex flex-col gap-2.5">
         <legend className={`mb-2.5 ${labelClass}`}>rough budget</legend>
 
@@ -150,29 +105,22 @@ const ContactForm = () => {
         />
       </div>
 
-      {state.kind === "error" && (
-        <p role="alert" className="text-[13px] text-red-500">
-          {state.message}
-        </p>
-      )}
-
       <div className="flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          disabled={state.kind === "sending"}
-          className="btn-solid group inline-flex h-12 items-center gap-2.5 rounded-full px-6 text-[15px] font-semibold disabled:opacity-60"
+          className="btn-solid group inline-flex h-12 items-center gap-2.5 rounded-full px-6 text-[15px] font-semibold"
         >
-          {state.kind === "sending" ? "sending…" : "send it over"}
+          send it over
           <ArrowRight size={17} strokeWidth={2.5} className="transition-transform duration-300 group-hover:translate-x-1" />
         </button>
 
         <p role="status" className="text-[11px] font-semibold leading-relaxed text-ink-soft">
-          {state.kind === "mailed" ? (
+          {mailed ? (
             <>
               opened your mail app — nothing? write to <a href={`mailto:${author.email}`} className="text-brand-ink underline">{author.email}</a>
             </>
           ) : (
-            "goes straight to my inbox"
+            "opens your mail app, already written"
           )}
         </p>
       </div>

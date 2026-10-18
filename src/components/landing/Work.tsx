@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { getProjects } from "@/server/content";
+import { getProjects } from "@/lib/content";
 import WorkRow from "../props/WorkRow";
 import { Stagger, StaggerItem } from "../motion";
 

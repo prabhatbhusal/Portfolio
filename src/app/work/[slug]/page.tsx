@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { getProjects } from "@/server/content";
+import { getProjects } from "@/lib/content";
 import FactGrid from "@/components/props/FactGrid";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema, projectSchema } from "@/lib/seo/schema";
@@ -14,7 +14,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// prerendered at build; a project added later renders on first visit
+// every one is prerendered at build
 export async function generateStaticParams() {
   return (await getProjects()).map((project) => ({ slug: project.slug }));
 }

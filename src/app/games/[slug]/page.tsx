@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { getGames } from "@/server/content";
+import { getGames } from "@/lib/content";
 import FactGrid from "@/components/props/FactGrid";
 import MediaFrame from "@/components/props/MediaFrame";
 import JsonLd from "@/components/seo/JsonLd";
@@ -15,7 +15,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// prerendered at build; a game added later renders on first visit
+// every one is prerendered at build
 export async function generateStaticParams() {
   return (await getGames()).map((game) => ({ slug: game.slug }));
 }

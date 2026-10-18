@@ -6,7 +6,7 @@ import HeroScene from "../three/HeroScene";
 import Marquee from "./Marquee";
 import { ScrollFade, Stagger, StaggerItem } from "../motion";
 import ScrollCue from "../motion/ScrollCue";
-import { getGames, getProjects } from "@/server/content";
+import { getGames, getProjects } from "@/lib/content";
 
 /* viewfinder corners framing the scan, like a capture app's hud */
 const Corner = ({ className }: { className: string }) => (
@@ -18,7 +18,7 @@ const Corner = ({ className }: { className: string }) => (
 const Hero = async () => {
   const [games, projects] = await Promise.all([getGames(), getProjects()]);
   // the numbers, laid over the tech they were built with — counted, so a
-  // project added in the studio shows up here too
+  // project added to content/projects.json shows up here too
   const stats = [
     { value: String(games.length), label: "games in the works" },
     { value: String(projects.length), label: "builds shipped" },

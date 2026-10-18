@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import GameCard from "../props/GameCard";
 import { Stagger, StaggerItem } from "../motion";
-import { getGames } from "@/server/content";
+import { getGames } from "@/lib/content";
 
 const Games = async () => {
   const gamesdata = await getGames();

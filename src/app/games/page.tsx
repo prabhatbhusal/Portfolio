@@ -6,7 +6,7 @@ import { Gamepad2 } from "lucide-react";
 import PagesBanner from "@/components/props/PagesBanner";
 import GameCard from "@/components/props/GameCard";
 import { Stagger, StaggerItem } from "@/components/motion";
-import { getGames } from "@/server/content";
+import { getGames } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({

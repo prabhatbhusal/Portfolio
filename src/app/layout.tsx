@@ -12,7 +12,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import JsonLd from "@/components/seo/JsonLd";
 import type { NavItem } from "@/@types/navbar.types";
 import { formatDate } from "@/lib/blog/format";
-import { getGames, getPosts, getProjects } from "@/server/content";
+import { getGames, getPosts, getProjects } from "@/lib/content";
 import { personSchema, websiteSchema } from "@/lib/seo/schema";
 import {
   author,

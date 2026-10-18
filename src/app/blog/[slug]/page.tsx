@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import PostView from "@/components/blog/PostView";
 import JsonLd from "@/components/seo/JsonLd";
-import { getPosts } from "@/server/content";
+import { getPosts } from "@/lib/content";
 import { blogPostingSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/metadata";
 
@@ -14,7 +14,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// prerendered at build; a post published later renders on first visit
+// every post is prerendered at build
 export async function generateStaticParams() {
   return (await getPosts()).map((post) => ({ slug: post.slug }));
 }

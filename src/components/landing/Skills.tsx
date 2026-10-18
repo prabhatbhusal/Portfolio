@@ -9,7 +9,7 @@ import {
   skillpursuits,
   deriveUnlocks,
 } from "@/lib/constants/data";
-import { getGames, getProjects } from "@/server/content";
+import { getGames, getProjects } from "@/lib/content";
 import { Stagger, StaggerItem } from "../motion";
 import { Reveal } from "../motion";
 

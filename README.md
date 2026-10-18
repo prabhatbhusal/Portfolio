@@ -99,13 +99,11 @@ single place and nothing drifts between themes.
 
 | | |
 |---|---|
-| Framework | Next.js 16 (App Router, Turbopack, React Compiler) |
+| Framework | Next.js 16 (App Router, Turbopack, React Compiler), static export |
 | Language | TypeScript |
 | UI | React 19, Tailwind CSS v4, motion, three.js |
-| Backend | Next.js route handlers (`src/app/api`, `src/server`) |
-| Database | PostgreSQL (Neon / Supabase / any Postgres) via `postgres` |
-| Email | Resend |
-| Hosting | Vercel or Railway |
+| Content | JSON files in [`content/`](content) |
+| Hosting | Cloudflare (static assets) |
 
 ## Routes
 
@@ -116,137 +114,58 @@ single place and nothing drifts between themes.
 /skills               skills, derived from what shipped
 /blog, /blog/[slug]   writing
 /gallery              photographs
-/contact              contact form (stored + emailed)
-/studio               sign in and edit everything — not linked, not indexed
-/api/...              the backend the studio and contact form talk to
-/media/[id]           uploaded images, cached forever by content hash
+/contact              contact form (opens the visitor's mail app)
 ```
 
-Public pages are prerendered and cached; saving anything in the studio
-refreshes them (on-demand revalidation), so changes are live on the next
-visit without a redeploy.
+The site is fully static: there is no server, api or database. Every page is
+prerendered from the files in [`content/`](content) at build time.
 
 ## Getting started
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in what you have — every key is optional locally
 npm run dev
 ```
 
-Without `DATABASE_URL` the site runs from the seed files in
-[`content/`](content) and the studio says it needs a database. With it,
-`npm run db` creates the tables and copies those files in (once).
-
 ```bash
-npm run build   # migrates the database (if configured), then builds
+npm run build     # static site in out/
+npm run preview   # build, then serve out/ the way cloudflare does
 npm run lint
-npm test        # post parser, link/image filtering, validation
+npm test          # post parser, link/image filtering, validation
 ```
 
-## The studio
+## Editing content
 
-`/studio` is where the site is edited. It is deliberately not linked from
-anywhere, but the address is not the security — the account is:
+Everything the site lists lives in [`content/`](content). Edit a file,
+commit, and the next deploy picks it up.
 
-- **One owner.** Sign-up only accepts `OWNER_EMAIL`, needs a six-digit code
-  emailed to it, and closes for good once the account exists.
-- **Sessions** are a random token in an `httpOnly`, `__Host-` cookie; only its
-  SHA-256 is stored. Passwords use scrypt. Signing out kills the session
-  server-side; a password reset signs every other device out.
-- **Rate limits** on sign-in, codes and the contact form, kept in Postgres so
-  they hold across serverless instances. Codes burn after five wrong guesses.
-- **Every write** must come from this site (Origin check), is validated
-  against the same schema the editor uses, and is size-capped.
-
-What it edits:
-
-- **Posts** — title, subtitle, cover, then paragraphs, headings, images,
-  quotes, lists and code. Or **Import Word**: the Title style becomes the
-  title, Subtitle the subtitle, an image before any text the cover, and the
-  rest maps onto blocks. Preview renders through the site's own template.
-  Save as a draft or publish.
-- **Projects, games, photos** — forms generated from
-  [`src/lib/content/kinds.ts`](src/lib/content/kinds.ts). Add a field there and
-  it appears in the editor and in validation together.
-- **Inbox** — everything sent through the contact form.
-
-Images are shrunk to WebP (max 1600px) in the browser, then the server checks
-the actual bytes (jpeg/png/webp/gif/avif only — never SVG) before storing
-them. They are served with `nosniff` and a sandboxing CSP.
+- **Posts** — one file per post in [`content/blog/`](content/blog): title,
+  subtitle, excerpt, date, tags, cover, then blocks (paragraphs, headings,
+  images, quotes, lists, code). The format is in
+  [`src/lib/blog/format.ts`](src/lib/blog/format.ts); a bad post fails the
+  build instead of reaching the page.
+- **Projects, games, photos** — [`projects.json`](content/projects.json),
+  [`games.json`](content/games.json), [`photos.json`](content/photos.json).
+- **Images** — put them in [`public/`](public) and reference them as `/...`.
 
 ## Deployment
 
-The backend is the Next.js server itself, so it goes wherever the site goes —
-there is no second service to host.
+Cloudflare serves the contents of `out/` as static assets
+([`wrangler.jsonc`](wrangler.jsonc)) — no Worker code, so the free plan
+covers it.
 
-### Cloudflare (Workers, through OpenNext)
+1. **Workers & Pages → Create → Import a repository**. Name it `frontend`, as
+   in `wrangler.jsonc`, or rename both.
+2. Build command `npm run build`, deploy command `npx wrangler deploy`.
+   No environment variables are needed.
+3. **Settings → Domains & Routes → Custom domain**:
+   `www.prabhatbhusal.com.np`.
 
-The whole site — pages, studio and api — runs as one Worker
-([`wrangler.jsonc`](wrangler.jsonc), [`open-next.config.ts`](open-next.config.ts)).
-
-1. **Workers & Pages → Create → Import a repository** (a *Worker*, not a
-   Pages project). Name it `frontend`, as in `wrangler.jsonc`, or rename
-   both. Build command `npx opennextjs-cloudflare build`, deploy command
-   `npx opennextjs-cloudflare deploy`.
-2. A Postgres that takes outside connections: Neon (free) works as is.
-3. Worker **Settings → Variables and Secrets**: `DATABASE_URL` and
-   `RESEND_API_KEY` as secrets, `OWNER_EMAIL` as text. Add `DATABASE_URL`
-   under **Build → Variables** too: the build migrates the database and
-   prerenders from it.
-4. **Settings → Domains & Routes → Custom domain**:
-   `www.prabhatbhusal.com.np` (remove the old record pointing at GitHub
-   Pages first).
-
-How it differs from a node host, all handled in code: each request opens
-its own database connection (a Worker cannot share one across requests);
-passwords use PBKDF2 through Web Crypto (scrypt at full cost needs a whole
-Worker's 128 MB); rate limits key on `CF-Connecting-IP`. With no cache
-configured, pages render per request, so studio edits show at once.
-
-Mind the plan: Workers **Free** allows 10 ms of CPU per request. A sign-in
-spends about 60 ms hashing, so the studio needs **Workers Paid**. On Free,
-`npm run build:static` with output `out/` gives the public pages as plain
-files instead, without the studio.
-
-### Vercel
-
-1. Import the repo in Vercel.
-2. **Storage → Create → Neon** (Postgres). It sets `DATABASE_URL` for you.
-3. Add `OWNER_EMAIL` and `RESEND_API_KEY` (and later `MAIL_FROM`, once your
-   domain is verified in Resend) under Settings → Environment Variables.
-4. Deploy. The build runs `npm run db` first: tables are created and the
-   current content is seeded on the first deploy.
-5. Visit `/studio`, sign up with `OWNER_EMAIL`, confirm the code.
-6. Point `www.prabhatbhusal.com.np` at Vercel (Settings → Domains) — it
-   replaces the old GitHub Pages setup.
-
-### Railway
-
-Railway runs it as one long-lived Node server next to a Postgres, which suits
-it well. [`railway.json`](railway.json) already holds the build, start and
-health-check settings.
-
-1. **New project → Deploy from GitHub repo**, pick this repo.
-2. **+ New → Database → PostgreSQL** in the same project.
-3. On the app service, **Variables**:
-   - `DATABASE_URL` = `${{Postgres.DATABASE_URL}}` — the private network, used
-     at runtime.
-   - `DATABASE_PUBLIC_URL` = `${{Postgres.DATABASE_PUBLIC_URL}}` — builds
-     cannot reach the private network, so the build (migrations + prerender)
-     uses this one.
-   - `OWNER_EMAIL`, `RESEND_API_KEY` (and `MAIL_FROM` later).
-4. **Settings → Networking → Generate domain**, or add your own.
-5. Deploy. A new build only takes traffic once `/api/health` answers, which
-   includes reaching the database.
-6. Visit `/studio`, sign up with `OWNER_EMAIL`, confirm the code.
-
-Keep it to one replica: pages refreshed by the studio are cached on that
-instance's disk.
+Or from your machine: `npm run deploy`.
 
 Security headers (CSP with `frame-ancestors 'none'`, HSTS, nosniff,
-referrer and permissions policies) are set in
-[`next.config.ts`](next.config.ts).
+referrer and permissions policies) and long caching for `/_next/static` are
+set in [`public/_headers`](public/_headers).
 
 > `.npmrc` pins `legacy-peer-deps=true`. This is deliberate: without it,
 > `npm install` and `npm ci` disagree about the optional peer dependencies of

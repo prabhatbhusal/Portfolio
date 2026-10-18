@@ -8,7 +8,7 @@ import { ArrowUpRight } from "lucide-react";
 import PagesBanner from "@/components/props/PagesBanner";
 import { Stagger, StaggerItem } from "@/components/motion";
 import { formatDate, readingTime, type BlogPost } from "@/lib/blog/format";
-import { getPosts } from "@/server/content";
+import { getPosts } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({

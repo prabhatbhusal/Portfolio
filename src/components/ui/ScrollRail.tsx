@@ -77,8 +77,6 @@ const ScrollRail = () => {
     };
   }, [pathname]);
 
-  if (pathname.startsWith("/studio")) return null;
-
   // pages without sections still get the track, named after the page
   const page = pathname.split("/")[1] || "home";
   const index = Math.max(0, sections.findIndex((s) => s.id === active));

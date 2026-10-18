@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getProjects } from "@/server/content";
+import { getProjects } from "@/lib/content";
 import WorkRow from "../props/WorkRow";
 import { Stagger, StaggerItem } from "../motion";
 

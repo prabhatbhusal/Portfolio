@@ -5,7 +5,7 @@ import ScrollLink from "@/components/motion/ScrollLink";
 import LocalTime from "./LocalTime";
 
 import { contactdata, servicesdata } from "@/lib/constants/data";
-import { getPosts, getProjects } from "@/server/content";
+import { getPosts, getProjects } from "@/lib/content";
 
 const explore = [
   { title: "Work", url: "/work" },

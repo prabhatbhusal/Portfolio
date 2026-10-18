@@ -6,7 +6,7 @@ import { Camera } from "lucide-react";
 
 import PagesBanner from "@/components/props/PagesBanner";
 import { Reveal } from "@/components/motion";
-import { getPhotos } from "@/server/content";
+import { getPhotos } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
