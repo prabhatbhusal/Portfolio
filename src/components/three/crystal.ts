@@ -1,12 +1,16 @@
-// the pointer itself: a small crystal standing on its tip, the tip exactly
-// on the hotspot. it spins, leans into the way the mouse is moving, turns
-// gold and spins up when the hud locks onto something, and squashes on a
-// click. the hud's own colour tints it, so it follows the theme.
+// the pointer itself: a small crystal centred exactly on the hotspot, so
+// it sits in the middle of the hud's brackets and what it covers is what
+// gets clicked. it spins, leans into the way the mouse is moving, turns
+// the signature red and spins up when the hud locks onto something, and squashes on a
+// click. the page's ink tints it at rest, so it follows the theme.
 import * as THREE from "three";
 
 import { createStage } from "./stage";
 
-const HEIGHT = 1.15; // tip to tip, in scene units
+// tip to tip and across, in scene units: about 20 x 11 px on the 56px
+// canvas, so it fits inside the 26px idle brackets
+const HEIGHT = 0.62;
+const WIDTH = 0.34;
 
 export function mountCrystal(host: HTMLElement) {
   const { scene, camera, run, dispose } = createStage(host, { fov: 30, maxDpr: 2 });
@@ -26,24 +30,24 @@ export function mountCrystal(host: HTMLElement) {
     emissiveIntensity: 0.55,
     envMapIntensity: 0.45,
   });
-  const gem = new THREE.Mesh(new THREE.OctahedronGeometry(0.5).scale(0.62, HEIGHT, 0.62), material);
-  gem.add(
-    new THREE.LineSegments(
-      new THREE.EdgesGeometry(gem.geometry),
-      new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 })
-    )
-  );
-  // pivot on the tip, so leaning never moves the hotspot
-  gem.position.y = HEIGHT / 2;
+  // octahedron(0.5) spans 1 unit, so this scales it to WIDTH x HEIGHT
+  const gem = new THREE.Mesh(new THREE.OctahedronGeometry(0.5).scale(WIDTH, HEIGHT, WIDTH), material);
+  const edges = new THREE.LineBasicMaterial({ transparent: true, opacity: 0.6 });
+  gem.add(new THREE.LineSegments(new THREE.EdgesGeometry(gem.geometry), edges));
+  // pivot on its centre, the hotspot, so leaning never moves the aim point
   const pivot = new THREE.Group();
-  pivot.position.y = -HEIGHT / 2;
   pivot.add(gem);
   scene.add(pivot);
 
-  const hud = new THREE.Color();
-  const gold = new THREE.Color(0xffc23d);
+  const ink = new THREE.Color();
+  const red = new THREE.Color();
+  // the facets are drawn in the page colour, so a white crystal on dark
+  // and a black one on light both keep their shape
   const tint = () => {
-    hud.set(getComputedStyle(document.documentElement).getPropertyValue("--hud").trim() || "#5ad8ff");
+    const css = getComputedStyle(document.documentElement);
+    ink.set(css.getPropertyValue("--ink").trim() || "#f0f0f0");
+    red.set(css.getPropertyValue("--hud").trim() || "#ff4040");
+    edges.color.set(css.getPropertyValue("--canvas").trim() || "#080808");
   };
   tint();
   const themeWatch = new MutationObserver(tint);
@@ -79,7 +83,7 @@ export function mountCrystal(host: HTMLElement) {
     pivot.rotation.x = THREE.MathUtils.clamp(motion.vy * 0.03, -0.6, 0.6);
     pivot.scale.set(1 + squash * 0.25, (1 + lock * 0.12) * (1 - squash * 0.3), 1 + squash * 0.25);
 
-    material.color.copy(hud).lerp(gold, lock);
+    material.color.copy(ink).lerp(red, lock);
     material.emissive.copy(material.color);
   });
 

@@ -45,15 +45,15 @@ const fragmentShader = /* glsl */ `
     if (r > 0.5) discard;
     float soft = smoothstep(0.5, 0.05, r);
 
-    // elevation ramp: valley floor deep blue, ridges brand blue, peaks snow
+    // elevation ramp in greys: valley floor dim, ridges mid, peaks white
     float h = clamp((vHeight + 0.6) / 2.8, 0.0, 1.0);
-    vec3 col = mix(vec3(0.16, 0.30, 0.85), vec3(0.45, 0.65, 1.0), h);
-    col = mix(col, vec3(0.93, 0.96, 1.0), smoothstep(0.72, 1.0, h));
-    col = mix(col, vec3(0.36, 0.86, 1.0), vGlow);
+    vec3 col = mix(vec3(0.30), vec3(0.62), h);
+    col = mix(col, vec3(0.96), smoothstep(0.72, 1.0, h));
+    col = mix(col, vec3(1.0), vGlow);
 
     float a = soft * vAlpha * uFade * (0.6 + 0.6 * h + vGlow);
     // on a light page additive light vanishes, so the points go ink-dark
-    if (uLight > 0.5) { col = mix(vec3(0.16, 0.32, 0.88) * (0.55 + 0.45 * h), vec3(0.0, 0.55, 0.85), vGlow); a *= 0.9; }
+    if (uLight > 0.5) { col = mix(vec3(0.38 - 0.28 * h), vec3(0.0), vGlow); a *= 0.9; }
     gl_FragColor = vec4(col, a);
   }
 `;

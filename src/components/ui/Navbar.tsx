@@ -57,7 +57,7 @@ const vars = (i: number) => ({ "--i": i }) as React.CSSProperties;
 
 const Logo = ({ onClick }: { onClick?: () => void }) => (
   <Link href="/" onClick={onClick} aria-label="Prabhat Bhusal home" className="snav-brand">
-    <span className="relative grid size-8 shrink-0 place-items-center rounded-lg bg-brand text-[10px] font-extrabold tracking-tighter text-white">
+    <span className="relative grid size-8 shrink-0 place-items-center rounded-lg bg-brand text-[10px] font-extrabold tracking-tighter text-on-brand">
       pb
       <span aria-hidden="true" className="absolute -inset-1 rounded-[10px] border border-dashed border-brand/50" />
     </span>
@@ -360,7 +360,7 @@ const Navbar = ({ links }: { links: NavItem[] }) => {
                 <Link
                   href={shown.feature.url}
                   onClick={closeAll}
-                  className="group relative flex min-h-52 overflow-hidden rounded-xl bg-[#05060b] text-left"
+                  className="group relative flex min-h-52 overflow-hidden rounded-xl bg-[#050505] text-left"
                 >
                   {shown.feature.image ? (
                     <img
@@ -371,14 +371,14 @@ const Navbar = ({ links }: { links: NavItem[] }) => {
                   ) : (
                     <span
                       aria-hidden="true"
-                      className="absolute inset-0 bg-[radial-gradient(120%_90%_at_80%_110%,#1d3aa0_0%,#0b1026_60%)]"
+                      className="absolute inset-0 bg-[radial-gradient(120%_90%_at_80%_110%,#2e2e2e_0%,#0b0b0b_60%)]"
                     />
                   )}
                   <span aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent" />
                   <span aria-hidden="true" className="scanline absolute inset-x-0 top-0 h-px" />
 
                   <span className="relative mt-auto flex flex-col gap-1.5 p-4">
-                    <span className="mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#8eaaff]">
+                    <span className="mono text-[10px] font-semibold uppercase tracking-[0.16em] text-(--accent)">
                       {shown.feature.eyebrow}
                     </span>
                     <span className="text-[16px] font-bold leading-snug tracking-tight text-white">

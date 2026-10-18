@@ -177,7 +177,7 @@ const Cursor = () => {
   return (
     <div
       aria-hidden="true"
-      className={cn("hud pointer-events-none fixed inset-0 z-[95] transition-opacity duration-200", visible ? "opacity-100" : "opacity-0")}
+      className={cn("hud pointer-events-none fixed inset-0 z-[95] transition-opacity duration-200", visible ? "opacity-100" : "opacity-0", locked && "is-locked")}
     >
       {/* the brackets */}
       <motion.div style={{ x: bx, y: by, width: bw, height: bh }} className={cn("absolute left-0 top-0", locked && "hud-locked")}>
@@ -186,26 +186,27 @@ const Cursor = () => {
         <span className="hud-corner bottom-0 left-0 border-b-[1.5px] border-l-[1.5px]" />
         <span className="hud-corner bottom-0 right-0 border-b-[1.5px] border-r-[1.5px]" />
         {mode !== "idle" && (
-          <span className="absolute -top-[18px] left-0 whitespace-nowrap rounded-sm bg-(--hud) px-1 mono text-[9px] font-bold uppercase leading-[14px] tracking-[0.14em] text-black">
+          <span className="absolute -top-[18px] left-0 whitespace-nowrap rounded-sm bg-(--cursor) px-1 mono text-[9px] font-bold uppercase leading-[14px] tracking-[0.14em] text-canvas">
             {locked ? `lock · ${tag}` : tag}
           </span>
         )}
       </motion.div>
 
-      {/* the pointer: the crystal's tip sits exactly on it (a 56px canvas,
-          tip 47px down its middle), or the flat crosshair until it loads */}
+      {/* the pointer: the crystal's centre sits exactly on it, in the middle
+          of the brackets (a 56px canvas centred on the hotspot), or the flat
+          crosshair until it loads */}
       <motion.div style={{ x, y }} className="absolute left-0 top-0">
-        <div ref={crystalHost} className="absolute -left-7 -top-[47px] size-14" />
+        <div ref={crystalHost} className="absolute -left-7 -top-7 size-14" />
         {!solid && (
           <>
             <span className={cn("hud-dot", locked && "scale-150")} />
-            <span className="absolute -left-[9px] -top-px h-0.5 w-[5px] bg-(--hud)" />
-            <span className="absolute left-[5px] -top-px h-0.5 w-[5px] bg-(--hud)" />
-            <span className="absolute -left-px -top-[9px] h-[5px] w-0.5 bg-(--hud)" />
-            <span className="absolute -left-px top-[5px] h-[5px] w-0.5 bg-(--hud)" />
+            <span className="absolute -left-[9px] -top-px h-0.5 w-[5px] bg-(--cursor)" />
+            <span className="absolute left-[5px] -top-px h-0.5 w-[5px] bg-(--cursor)" />
+            <span className="absolute -left-px -top-[9px] h-[5px] w-0.5 bg-(--cursor)" />
+            <span className="absolute -left-px top-[5px] h-[5px] w-0.5 bg-(--cursor)" />
           </>
         )}
-        <span ref={readout} className="absolute left-4 top-3 whitespace-nowrap mono text-[9px] tracking-wider text-(--hud) opacity-70" />
+        <span ref={readout} className="absolute left-5 top-4 whitespace-nowrap mono text-[9px] tracking-wider text-(--cursor) opacity-70" />
         {shots > 0 && <span key={shots} className="hud-ping" />}
       </motion.div>
     </div>

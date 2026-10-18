@@ -52,7 +52,10 @@ Everything is driven from one set of semantic tokens in
 single place and nothing drifts between themes.
 
 - **Dark first, light on request** — a small script runs before first paint,
-  so the saved theme applies with no flash. Dark is the default.
+  so the saved theme applies with no flash. Dark is the default. Black and
+  white, with one signature colour, signal red, kept to highlights:
+  selected text, hovered links, labels, dots and scan lines. Buttons and
+  surfaces never take it.
 - **Navbar** — the floating nav from the
   [3D-GS platform](https://github.com/prabhatbhusal/Three-D-GS-platform): a
   glass pill that folds to just its links on the way down and opens on the
@@ -80,9 +83,9 @@ single place and nothing drifts between themes.
   bar and a `000%` counter. The count is an animated CSS custom property, so
   it runs from the first paint with no script; it leaves once counted out and
   the page has loaded (never later than 4 s), wiping up behind a scan line.
-- **HUD cursor** — a small 3D crystal standing on its tip at the pointer,
+- **HUD cursor** — a small 3D crystal centred on the pointer, inside the brackets,
   spinning and leaning into the motion; corner brackets lock onto whatever is
-  clickable and turn it gold, with a live coordinate readout and a ping on
+  clickable and turn it red, with a live coordinate readout and a ping on
   every click. Mouse only; touch keeps its own behaviour.
 - **Stacked disciplines** — three cards that stack on one another as you
   scroll, beside a turntable (a d20, a code cube, a point-cloud globe) that

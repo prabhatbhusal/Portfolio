@@ -87,7 +87,7 @@ const Chapter = ({ progress, index }: { progress: MotionValue<number>; index: nu
 
   return (
     <motion.div style={{ opacity, y, pointerEvents }} className={cn("absolute flex flex-col gap-4", place[c.side])}>
-      <span className="mono text-[11px] uppercase tracking-[0.22em] text-[#5ad8ff]">
+      <span className="mono text-[11px] uppercase tracking-[0.22em] text-(--accent)">
         {c.label}
       </span>
       <h3
@@ -149,23 +149,23 @@ const Build = () => {
   const percent = useTransform(scrollYProgress, (v) => `${String(Math.round(v * 100)).padStart(3, "0")}%`);
 
   return (
-    <section id="build" ref={ref} aria-label="Inside a build" className="relative h-[520svh] bg-[#05060b]">
+    <section id="build" ref={ref} aria-label="Inside a build" className="relative h-[520svh] bg-[#050505]">
       <div className="sticky top-0 h-svh overflow-hidden">
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_42%,#14245e_0%,#0a1030_45%,#05060b_100%)]"
+          className="absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_42%,#222222_0%,#0b0b0b_45%,#050505_100%)]"
         />
 
         <LazyScene load={loadGamepad} section={ref} className="absolute inset-0">
           <div className="grid size-full place-items-center">
-            <Gamepad2 size={220} strokeWidth={0.8} className="text-[#5ad8ff] opacity-40 drop-shadow-[0_0_30px_#5ad8ff]" />
+            <Gamepad2 size={220} strokeWidth={0.8} className="text-[#ffffff] opacity-40 drop-shadow-[0_0_30px_#ffffff]" />
           </div>
         </LazyScene>
 
         {/* phones read the copy under the pad; this keeps it legible */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-linear-to-b from-transparent via-[#05060b]/70 to-[#05060b] lg:hidden"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%] bg-linear-to-b from-transparent via-[#050505]/70 to-[#050505] lg:hidden"
         />
 
         <div className="rail relative h-full">
@@ -179,11 +179,11 @@ const Build = () => {
           aria-hidden="true"
           className="absolute inset-x-4 bottom-5 flex items-center gap-4 mono text-[10px] uppercase tracking-[0.2em] text-white/55 sm:inset-x-8"
         >
-          <span className="shrink-0 text-[#5ad8ff]">{chapters[current].label}</span>
+          <span className="shrink-0 text-(--accent)">{chapters[current].label}</span>
           <span className="relative h-px flex-1 bg-white/12">
             <motion.span
               style={{ scaleX: scrollYProgress }}
-              className="absolute inset-0 origin-left bg-linear-to-r from-[#3364ff] to-[#5ad8ff] shadow-[0_0_10px_#5ad8ff]"
+              className="absolute inset-0 origin-left bg-(--accent) shadow-[0_0_10px_var(--accent)]"
             />
           </span>
           <motion.span className="shrink-0 tabular-nums">{percent}</motion.span>

@@ -80,11 +80,11 @@ const DisciplineStack = ({ items }: { items: StackItem[] }) => {
       <div className="rail mt-10 grid lg:mt-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
         {/* the turntable and the three options, held while the cards stack */}
         <div className="stack-stage">
-          <div className="stack-frame relative aspect-square h-full overflow-hidden rounded-[28px] border border-line bg-[radial-gradient(90%_70%_at_50%_100%,#11225e_0%,#060a1f_60%)]">
+          <div className="stack-frame relative aspect-square h-full overflow-hidden rounded-[28px] border border-line bg-[radial-gradient(90%_70%_at_50%_100%,#222222_0%,#070707_60%)]">
             <LazyScene load={loadTurntable} section={ref} className="absolute inset-0">
-              <div className="grid size-full place-items-center text-[#8eaaff] [&_svg]:size-16">{items[active]?.icon}</div>
+              <div className="grid size-full place-items-center text-[#c8c8c8] [&_svg]:size-16">{items[active]?.icon}</div>
             </LazyScene>
-            <span className="absolute left-4 top-4 mono text-[10px] uppercase tracking-[0.2em] text-[#5ad8ff]">
+            <span className="absolute left-4 top-4 mono text-[10px] uppercase tracking-[0.2em] text-(--accent)">
               {items[active]?.tagline}
             </span>
           </div>

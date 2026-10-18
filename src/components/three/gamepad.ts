@@ -69,7 +69,7 @@ function boardTexture() {
   const c = document.createElement("canvas");
   c.width = c.height = 512;
   const g = c.getContext("2d")!;
-  g.fillStyle = "#081030";
+  g.fillStyle = "#0b0b0b";
   g.fillRect(0, 0, 512, 512);
 
   let seed = 11;
@@ -79,7 +79,7 @@ function boardTexture() {
   for (let i = 0; i < 110; i++) {
     let x = Math.round(rnd() * 32) * 16;
     let y = Math.round(rnd() * 32) * 16;
-    g.strokeStyle = rnd() < 0.25 ? "#8eaaff" : "#5ad8ff";
+    g.strokeStyle = rnd() < 0.25 ? "#c8c8c8" : "#ffffff";
     g.globalAlpha = 0.35 + rnd() * 0.6;
     g.beginPath();
     g.moveTo(x, y);
@@ -96,12 +96,12 @@ function boardTexture() {
 
   // the chip in the middle, with its pins
   g.globalAlpha = 1;
-  g.fillStyle = "#0d1428";
+  g.fillStyle = "#141414";
   g.fillRect(196, 176, 120, 120);
-  g.strokeStyle = "#8eaaff";
+  g.strokeStyle = "#c8c8c8";
   g.lineWidth = 3;
   g.strokeRect(196, 176, 120, 120);
-  g.fillStyle = "#5ad8ff";
+  g.fillStyle = "#ffffff";
   for (let i = 0; i < 8; i++) {
     g.fillRect(204 + i * 14, 166, 6, 10);
     g.fillRect(204 + i * 14, 296, 6, 10);
@@ -132,27 +132,27 @@ export function mountGamepad(host: HTMLElement, section: HTMLElement, onReady: (
     },
   });
   // matches the section's floor colour, so the grid melts into it
-  scene.fog = new THREE.Fog(0x05060b, 11, 30);
+  scene.fog = new THREE.Fog(0x050505, 11, 30);
 
   const key = new THREE.DirectionalLight(0xffffff, 1.6);
   key.position.set(3, 5, 6);
-  const rim = new THREE.DirectionalLight(0x5ad8ff, 3);
+  const rim = new THREE.DirectionalLight(0xffffff, 3);
   rim.position.set(-5, 2, -4);
-  const fill = new THREE.DirectionalLight(0x3364ff, 1.6);
+  const fill = new THREE.DirectionalLight(0x9a9a9a, 1.6);
   fill.position.set(5, -3, -2);
   scene.add(key, rim, fill);
 
   // ---------------------------------------------------------------- materials
   const shellLight = new THREE.MeshPhysicalMaterial({
-    color: 0xdfe3ec,
+    color: 0xe2e2e2,
     roughness: 0.38,
     metalness: 0.05,
     clearcoat: 0.6,
     clearcoatRoughness: 0.3,
   });
-  const shellDark = new THREE.MeshPhysicalMaterial({ color: 0x1b1e29, roughness: 0.45, metalness: 0.2, clearcoat: 0.4 });
-  const graphite = new THREE.MeshStandardMaterial({ color: 0x23262f, roughness: 0.5, metalness: 0.3 });
-  const glow = new THREE.MeshStandardMaterial({ color: 0x5ad8ff, emissive: 0x5ad8ff, emissiveIntensity: 1.6 });
+  const shellDark = new THREE.MeshPhysicalMaterial({ color: 0x1c1c1c, roughness: 0.45, metalness: 0.2, clearcoat: 0.4 });
+  const graphite = new THREE.MeshStandardMaterial({ color: 0x262626, roughness: 0.5, metalness: 0.3 });
+  const glow = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 1.6 });
   const board = boardTexture();
   const boardMat = new THREE.MeshStandardMaterial({
     map: board,
@@ -224,7 +224,7 @@ export function mountGamepad(host: HTMLElement, section: HTMLElement, onReady: (
   const faces: [number, number, number][] = [
     [0, -0.27, 0x34c759],
     [0.27, 0, 0xff4d6d],
-    [-0.27, 0, 0x3364ff],
+    [-0.27, 0, 0x9a9a9a],
     [0, 0.27, 0xffc23d],
   ];
   for (const [dx, dy, hex] of faces) {
@@ -248,13 +248,13 @@ export function mountGamepad(host: HTMLElement, section: HTMLElement, onReady: (
   // the lidar pass through the parts in the real-worlds chapter
   const scan = new THREE.Mesh(
     new THREE.PlaneGeometry(6, 0.025),
-    new THREE.MeshBasicMaterial({ color: 0x5ad8ff, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })
   );
   scan.rotation.x = -Math.PI / 2;
   pad.add(scan);
 
   // -------------------------------------------------------------- the props
-  const edges = new THREE.LineBasicMaterial({ color: 0x8eaaff, transparent: true, opacity: 0.55 });
+  const edges = new THREE.LineBasicMaterial({ color: 0xc8c8c8, transparent: true, opacity: 0.55 });
   const withEdges = (mesh: THREE.Mesh) => {
     mesh.add(new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry), edges));
     return mesh;
@@ -279,12 +279,12 @@ export function mountGamepad(host: HTMLElement, section: HTMLElement, onReady: (
 
   const props: { obj: THREE.Object3D; r: number; a: number; y: number; speed: number; spin: THREE.Vector3 }[] = [
     {
-      obj: withEdges(new THREE.Mesh(new THREE.IcosahedronGeometry(0.42), new THREE.MeshStandardMaterial({ color: 0x3364ff, flatShading: true, metalness: 0.25, roughness: 0.3 }))),
+      obj: withEdges(new THREE.Mesh(new THREE.IcosahedronGeometry(0.42), new THREE.MeshStandardMaterial({ color: 0x9a9a9a, flatShading: true, metalness: 0.25, roughness: 0.3 }))),
       r: 3.4, a: 0.3, y: 1.45, speed: 0.9, spin: new THREE.Vector3(0.4, 0.6, 0.1),
     },
     { obj: coin(), r: 3.1, a: 2.2, y: -1.25, speed: 1.1, spin: new THREE.Vector3(0, 2.2, 0) },
     {
-      obj: new THREE.Mesh(new THREE.OctahedronGeometry(0.36).scale(1, 1.4, 1), new THREE.MeshPhysicalMaterial({ color: 0x5ad8ff, emissive: 0x0b6b8a, emissiveIntensity: 0.6, flatShading: true, roughness: 0.05, metalness: 0.1, clearcoat: 1 })),
+      obj: new THREE.Mesh(new THREE.OctahedronGeometry(0.36).scale(1, 1.4, 1), new THREE.MeshPhysicalMaterial({ color: 0xffffff, emissive: 0x3a3a3a, emissiveIntensity: 0.6, flatShading: true, roughness: 0.05, metalness: 0.1, clearcoat: 1 })),
       r: 3.6, a: 3.6, y: 0.95, speed: 0.7, spin: new THREE.Vector3(0, 1.2, 0),
     },
     {
@@ -296,7 +296,7 @@ export function mountGamepad(host: HTMLElement, section: HTMLElement, onReady: (
   ];
   for (const prop of props) scene.add(prop.obj);
 
-  const grid = new THREE.GridHelper(80, 80, 0x3364ff, 0x1a2a6c);
+  const grid = new THREE.GridHelper(80, 80, 0x9a9a9a, 0x262626);
   const gridMaterial = grid.material as THREE.Material;
   gridMaterial.transparent = true;
   gridMaterial.opacity = 0.5;

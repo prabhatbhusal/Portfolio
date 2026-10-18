@@ -64,7 +64,7 @@ const Loader = () => {
       <span className="absolute bottom-5 right-5 size-6 border-b-2 border-r-2 border-(--hud) opacity-60" />
 
       <div className="flex w-[min(440px,78vw)] flex-col items-center gap-6">
-        <span className="relative grid size-12 place-items-center rounded-xl bg-brand text-[13px] font-extrabold tracking-tighter text-white">
+        <span className="relative grid size-12 place-items-center rounded-xl bg-brand text-[13px] font-extrabold tracking-tighter text-on-brand">
           pb
           <span className="absolute -inset-1.5 rounded-[14px] border border-dashed border-brand/50" />
         </span>

@@ -15,12 +15,12 @@ function codeTexture() {
   const c = document.createElement("canvas");
   c.width = c.height = 256;
   const g = c.getContext("2d")!;
-  g.fillStyle = "#0a1230";
+  g.fillStyle = "#0b0b0b";
   g.fillRect(0, 0, 256, 256);
-  g.strokeStyle = "#3364ff";
+  g.strokeStyle = "#9a9a9a";
   g.lineWidth = 6;
   g.strokeRect(10, 10, 236, 236);
-  g.fillStyle = "#5ad8ff";
+  g.fillStyle = "#ffffff";
   g.font = "bold 92px ui-monospace, Menlo, Consolas, monospace";
   g.textAlign = "center";
   g.textBaseline = "middle";
@@ -34,12 +34,12 @@ function build(model: Model) {
   if (model === "d20") {
     const die = new THREE.Mesh(
       new THREE.IcosahedronGeometry(0.78),
-      new THREE.MeshStandardMaterial({ color: 0x3364ff, flatShading: true, metalness: 0.25, roughness: 0.3 })
+      new THREE.MeshStandardMaterial({ color: 0x9a9a9a, flatShading: true, metalness: 0.25, roughness: 0.3 })
     );
     die.add(
       new THREE.LineSegments(
         new THREE.EdgesGeometry(die.geometry),
-        new THREE.LineBasicMaterial({ color: 0x8eaaff, transparent: true, opacity: 0.7 })
+        new THREE.LineBasicMaterial({ color: 0xc8c8c8, transparent: true, opacity: 0.7 })
       )
     );
     return die;
@@ -68,11 +68,11 @@ function build(model: Model) {
   }
   const cloud = new THREE.BufferGeometry();
   cloud.setAttribute("position", new THREE.BufferAttribute(points, 3));
-  globe.add(new THREE.Points(cloud, new THREE.PointsMaterial({ color: 0x5ad8ff, size: 0.035 })));
-  globe.add(new THREE.Mesh(new THREE.SphereGeometry(0.77, 32, 24), new THREE.MeshStandardMaterial({ color: 0x0a1230, roughness: 0.8 })));
+  globe.add(new THREE.Points(cloud, new THREE.PointsMaterial({ color: 0xffffff, size: 0.035 })));
+  globe.add(new THREE.Mesh(new THREE.SphereGeometry(0.77, 32, 24), new THREE.MeshStandardMaterial({ color: 0x0b0b0b, roughness: 0.8 })));
   const orbit = new THREE.Mesh(
     new THREE.TorusGeometry(1.08, 0.008, 6, 96),
-    new THREE.MeshBasicMaterial({ color: 0x8eaaff, transparent: true, opacity: 0.6 })
+    new THREE.MeshBasicMaterial({ color: 0xc8c8c8, transparent: true, opacity: 0.6 })
   );
   orbit.rotation.set(1.2, 0.3, 0);
   globe.add(orbit);
@@ -89,7 +89,7 @@ export function mountTurntable(host: HTMLElement, section: HTMLElement, onReady:
 
   const key = new THREE.DirectionalLight(0xffffff, 1.4);
   key.position.set(3, 5, 6);
-  const rim = new THREE.DirectionalLight(0x5ad8ff, 2.6);
+  const rim = new THREE.DirectionalLight(0xffffff, 2.6);
   rim.position.set(-5, 2, -4);
   scene.add(key, rim);
 
@@ -107,18 +107,18 @@ export function mountTurntable(host: HTMLElement, section: HTMLElement, onReady:
   const plate = new THREE.Mesh(
     new THREE.CylinderGeometry(2.7, 2.7, 0.06, 96),
     // matte: at this low angle any sheen mirrors the room and reads grey
-    new THREE.MeshLambertMaterial({ color: 0x070b1c })
+    new THREE.MeshLambertMaterial({ color: 0x070707 })
   );
   plate.position.y = -1.05;
   const rimGlow = new THREE.Mesh(
     new THREE.TorusGeometry(2.7, 0.012, 8, 160),
-    new THREE.MeshBasicMaterial({ color: 0x5ad8ff })
+    new THREE.MeshBasicMaterial({ color: 0xffffff })
   );
   rimGlow.rotation.x = Math.PI / 2;
   rimGlow.position.y = -1.02;
   table.add(plate, rimGlow);
   for (let i = 0; i < models.length; i++) {
-    const notch = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.02, 0.06), new THREE.MeshBasicMaterial({ color: 0x3364ff }));
+    const notch = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.02, 0.06), new THREE.MeshBasicMaterial({ color: 0x9a9a9a }));
     notch.position.set(Math.sin(i * step) * 2.55, -1.01, Math.cos(i * step) * 2.55);
     notch.rotation.y = i * step;
     table.add(notch);

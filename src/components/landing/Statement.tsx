@@ -53,13 +53,13 @@ const Statement = () => {
       <div className="sticky top-0 h-svh overflow-hidden">
         <motion.div
           style={{ clipPath }}
-          className="absolute inset-0 flex items-center bg-[radial-gradient(120%_70%_at_50%_100%,#1d3aa0_0%,#0d1638_55%,#0b1026_100%)]"
+          className="absolute inset-0 flex items-center bg-[radial-gradient(120%_70%_at_50%_100%,#2e2e2e_0%,#121212_55%,#0b0b0b_100%)]"
         >
           <HeroBackdrop className="pointer-events-none absolute inset-0 h-full w-full opacity-50" />
 
           <div className="rail relative flex flex-col items-center gap-10 text-center md:gap-14">
             <div className="flex flex-col items-center gap-5">
-              <span className="mono text-[11px] uppercase tracking-[0.22em] text-[#8eaaff]">
+              <span className="mono text-[11px] uppercase tracking-[0.22em] text-(--accent)">
                 [ what I build ]
               </span>
               <h2 className="display max-w-4xl text-[clamp(2.2rem,5.5vw,4.25rem)] font-bold leading-[1.02] text-white">
@@ -77,7 +77,7 @@ const Statement = () => {
 
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-[#05060b]"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-b from-transparent to-[#050505]"
           />
         </motion.div>
       </div>
