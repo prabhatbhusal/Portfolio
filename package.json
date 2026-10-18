@@ -9,8 +9,8 @@
     "og": "node scripts/generate-og.mjs",
     "art": "node scripts/generate-game-art.mjs",
     "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test src/lib/blog/format.test.mjs",
-    "preview": "next build && wrangler dev",
-    "deploy": "next build && wrangler deploy"
+    "preview": "next build && wrangler pages dev",
+    "deploy": "next build && wrangler pages deploy"
   },
   "dependencies": {
     "clsx": "^2.1.1",

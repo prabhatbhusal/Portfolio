@@ -103,7 +103,7 @@ single place and nothing drifts between themes.
 | Language | TypeScript |
 | UI | React 19, Tailwind CSS v4, motion, three.js |
 | Content | JSON files in [`content/`](content) |
-| Hosting | Cloudflare (static assets) |
+| Hosting | GitHub Pages |
 
 ## Routes
 
@@ -150,22 +150,20 @@ commit, and the next deploy picks it up.
 
 ## Deployment
 
-Cloudflare serves the contents of `out/` as static assets
-([`wrangler.jsonc`](wrangler.jsonc)) — no Worker code, so the free plan
-covers it.
+GitHub Pages. Every push to `main` runs
+[`.github/workflows/nextjs.yml`](.github/workflows/nextjs.yml): it builds the
+site into `out/` and publishes it.
 
-1. **Workers & Pages → Create → Import a repository**. Name it `frontend`, as
-   in `wrangler.jsonc`, or rename both.
-2. Build command `npm run build`, deploy command `npx wrangler deploy`.
-   No environment variables are needed.
-3. **Settings → Domains & Routes → Custom domain**:
-   `www.prabhatbhusal.com.np`.
+One-time setup, in the repo's **Settings → Pages**:
 
-Or from your machine: `npm run deploy`.
+- Source: **GitHub Actions**
+- Custom domain: `www.prabhatbhusal.com.np` (the same as [`CNAME`](CNAME)),
+  then tick **Enforce HTTPS** once the certificate is issued
 
-Security headers (CSP with `frame-ancestors 'none'`, HSTS, nosniff,
-referrer and permissions policies) and long caching for `/_next/static` are
-set in [`public/_headers`](public/_headers).
+GitHub Pages sends no custom headers, so the security headers in
+[`public/_headers`](public/_headers) (CSP, HSTS, nosniff, referrer and
+permissions policies) only apply on a host that reads that file, such as
+Cloudflare Pages.
 
 > `.npmrc` pins `legacy-peer-deps=true`. This is deliberate: without it,
 > `npm install` and `npm ci` disagree about the optional peer dependencies of

@@ -1,10 +1,8 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "frontend",
-	"compatibility_date": "2026-10-16",
-	// static files only, no worker code: `npm run build` writes them to out/
-	"assets": {
-		"directory": "./out",
-		"not_found_handling": "404-page"
-	}
+	// the cloudflare pages project. static files only: `npm run build` writes
+	// them to out/, and pages publishes that folder as is
+	"name": "portfolio",
+	"pages_build_output_dir": "./out",
+	"compatibility_date": "2026-10-16"
 }
