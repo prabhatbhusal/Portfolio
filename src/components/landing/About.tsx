@@ -7,7 +7,7 @@ const points = [
   {
     id: 1,
     title: "Three disciplines, one build",
-    text: "I build the game, the tools and web stack around it, and I understand the spatial data underneath. That is usually three people.",
+    text: "I build the game and model what goes in it, write the tools and web stack around it, and understand the spatial data underneath. That is usually three people.",
   },
   {
     id: 2,
@@ -45,6 +45,28 @@ const About = () => {
             that overlap is my job: at RCAAS Technology I build VR and the
             studio platform that turns captured places into tours people can
             walk through.
+          </p>
+
+          <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
+            Lately I model my own props in Blender as well. They go up on{" "}
+            <a
+              href="https://sketchfab.com/bhusalprabhat"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="wipe font-semibold text-ink transition-colors duration-300 hover:text-brand-ink"
+            >
+              Sketchfab
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://www.artstation.com/prabhatbhusal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="wipe font-semibold text-ink transition-colors duration-300 hover:text-brand-ink"
+            >
+              ArtStation
+            </a>
+            , and the finished ones land in my work.
           </p>
         </Reveal>
 

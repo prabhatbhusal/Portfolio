@@ -30,6 +30,8 @@ import {
   SiQgis,
   SiUnity,
   SiUnrealengine,
+  SiSketchfab,
+  SiArtstation,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
@@ -206,6 +208,22 @@ export const contactdata: ContactData[] = [
     value: "linkedin.com/in/prabhat-bhusal-302672322",
     url: "https://www.linkedin.com/in/prabhat-bhusal-302672322/",
     icon: FaLinkedin,
+    color: "bg-white/[0.08] border-white/[0.08] text-[#e8e6e0]",
+  },
+  {
+    id: 7,
+    label: "sketchfab",
+    value: "sketchfab.com/bhusalprabhat",
+    url: "https://sketchfab.com/bhusalprabhat",
+    icon: SiSketchfab,
+    color: "bg-white/[0.08] border-white/[0.08] text-[#e8e6e0]",
+  },
+  {
+    id: 8,
+    label: "artstation",
+    value: "artstation.com/prabhatbhusal",
+    url: "https://www.artstation.com/prabhatbhusal",
+    icon: SiArtstation,
     color: "bg-white/[0.08] border-white/[0.08] text-[#e8e6e0]",
   },
   {
@@ -482,6 +500,7 @@ const SKILL_AREA: Record<string, SkillArea> = {
   "C++": "engine",
   Lumen: "engine",
   MetaSounds: "engine",
+  Blender: "modelling",
 };
 
 export const skillAreaLabel: Record<SkillArea, string> = {
@@ -490,11 +509,13 @@ export const skillAreaLabel: Record<SkillArea, string> = {
   spatial: "spatial",
   vision: "vision and ml",
   engine: "game engines",
+  modelling: "3d modelling",
   other: "elsewhere",
 };
 
 export const skillAreaOrder: SkillArea[] = [
   "engine",
+  "modelling",
   "frontend",
   "backend",
   "spatial",

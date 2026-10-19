@@ -126,8 +126,41 @@ const Page = async ({ params }: Props) => {
               />
             </Link>
           )}
+
+          {project.artstation && (
+            <Link
+              href={project.artstation}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-quiet group inline-flex h-11 items-center gap-2 rounded-full px-5 text-[14px] font-semibold"
+            >
+              view on artstation
+              <ArrowUpRight
+                size={16}
+                strokeWidth={2.5}
+                className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </Link>
+          )}
         </div>
       </section>
+
+      {/* sketchfab shows a still with a play button until clicked, and lazy
+          loading keeps even that off the network until it is near */}
+      {project.embed && (
+        <section className="rail pb-12 md:pb-16">
+          <div className="surface aspect-video overflow-hidden rounded-2xl">
+            <iframe
+              src={project.embed}
+              title={`${project.title}, 3D model`}
+              loading="lazy"
+              allow="autoplay; fullscreen; xr-spatial-tracking"
+              allowFullScreen
+              className="size-full"
+            />
+          </div>
+        </section>
+      )}
 
       <section className="rail">
         <FactGrid facts={facts} />

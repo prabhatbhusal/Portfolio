@@ -5,19 +5,22 @@ import { Gamepad2 } from "lucide-react";
 
 import PagesBanner from "@/components/props/PagesBanner";
 import GameCard from "@/components/props/GameCard";
+import WorkRow from "@/components/props/WorkRow";
 import { Stagger, StaggerItem } from "@/components/motion";
-import { getGames } from "@/lib/content";
+import { getGames, getProjects } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "Games",
   description:
-    "PC games built by Prabhat Bhusal in Unity and Unreal Engine — gameplay systems, terrain tooling and level work.",
+    "PC games built by Prabhat Bhusal in Unity and Unreal Engine — gameplay systems, terrain tooling, level work and the 3D props that fill them.",
   path: "/games",
 });
 
 const Page = async () => {
   const gamesdata = await getGames();
+  // 3d work lives in projects.json with the rest; it is listed here as well
+  const assets = (await getProjects()).filter((project) => project.stack === "3D");
   return (
     <main>
       <PagesBanner
@@ -59,6 +62,25 @@ const Page = async () => {
           </Stagger>
         )}
       </section>
+
+      {assets.length > 0 && (
+        <section className="rail pb-14 md:pb-20">
+          <p className="eyebrow">game assets</p>
+          <h2 className="display pixel-end mt-5 text-3xl font-extrabold leading-[1.05] text-ink md:text-4xl">
+            Props I have modelled
+          </h2>
+
+          <Stagger className="mt-10 flex flex-col" stagger={0.06}>
+            {assets.map((item) => (
+              <StaggerItem key={item.id} y={12}>
+                <WorkRow item={item} />
+              </StaggerItem>
+            ))}
+          </Stagger>
+
+          <div className="hairline" />
+        </section>
+      )}
     </main>
   );
 };

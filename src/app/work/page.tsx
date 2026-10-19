@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Work",
   description:
-    "Full-stack, geospatial and machine learning projects built by Prabhat Bhusal.",
+    "Full-stack, geospatial, machine learning and 3D modelling projects built by Prabhat Bhusal.",
   path: "/work",
 });
 
@@ -17,7 +17,7 @@ const Page = () => {
     <main>
       <PagesBanner
         title="Work"
-        desc="Projects I've built — full-stack, spatial, and machine learning."
+        desc="Projects I've built — full-stack, spatial, machine learning and 3D models."
       />
       <Projects />
     </main>

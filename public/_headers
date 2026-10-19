@@ -1,8 +1,9 @@
 # https://developers.cloudflare.com/workers/static-assets/headers
 # inline scripts stay allowed: next bootstraps hydration with them. what this
-# policy buys: no third-party script, no framing, no exfiltration to other hosts
+# policy buys: no third-party script, no framing, no exfiltration to other hosts.
+# the one exception is frame-src: work pages embed sketchfab's 3d viewer
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self'; connect-src 'self'; frame-src https://sketchfab.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()

@@ -29,6 +29,8 @@ export const author = {
   sameAs: [
     "https://github.com/prabhatbhusal",
     "https://www.linkedin.com/in/prabhat-bhusal-302672322/",
+    "https://sketchfab.com/bhusalprabhat",
+    "https://www.artstation.com/prabhatbhusal",
   ],
 };
 
@@ -41,6 +43,8 @@ export const siteKeywords = [
   "RCAAS",
   "Unity developer",
   "Unreal Engine developer",
+  "3D modelling",
+  "Blender",
   "gameplay programmer",
   "game developer Nepal",
   "full-stack developer",

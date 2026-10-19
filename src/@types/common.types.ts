@@ -69,6 +69,11 @@ export interface WorkProject {
   live: string | null;
   /* optional — shown in the navbar's work panel and on the detail page */
   cover?: GameShot;
+  /* optional sketchfab embed url (…/models/<id>/embed), shown on the detail
+     page. other hosts are blocked by frame-src in public/_headers */
+  embed?: string;
+  /* optional artstation post for 3d work */
+  artstation?: string;
 }
 
 export interface Testimonial {
@@ -135,6 +140,7 @@ export type SkillArea =
   | "spatial"
   | "vision"
   | "engine"
+  | "modelling"
   | "other";
 
 /* one unlocked tool. every field is derived from the projects that shipped

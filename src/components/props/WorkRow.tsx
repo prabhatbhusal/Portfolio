@@ -51,7 +51,7 @@ const WorkRow = ({ item, detailed = true }: WorkRowProps) => (
           </span>
         </div>
 
-        {(item.live || item.github) && (
+        {(item.live || item.github || item.artstation) && (
           <div className="relative z-10 mt-4 flex flex-wrap items-center gap-4">
             {item.live && (
               <Link
@@ -73,6 +73,18 @@ const WorkRow = ({ item, detailed = true }: WorkRowProps) => (
                 className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-ink-soft transition-colors duration-300 hover:text-brand-ink"
               >
                 source
+                <ArrowUpRight size={13} strokeWidth={2.5} />
+              </Link>
+            )}
+
+            {item.artstation && (
+              <Link
+                href={item.artstation}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-ink-soft transition-colors duration-300 hover:text-brand-ink"
+              >
+                artstation
                 <ArrowUpRight size={13} strokeWidth={2.5} />
               </Link>
             )}

@@ -55,6 +55,29 @@
     "live": null
   },
   {
+    "slug": "wooden-crate",
+    "year": "2026",
+    "role": "Modelling, materials and lighting",
+    "highlights": [
+      "My first solo Blender project, modelled from the planks up: slatted faces, cross-braced sides and metal corner caps.",
+      "Held to 414 faces and 268 vertices, so it costs next to nothing dropped into a game scene.",
+      "Reworked after the first upload: three materials and simple lighting, published on Sketchfab under CC BY for anyone to download and use, and posted on ArtStation."
+    ],
+    "stack": "3D",
+    "sector": "3D modelling",
+    "badge": "3d model",
+    "featured": false,
+    "title": "Wooden Crate",
+    "description": "A low-poly wooden crate and my first solo Blender project: planks, cross braces and metal corner caps, finished with simple materials and lighting.",
+    "skills": [
+      "Blender"
+    ],
+    "github": null,
+    "live": "https://sketchfab.com/3d-models/wooden-crate-2173f384d972422a94f4144c3be9fa46",
+    "artstation": "https://www.artstation.com/artwork/JwwP1d",
+    "embed": "https://sketchfab.com/models/2173f384d972422a94f4144c3be9fa46/embed?ui_theme=dark&dnt=1"
+  },
+  {
     "slug": "padel-shot-classification",
     "year": "2025",
     "role": "Computer vision pipeline",
