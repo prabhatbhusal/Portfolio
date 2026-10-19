@@ -61,7 +61,7 @@
     "highlights": [
       "My first solo Blender project, modelled from the planks up: slatted faces, cross-braced sides and metal corner caps.",
       "Held to 414 faces and 268 vertices, so it costs next to nothing dropped into a game scene.",
-      "Reworked after the first upload: three materials and simple lighting, published on Sketchfab under CC BY for anyone to download and use, and posted on ArtStation."
+      "Three materials and simple lighting, published on Sketchfab under CC BY for anyone to download and use, and posted on ArtStation."
     ],
     "stack": "3D",
     "sector": "3D modelling",
@@ -75,6 +75,12 @@
     "github": null,
     "live": "https://sketchfab.com/3d-models/wooden-crate-2173f384d972422a94f4144c3be9fa46",
     "artstation": "https://www.artstation.com/artwork/JwwP1d",
+    "cover": {
+      "src": "/work/wooden-crate.webp",
+      "alt": "Low-poly wooden crate with dark metal corner caps, a cross-braced side and a slatted side",
+      "width": 640,
+      "height": 509
+    },
     "embed": "https://sketchfab.com/models/2173f384d972422a94f4144c3be9fa46/embed?ui_theme=dark&dnt=1"
   },
   {

@@ -7,7 +7,7 @@ import PagesBanner from "@/components/props/PagesBanner";
 import GameCard from "@/components/props/GameCard";
 import WorkRow from "@/components/props/WorkRow";
 import { Stagger, StaggerItem } from "@/components/motion";
-import { getGames, getProjects } from "@/lib/content";
+import { getGames, getModels } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -19,8 +19,7 @@ export const metadata: Metadata = pageMetadata({
 
 const Page = async () => {
   const gamesdata = await getGames();
-  // 3d work lives in projects.json with the rest; it is listed here as well
-  const assets = (await getProjects()).filter((project) => project.stack === "3D");
+  const assets = await getModels();
   return (
     <main>
       <PagesBanner

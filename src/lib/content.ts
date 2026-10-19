@@ -23,6 +23,9 @@ export const getPosts = cache(async () =>
 
 export const getProjects = cache(async () => numbered<WorkProject>(read("projects.json")));
 
+// 3d work lives in projects.json with the rest, and is listed under games too
+export const getModels = cache(async () => (await getProjects()).filter((project) => project.stack === "3D"));
+
 export const getGames = cache(async () => numbered<GameItem>(read("games.json")));
 
 export const getPhotos = cache(async () => numbered<GalleryItem>(read("photos.json")));

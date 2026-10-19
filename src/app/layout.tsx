@@ -12,7 +12,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import JsonLd from "@/components/seo/JsonLd";
 import type { NavItem } from "@/@types/navbar.types";
 import { formatDate } from "@/lib/blog/format";
-import { getGames, getPosts, getProjects } from "@/lib/content";
+import { getGames, getModels, getPosts, getProjects } from "@/lib/content";
 import { personSchema, websiteSchema } from "@/lib/seo/schema";
 import {
   author,
@@ -52,7 +52,7 @@ const themeScript = `
 
 /* the four panels of the navbar, filled from whatever is live */
 async function navLinks(): Promise<NavItem[]> {
-  const [projects, games, posts] = await Promise.all([getProjects(), getGames(), getPosts()]);
+  const [projects, games, models, posts] = await Promise.all([getProjects(), getGames(), getModels(), getPosts()]);
   const featured = projects.find((p) => p.featured && p.cover) ?? projects.find((p) => p.featured);
   const featuredGame = games.find((g) => g.featured) ?? games[0];
   const latest = posts[0];
@@ -62,13 +62,24 @@ async function navLinks(): Promise<NavItem[]> {
       title: "Games",
       url: "/games",
       more: "Every build",
-      children: games.slice(0, 6).map((g) => ({
-        title: g.title,
-        description: g.tagline,
-        url: `/games/${g.slug}`,
-        thumb: g.cover.src,
-        tags: [g.engine, g.status],
-      })),
+      // the games, then the props modelled for them
+      children: [
+        ...games.map((g) => ({
+          title: g.title,
+          description: g.tagline,
+          url: `/games/${g.slug}`,
+          thumb: g.cover.src,
+          tags: [g.engine, g.status],
+        })),
+        ...models.map((m) => ({
+          title: m.title,
+          description: [m.sector, m.year].filter(Boolean).join(" · "),
+          url: `/work/${m.slug}`,
+          thumb: m.cover?.src,
+          tile: m.title.split(/\s+/).slice(0, 2).map((word) => word[0]).join("").toUpperCase(),
+          tags: [...m.skills.slice(0, 1), m.badge],
+        })),
+      ].slice(0, 6),
       feature: featuredGame && {
         eyebrow: "Play it",
         title: featuredGame.tagline,
