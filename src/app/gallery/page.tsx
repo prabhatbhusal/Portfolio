@@ -12,7 +12,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Gallery",
   description:
-    "Scenes and photographs by Prabhat Bhusal — field work, survey sites and everything in between.",
+    "Scenes, photographs and 3D renders by Prabhat Bhusal — field work, survey sites, Blender props and everything in between.",
   path: "/gallery",
 });
 
@@ -32,7 +32,7 @@ const Page = async () => {
     <main>
       <PagesBanner
         title="Gallery"
-        desc="Photographs from the field and elsewhere — survey sites, captures, and whatever the light was doing that day."
+        desc="Photographs from the field and renders from Blender — survey sites, captures, props, and whatever the light was doing that day."
       />
 
       <section className="rail py-14 md:py-20">

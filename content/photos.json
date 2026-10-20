@@ -10,5 +10,41 @@
       "width": 1200,
       "height": 1599
     }
+  },
+  {
+    "slug": "wooden-crate",
+    "title": "Wooden Crate",
+    "location": "Blender render",
+    "date": "2026",
+    "image": {
+      "src": "/gallery/wooden-crate.webp",
+      "alt": "Low-poly wooden crate with dark metal corner caps and a cross-braced side, lit in red and violet",
+      "width": 1600,
+      "height": 900
+    }
+  },
+  {
+    "slug": "wooden-stool",
+    "title": "Wooden Stool",
+    "location": "Blender render",
+    "date": "2026",
+    "image": {
+      "src": "/gallery/wooden-stool.webp",
+      "alt": "Orange low-poly wooden stool with a thick square seat and rails between its legs",
+      "width": 1600,
+      "height": 900
+    }
+  },
+  {
+    "slug": "wooden-cabinet",
+    "title": "Wooden Cabinet",
+    "location": "Blender render",
+    "date": "2026",
+    "image": {
+      "src": "/gallery/wooden-cabinet.webp",
+      "alt": "Dark wooden two-door cabinet with panelled doors and round knobs, lit in blue and orange",
+      "width": 1600,
+      "height": 900
+    }
   }
 ]

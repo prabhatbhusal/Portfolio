@@ -76,10 +76,10 @@
     "live": "https://sketchfab.com/3d-models/wooden-crate-2173f384d972422a94f4144c3be9fa46",
     "artstation": "https://www.artstation.com/artwork/JwwP1d",
     "cover": {
-      "src": "/work/wooden-crate.webp",
-      "alt": "Low-poly wooden crate with dark metal corner caps, a cross-braced side and a slatted side",
-      "width": 640,
-      "height": 509
+      "src": "/gallery/wooden-crate.webp",
+      "alt": "Low-poly wooden crate with dark metal corner caps and a cross-braced side, lit in red and violet",
+      "width": 1600,
+      "height": 900
     },
     "embed": "https://sketchfab.com/models/2173f384d972422a94f4144c3be9fa46/embed?ui_theme=dark&dnt=1"
   },
@@ -105,10 +105,10 @@
     "live": "https://sketchfab.com/3d-models/wooden-stool-64142d228d904d1788b5ce2e17a81e69",
     "artstation": "https://www.artstation.com/artwork/9BBZ6Q",
     "cover": {
-      "src": "/work/wooden-stool.webp",
-      "alt": "Low-poly wooden stool with a flat orange seat on four legs",
-      "width": 80,
-      "height": 80
+      "src": "/gallery/wooden-stool.webp",
+      "alt": "Orange low-poly wooden stool with a thick square seat and rails between its legs",
+      "width": 1600,
+      "height": 900
     },
     "embed": "https://sketchfab.com/models/64142d228d904d1788b5ce2e17a81e69/embed?ui_theme=dark&dnt=1"
   },

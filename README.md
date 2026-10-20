@@ -105,8 +105,9 @@ Edit a file in [`content/`](content), commit, and the next deploy picks it up.
   [`games.json`](content/games.json), [`photos.json`](content/photos.json).
 - **3D models**: an entry in `projects.json` with `"stack": "3D"`. Add
   `embed` (the Sketchfab `…/models/<id>/embed` link), `artstation` and a
-  `cover` in [`public/work/`](public/work), and the model shows in Work, on
-  the games page and in the games dropdown.
+  `cover` render, and the model shows in Work, on the games page and in the
+  games dropdown. Renders also go in [`photos.json`](content/photos.json)
+  with `"location": "Blender render"`.
 - **Images**: put them in [`public/`](public) and reference them as `/...`.
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=0:080808,50:ff4040,100:080808&height=2" width="100%" alt="divider" />
@@ -134,7 +135,7 @@ Edit a file in [`content/`](content), commit, and the next deploy picks it up.
 .
 ├── content/              # everything the site lists: projects, games, photos, blog
 ├── public/               # static files, _headers (CSP and friends), resume
-│   └── work/             # covers for 3D work
+│   └── gallery/          # photographs and Blender renders
 ├── scripts/              # og image and game art generators
 ├── src/
 │   ├── app/              # App Router pages
