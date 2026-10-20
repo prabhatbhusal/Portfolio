@@ -25,6 +25,7 @@ const features = [
 const record = [
   { what: "RCAAS Technology", detail: "Game & VR developer, building the studio platform", when: "now" },
   { what: "Ridge Runner · Signal Depth", detail: "My own PC games, in Unity and Unreal Engine", when: "ongoing" },
+  { what: "Blender props", detail: "A crate, a stool and a cabinet, on Sketchfab and ArtStation", when: "now" },
   { what: "Freelance web & spatial", detail: "WebGIS, e-commerce and computer-vision builds", when: "before" },
   { what: "Geomatics Engineering", detail: "Thesis: road-defect monitoring with LiDAR and YOLOv8", when: "degree" },
 ];

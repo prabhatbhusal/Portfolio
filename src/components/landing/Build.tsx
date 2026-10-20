@@ -57,7 +57,7 @@ const chapters: {
     side: "bottom",
     label: "ship it",
     title: "Then it ships.",
-    body: "Builds you can download and play — and the web stack around them: backends, dashboards, the site you are on.",
+    body: "Builds you can download and play, props you can spin on Sketchfab, and the site you are on, rendered live in three.js.",
   },
 ];
 
@@ -126,7 +126,7 @@ const Chapter = ({ progress, index }: { progress: MotionValue<number>; index: nu
             href="/work"
             className="inline-flex h-12 items-center rounded-full border border-white/20 bg-white/5 px-6 text-[15px] font-semibold text-white backdrop-blur transition-colors hover:bg-white/10"
           >
-            See the web work
+            See all the work
           </Link>
         </div>
       )}

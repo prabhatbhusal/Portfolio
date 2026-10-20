@@ -5,7 +5,7 @@ import { ArrowUpRight, Quote } from "lucide-react";
 
 import type { Testimonial, WorkProject } from "@/@types/common.types";
 import { testimonialsdata } from "@/lib/constants/data";
-import { getProjects } from "@/lib/content";
+import { getAllProjects } from "@/lib/content";
 import { Reveal } from "../motion";
 import DragMarquee from "../motion/DragMarquee";
 
@@ -111,7 +111,8 @@ const Card = ({ item, projects }: { item: Testimonial; projects: WorkProject[] }
 
 const Testimonials = async () => {
   if (testimonialsdata.length === 0) return null;
-  const projects = await getProjects();
+  // archived work included: a quote still links to the job it is about
+  const projects = await getAllProjects();
 
   /* a row that scrolls needs something to scroll past. with one quote the
      marquee would just show the same card twice, so it sits still instead */

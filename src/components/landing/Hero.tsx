@@ -78,15 +78,16 @@ const Hero = async () => {
 
             <StaggerItem>
               <p className="text-gradient text-balance text-[clamp(1.25rem,2.6vw,2.25rem)] font-bold tracking-tight">
-                Game &amp; VR developer · full&#8209;stack engineer
+                Game &amp; VR developer · 3D artist
               </p>
             </StaggerItem>
 
             <StaggerItem>
               <p className="max-w-2xl text-[15px] leading-relaxed text-ink-soft md:text-lg md:leading-relaxed">
-                Gameplay systems and VR in Unity and Unreal Engine 5. The
-                RCAAS.tech studio, where real places become Gaussian-splat
-                tours in the browser. A geomatics degree underneath it all.
+                Gameplay systems and VR in Unity and Unreal Engine 5, props
+                modelled in Blender, and the RCAAS.tech studio, where
+                LiDAR-captured places become Gaussian-splat tours in the
+                browser. A geomatics degree underneath it all.
               </p>
             </StaggerItem>
 

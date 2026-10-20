@@ -8,13 +8,13 @@ import { ArrowUpRight } from "lucide-react";
 import PagesBanner from "@/components/props/PagesBanner";
 import { Stagger, StaggerItem } from "@/components/motion";
 import { formatDate, readingTime, type BlogPost } from "@/lib/blog/format";
-import { getPosts } from "@/lib/content";
+import { getAllPosts, getPosts } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "Blog",
   description:
-    "Notes on game development, full-stack work, spatial data and the things that break in between.",
+    "Notes by Prabhat Bhusal on LiDAR, real-time 3D and the things that break in between.",
   path: "/blog",
 });
 
@@ -53,12 +53,13 @@ const Cover = ({ post, className = "" }: { post: BlogPost; className?: string })
 
 const Page = async () => {
   const [lead, ...rest] = await getPosts();
+  const archived = (await getAllPosts()).filter((post) => post.archived);
 
   return (
     <main>
       <PagesBanner
         title="Blog"
-        desc="Notes on building for the web, working with spatial data, and the things that break in between."
+        desc="Notes on LiDAR, real-time 3D and the things that break in between."
       />
 
       <section className="rail py-14 md:py-20">
@@ -138,6 +139,29 @@ const Page = async () => {
           </Stagger>
         )}
       </section>
+
+      {/* posts from the web and spatial work: still linked, folded away */}
+      {archived.length > 0 && (
+        <details className="rail pb-14 md:pb-20">
+          <summary className="mono w-fit cursor-pointer text-[11px] uppercase tracking-[0.16em] text-ink-faint transition-colors duration-300 hover:text-ink">
+            [ earlier writing on web and spatial work ]
+          </summary>
+
+          <ul className="mt-6 flex flex-col gap-3">
+            {archived.map((post) => (
+              <li key={post.slug} className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="wipe text-[15px] font-semibold text-ink transition-colors duration-300 hover:text-brand-ink"
+                >
+                  {post.title}
+                </Link>
+                <Meta post={post} />
+              </li>
+            ))}
+          </ul>
+        </details>
+      )}
     </main>
   );
 };

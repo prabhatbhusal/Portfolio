@@ -4,10 +4,10 @@ export const siteUrl = "https://www.prabhatbhusal.com.np";
 
 export const siteName = "Prabhat Bhusal";
 
-export const siteTitle = "Prabhat Bhusal | Game & VR Developer, Full-stack Engineer";
+export const siteTitle = "Prabhat Bhusal | Game & VR Developer, 3D Artist";
 
 export const siteDescription =
-  "Portfolio of Prabhat Bhusal — game and VR developer in Kathmandu, building the RCAAS.tech virtual-tour platform, gameplay systems in Unity and Unreal Engine, and the full-stack web around them.";
+  "Portfolio of Prabhat Bhusal — game and VR developer and 3D artist in Kathmandu: gameplay systems in Unity and Unreal Engine, props modelled in Blender, and LiDAR-captured places turned into Gaussian-splat tours at RCAAS.tech.";
 
 export const siteLocale = "en_US";
 
@@ -17,12 +17,12 @@ export const ogImage = {
   type: "image/png",
   width: 1200,
   height: 630,
-  alt: "Prabhat Bhusal — Game & VR Developer, Full-stack Engineer",
+  alt: "Prabhat Bhusal — Game & VR Developer, 3D Artist",
 };
 
 export const author = {
   name: "Prabhat Bhusal",
-  jobTitle: "Game & VR Developer, Full-stack Engineer",
+  jobTitle: "Game & VR Developer, 3D Artist",
   email: "prabhatbhusal777@gmail.com",
   location: "Kathmandu, Nepal",
   // profiles google uses to tie the site to a real person
@@ -38,24 +38,21 @@ export const siteKeywords = [
   "Prabhat Bhusal",
   "game developer",
   "VR developer",
+  "3D artist",
+  "Blender",
+  "3D modelling",
+  "low poly props",
   "virtual tours",
   "Gaussian splatting",
+  "LiDAR",
+  "point clouds",
+  "digital twin",
+  "three.js developer",
   "RCAAS",
   "Unity developer",
   "Unreal Engine developer",
-  "3D modelling",
-  "Blender",
   "gameplay programmer",
   "game developer Nepal",
-  "full-stack developer",
-  "geomatics engineer",
-  "WebGIS developer",
-  "React developer Nepal",
-  "Next.js developer",
-  "Django developer",
-  "PostGIS",
-  "LiDAR",
-  "remote sensing",
   "Kathmandu",
 ];
 

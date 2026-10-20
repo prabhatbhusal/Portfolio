@@ -95,8 +95,8 @@ const Skills = async ({ heading = true }: SkillsProps) => {
           </div>
 
           <p className="max-w-md text-[15px] leading-relaxed text-ink-soft">
-            The web stack I ship with, and the spatial work that sits underneath
-            it.
+            Engines, 3D tools and the capture work underneath. Each one
+            unlocked by something that shipped.
           </p>
         </div>
       )}

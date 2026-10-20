@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
 import PostView from "@/components/blog/PostView";
 import JsonLd from "@/components/seo/JsonLd";
-import { getPosts } from "@/lib/content";
+import { getAllPosts, getPosts } from "@/lib/content";
 import { blogPostingSchema, breadcrumbSchema } from "@/lib/seo/schema";
 import { pageMetadata } from "@/lib/seo/metadata";
 
@@ -14,18 +14,18 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// every post is prerendered at build
+// every post is prerendered at build, archived ones included
 export async function generateStaticParams() {
-  return (await getPosts()).map((post) => ({ slug: post.slug }));
+  return (await getAllPosts()).map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = (await getPosts()).find((item) => item.slug === slug);
+  const post = (await getAllPosts()).find((item) => item.slug === slug);
 
   if (!post) return { title: "Not found" };
 
-  return pageMetadata({
+  const meta = pageMetadata({
     title: post.title,
     description: post.excerpt,
     path: `/blog/${slug}`,
@@ -43,17 +43,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         }
       : {}),
   });
+
+  // archived: the url still works, but search engines are asked to let it go
+  return post.archived ? { ...meta, robots: { index: false } } : meta;
 }
 
 const Page = async ({ params }: Props) => {
   const { slug } = await params;
+  const post = (await getAllPosts()).find((item) => item.slug === slug);
+
+  if (!post) notFound();
+
+  // next is always a live post other than this one; from an archived post
+  // (index -1) that is the newest, which leads back into current writing
   const posts = await getPosts();
   const index = posts.findIndex((item) => item.slug === slug);
-
-  if (index === -1) notFound();
-
-  const post = posts[index];
-  const next = posts.length > 1 ? posts[(index + 1) % posts.length] : null;
+  const others = posts.length - (index === -1 ? 0 : 1);
+  const next = others > 0 ? posts[(index + 1) % posts.length] : null;
 
   return (
     <main>

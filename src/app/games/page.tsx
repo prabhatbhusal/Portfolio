@@ -1,11 +1,11 @@
 import React from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Gamepad2 } from "lucide-react";
 
 import PagesBanner from "@/components/props/PagesBanner";
 import GameCard from "@/components/props/GameCard";
-import WorkRow from "@/components/props/WorkRow";
 import { Stagger, StaggerItem } from "@/components/motion";
 import { getGames, getModels } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo/metadata";
@@ -69,15 +69,40 @@ const Page = async () => {
             Props I have modelled
           </h2>
 
-          <Stagger className="mt-10 flex flex-col" stagger={0.06}>
+          {/* each card is the render, then the way into the model's page,
+              where the viewer and the sketchfab / artstation links are */}
+          <Stagger className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
             {assets.map((item) => (
-              <StaggerItem key={item.id} y={12}>
-                <WorkRow item={item} />
+              <StaggerItem key={item.id} hover>
+                <Link
+                  href={`/work/${item.slug}`}
+                  className="surface lift group flex h-full flex-col overflow-hidden rounded-2xl"
+                >
+                  {item.cover && (
+                    <div className="aspect-video overflow-hidden bg-raised">
+                      <Image
+                        src={item.cover.src}
+                        alt={item.cover.alt}
+                        width={item.cover.width}
+                        height={item.cover.height}
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                    </div>
+                  )}
+
+                  <span className="flex flex-col gap-1 p-5">
+                    <span className="display text-lg font-bold text-ink transition-colors duration-300 group-hover:text-brand-ink">
+                      {item.title}
+                    </span>
+                    <span className="mono text-[11px] text-ink-faint">
+                      {[item.year, ...item.skills].filter(Boolean).join(" · ")}
+                    </span>
+                  </span>
+                </Link>
               </StaggerItem>
             ))}
           </Stagger>
-
-          <div className="hairline" />
         </section>
       )}
     </main>

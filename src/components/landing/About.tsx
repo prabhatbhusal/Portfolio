@@ -7,17 +7,17 @@ const points = [
   {
     id: 1,
     title: "Three disciplines, one build",
-    text: "I build the game and model what goes in it, write the tools and web stack around it, and understand the spatial data underneath. That is usually three people.",
+    text: "I build the game, model the props that go in it, and capture the real places it can stand on. That is usually three people.",
   },
   {
     id: 2,
-    title: "Data model before pixels",
-    text: "Schema, projections and endpoints get settled first, so the interface has something solid to sit on.",
+    title: "Systems before polish",
+    text: "Movement, rules and data get settled first, so the art and the feel have something solid to sit on.",
   },
   {
     id: 3,
     title: "Nothing you cannot maintain",
-    text: "Dockerised, documented, conventional. No clever tricks that only make sense to the person who wrote them.",
+    text: "Documented, conventional and profiled. No clever tricks that only make sense to the person who wrote them.",
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ const About = () => {
 
           <p className="max-w-xl text-[15px] leading-relaxed text-ink-soft">
             Games taught me to think in 3D space, a Geomatics degree taught
-            me to measure it, and the web is how the work gets shipped. Today
+            me to measure it, and LiDAR is how real places get into it. Today
             that overlap is my job: at RCAAS Technology I build VR and the
             studio platform that turns captured places into tours people can
             walk through.

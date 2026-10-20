@@ -1,34 +1,14 @@
-// the disciplines' turntable: a d20, a code cube and a point-cloud globe on
-// one rotating plate. as each card stacks on the last, the plate turns a
+// the disciplines' turntable: a d20, a wooden crate and a point-cloud globe
+// on one rotating plate. as each card stacks on the last, the plate turns a
 // third to bring that card's object to the front.
 import * as THREE from "three";
 
 import { stackProgress } from "@/lib/stack";
 import { createStage } from "./stage";
 
-export type Model = "d20" | "code" | "globe";
+export type Model = "d20" | "crate" | "globe";
 
 const smooth = (t: number) => t * t * (3 - 2 * t);
-
-/* "</>" on every face, drawn rather than downloaded */
-function codeTexture() {
-  const c = document.createElement("canvas");
-  c.width = c.height = 256;
-  const g = c.getContext("2d")!;
-  g.fillStyle = "#0b0b0b";
-  g.fillRect(0, 0, 256, 256);
-  g.strokeStyle = "#9a9a9a";
-  g.lineWidth = 6;
-  g.strokeRect(10, 10, 236, 236);
-  g.fillStyle = "#ffffff";
-  g.font = "bold 92px ui-monospace, Menlo, Consolas, monospace";
-  g.textAlign = "center";
-  g.textBaseline = "middle";
-  g.fillText("</>", 128, 134);
-  const texture = new THREE.CanvasTexture(c);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  return texture;
-}
 
 function build(model: Model) {
   if (model === "d20") {
@@ -45,15 +25,42 @@ function build(model: Model) {
     return die;
   }
 
-  if (model === "code") {
-    const texture = codeTexture();
-    const cube = new THREE.Mesh(
-      new THREE.BoxGeometry(1, 1, 1),
-      // lit mostly by its own glyphs, so the room light cannot wash it grey
-      new THREE.MeshStandardMaterial({ map: texture, emissiveMap: texture, emissive: 0xffffff, emissiveIntensity: 1, roughness: 0.75, envMapIntensity: 0.25 })
-    );
-    cube.rotation.set(0.5, 0.6, 0);
-    return cube;
+  // the wooden crate from the 3d work, built in code like the others: dark
+  // slats sunk into four faces, a brace across the sides, a cap on each corner
+  if (model === "crate") {
+    const crate = new THREE.Group();
+    const wood = new THREE.MeshStandardMaterial({ color: 0x9c5a28, roughness: 0.7 });
+    const metal = new THREE.MeshStandardMaterial({ color: 0x1e1c24, metalness: 0.4, roughness: 0.45 });
+    crate.add(new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), wood));
+
+    // one bar through the box shows as a slat on the front and back;
+    // turned a quarter, on the top and bottom
+    for (const x of [-0.24, 0, 0.24]) {
+      const upright = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.72, 1.02), metal);
+      const flat = upright.clone();
+      upright.position.x = flat.position.x = x;
+      flat.rotation.x = Math.PI / 2;
+      crate.add(upright, flat);
+    }
+
+    // stays inside the box except at the two sides, where it reads as an x
+    const brace = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.09, 1.25), metal);
+    brace.rotation.x = Math.PI / 4;
+    crate.add(brace);
+
+    const cap = new THREE.BoxGeometry(0.22, 0.22, 0.22);
+    for (const x of [-0.5, 0.5]) {
+      for (const y of [-0.5, 0.5]) {
+        for (const z of [-0.5, 0.5]) {
+          const corner = new THREE.Mesh(cap, metal);
+          corner.position.set(x, y, z);
+          crate.add(corner);
+        }
+      }
+    }
+
+    crate.rotation.set(0.35, 0.6, 0);
+    return crate;
   }
 
   // the globe: a fibonacci sphere of points over a dark core, with an orbit

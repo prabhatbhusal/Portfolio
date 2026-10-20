@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Skills",
   description:
-    "Frontend, backend, geospatial and game development — the tools and technologies Prabhat Bhusal builds with.",
+    "Game development, 3D modelling and LiDAR — the tools Prabhat Bhusal builds with, each one unlocked by something that shipped.",
   path: "/skills",
 });
 

@@ -95,8 +95,8 @@ const Footer = async () => {
             <p className="mt-6 max-w-md text-[15px] leading-relaxed text-ink-soft">
               Game and VR developer based in Kathmandu, building the
               RCAAS.tech studio platform. Gameplay systems in Unity and
-              Unreal, the web around them in Next.js and Django, and worlds
-              on real terrain from LiDAR.
+              Unreal, props modelled in Blender, and worlds on real terrain
+              from LiDAR.
             </p>
 
             <div className="mt-10">
@@ -160,7 +160,7 @@ const Footer = async () => {
               <strong className="font-bold text-ink">kathmandu</strong> · np · <LocalTime />
             </span>
             <span className="inline-flex h-9 items-center rounded-full border border-line px-3.5">
-              games · vr · web · spatial
+              games · vr · 3d · lidar
             </span>
           </div>
 

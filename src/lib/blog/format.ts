@@ -24,6 +24,8 @@ export interface BlogPost {
   tags: string[];
   cover?: PostImage;
   blocks: Block[];
+  /* kept at its url, left out of every list — see lib/content.ts */
+  archived?: boolean;
 }
 
 export type Inline =
@@ -209,5 +211,6 @@ export function validatePost(value: unknown): BlogPost {
     tags: (tags as unknown[]).map((tag, i) => str(tag, `tags[${i}]`, 40)),
     ...(raw.cover ? { cover: image(raw.cover, "cover") } : {}),
     blocks: (blocks as unknown[]).map(block),
+    ...(raw.archived === true ? { archived: true } : {}),
   };
 }

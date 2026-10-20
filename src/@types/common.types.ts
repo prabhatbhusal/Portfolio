@@ -32,7 +32,7 @@ export interface DisciplineItem {
   tools: string[];
   icon: LucideIcon | IconType;
   /** the object the disciplines turntable brings round for it */
-  model: "d20" | "code" | "globe";
+  model: "d20" | "crate" | "globe";
 }
 
 export interface ServiceItem {
@@ -74,6 +74,8 @@ export interface WorkProject {
   embed?: string;
   /* optional artstation post for 3d work */
   artstation?: string;
+  /* kept at its url, left out of every list — see lib/content.ts */
+  archived?: boolean;
 }
 
 export interface Testimonial {

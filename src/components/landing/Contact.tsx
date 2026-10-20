@@ -40,8 +40,9 @@ const Contact = ({ heading = true }: ContactProps) => {
 
             <Reveal delay={80}>
               <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ink-soft md:text-base">
-                Open to game development first, then full-stack and geospatial
-                work — freelance or full time. Tell me what you are building.
+                Open to game and VR development first, then 3D props, virtual
+                tours and LiDAR work — freelance or full time. Tell me what you
+                are building.
               </p>
             </Reveal>
 

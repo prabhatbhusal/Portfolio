@@ -1,16 +1,16 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:080808,70:121212,100:ff4040&height=220&section=header&text=Prabhat%20Bhusal&fontSize=56&fontColor=f0f0f0&animation=fadeIn&fontAlignY=36&desc=Game%20%C2%B7%20VR%20%C2%B7%203D%20%C2%B7%20Web%20%C2%B7%20Maps&descAlignY=56&descSize=18" alt="Prabhat Bhusal banner" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:080808,70:121212,100:ff4040&height=220&section=header&text=Prabhat%20Bhusal&fontSize=56&fontColor=f0f0f0&animation=fadeIn&fontAlignY=36&desc=Game%20%C2%B7%20VR%20%C2%B7%203D%20%C2%B7%20LiDAR&descAlignY=56&descSize=18" alt="Prabhat Bhusal banner" width="100%" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Geist+Mono&weight=500&size=20&duration=3000&pause=800&color=FF4040&center=true&vCenter=true&width=680&lines=%5B+loading+world+%5D;game+%2B+VR+developer+in+Kathmandu;Gaussian-splat+tours+at+RCAAS.tech;props+modelled+in+Blender;web+apps+that+know+where+they+are" alt="Typing animation" />
+<img src="https://readme-typing-svg.demolab.com?font=Geist+Mono&weight=500&size=20&duration=3000&pause=800&color=FF4040&center=true&vCenter=true&width=680&lines=%5B+loading+world+%5D;game+%2B+VR+developer+in+Kathmandu;Gaussian-splat+tours+at+RCAAS.tech;props+modelled+in+Blender;worlds+built+from+real+places" alt="Typing animation" />
 
 <br/>
 
-<img src="https://skillicons.dev/icons?i=unity,unreal,blender,threejs,nextjs,react,ts,tailwind,django,postgres,py,cloudflare&theme=dark" alt="Tech stack" />
+<img src="https://skillicons.dev/icons?i=unity,unreal,blender,threejs,cs,cpp,nextjs,cloudflare&theme=dark" alt="Tech stack" />
 
 <br/><br/>
 
-<b>The portfolio of a game and VR developer who trained as a Geomatics Engineer: games, 3D work, virtual tours and the web around them, on one static site.</b>
+<b>The portfolio of a game and VR developer and 3D artist who trained as a Geomatics Engineer: games, Blender props, virtual tours and LiDAR, on one static site.</b>
 
 <br/><br/>
 
@@ -43,10 +43,10 @@ through. Lately I model my own props in Blender as well.
 This repo is the site that shows all of it:
 
 - **Games**: PC builds in Unity and Unreal Engine, each with its own page
-- **Work**: projects, with what each one does, the year, my role and the decisions that mattered
+- **Work**: VR, 3D and LiDAR projects, with what each one does, the year, my role and the decisions that mattered
 - **3D models**: Sketchfab viewers you can spin on the page, also listed under games
 - **Skills**: unlocked by shipping, so every tool points at the project that first used it
-- **Blog**: notes on spatial queries, live position tracking and LiDAR
+- **Blog**: notes on LiDAR and real-time 3D
 - **Gallery** and **Contact**: scenes from the field, a form, and my local time
 
 > [!NOTE]
@@ -103,6 +103,10 @@ Edit a file in [`content/`](content), commit, and the next deploy picks it up.
   the build instead of reaching the page.
 - **Projects, games, photos**: [`projects.json`](content/projects.json),
   [`games.json`](content/games.json), [`photos.json`](content/photos.json).
+- **Archiving**: `"archived": true` on a project or post keeps its page at
+  the same url (marked noindex) but takes it out of every list, the navbar,
+  skills and the sitemap. Archived entries are folded away at the foot of
+  `/work` and `/blog`. Delete the entry outright once it is no longer needed.
 - **3D models**: an entry in `projects.json` with `"stack": "3D"`. Add
   `embed` (the Sketchfab `…/models/<id>/embed` link), `artstation` and a
   `cover` render, and the model shows in Work, on the games page and in the

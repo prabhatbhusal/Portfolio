@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 
-import { getProjects } from "@/lib/content";
+import { getAllProjects, getProjects } from "@/lib/content";
 import FactGrid from "@/components/props/FactGrid";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadcrumbSchema, projectSchema } from "@/lib/seo/schema";
@@ -14,31 +14,36 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// every one is prerendered at build
+// every one is prerendered at build, archived ones included
 export async function generateStaticParams() {
-  return (await getProjects()).map((project) => ({ slug: project.slug }));
+  return (await getAllProjects()).map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = (await getProjects()).find((item) => item.slug === slug);
+  const project = (await getAllProjects()).find((item) => item.slug === slug);
 
   if (!project) return { title: "Not found" };
 
-  return pageMetadata({
+  const meta = pageMetadata({
     title: project.title,
     description: project.description,
     path: `/work/${slug}`,
   });
+
+  // archived: the url still works, but search engines are asked to let it go
+  return project.archived ? { ...meta, robots: { index: false } } : meta;
 }
 
 const Page = async ({ params }: Props) => {
   const { slug } = await params;
-  const workprojects = await getProjects();
-  const project = workprojects.find((item) => item.slug === slug);
+  const project = (await getAllProjects()).find((item) => item.slug === slug);
 
   if (!project) notFound();
 
+  // next is always a live project; from an archived page (index -1) that is
+  // the first one, which leads back into the current work
+  const workprojects = await getProjects();
   const index = workprojects.findIndex((item) => item.slug === slug);
   const next = workprojects[(index + 1) % workprojects.length];
 
@@ -84,6 +89,11 @@ const Page = async ({ params }: Props) => {
           <span className="chip rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider">
             {project.badge}
           </span>
+          {project.archived && (
+            <span className="chip rounded-full px-2.5 py-0.5 mono text-[10px] uppercase tracking-wider">
+              earlier work
+            </span>
+          )}
         </div>
 
         <h1 className="display max-w-3xl text-4xl font-extrabold leading-[1.03] text-ink sm:text-5xl md:text-6xl">

@@ -9,29 +9,21 @@ import {
   Gamepad2,
   Boxes,
   Code2,
-  Map,
   Radar,
-  ScanEye,
-  Plug,
   Sparkles,
+  Glasses,
+  Box,
+  Wrench,
 } from "lucide-react";
 import { FaGithub, FaLinkedin, } from "react-icons/fa";
 import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiDjango,
-  SiPostgresql,
-  SiPython,
-  SiDocker,
-  SiOpencv,
-  SiLeaflet,
-  SiQgis,
   SiUnity,
   SiUnrealengine,
   SiSketchfab,
   SiArtstation,
+  SiBlender,
+  SiThreedotjs,
+  SiCplusplus,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 import { LucideIcon } from "lucide-react";
@@ -253,21 +245,16 @@ export const contactdata: ContactData[] = [
 ];
 
 export const techstack: TechItem[] = [
-  { id: 12, name: "Unity", icon: SiUnity },
-  { id: 13, name: "Unreal Engine", icon: SiUnrealengine },
-  { id: 14, name: "Digital Twin", icon: Boxes },
-  { id: 15, name: "Gaussian Splatting", icon: Sparkles },
-  { id: 1, name: "React", icon: SiReact },
-  { id: 2, name: "Next.js", icon: SiNextdotjs },
-  { id: 3, name: "TypeScript", icon: SiTypescript },
-  { id: 4, name: "Tailwind", icon: SiTailwindcss },
-  { id: 5, name: "Django", icon: SiDjango },
-  { id: 6, name: "PostgreSQL", icon: SiPostgresql },
-  { id: 7, name: "Python", icon: SiPython },
-  { id: 8, name: "Docker", icon: SiDocker },
-  { id: 9, name: "OpenCV", icon: SiOpencv },
-  { id: 10, name: "Leaflet", icon: SiLeaflet },
-  { id: 11, name: "QGIS", icon: SiQgis },
+  { id: 1, name: "Unity", icon: SiUnity },
+  { id: 2, name: "Unreal Engine", icon: SiUnrealengine },
+  { id: 3, name: "Blender", icon: SiBlender },
+  { id: 4, name: "three.js", icon: SiThreedotjs },
+  { id: 5, name: "C++", icon: SiCplusplus },
+  { id: 6, name: "VR", icon: Glasses },
+  { id: 7, name: "Gaussian Splatting", icon: Sparkles },
+  { id: 8, name: "LiDAR", icon: Radar },
+  { id: 9, name: "Digital Twin", icon: Boxes },
+  { id: 10, name: "Sketchfab", icon: SiSketchfab },
 ];
 
 export const faqdata: FaqItem[] = [
@@ -275,31 +262,31 @@ export const faqdata: FaqItem[] = [
     id: 1,
     question: "What kind of work are you available for?",
     answer:
-      "Game and VR development first — gameplay programming, prototypes and tools in Unity or Unreal — then full-stack web and geospatial work. I build VR and the studio platform at RCAAS Technology, and take on freelance or contract work alongside it; I am based in Kathmandu and work with teams in any timezone.",
+      "Game and VR development first — gameplay programming, prototypes and tools in Unity or Unreal — then 3D props, virtual tours and LiDAR capture. I build VR and the studio platform at RCAAS Technology, and take on freelance or contract work alongside it; I am based in Kathmandu and work with teams in any timezone.",
   },
   {
     id: 2,
     question: "What does your stack usually look like?",
     answer:
-      "For games, Unity with C# or Unreal Engine 5 with C++ and Blueprints. For the web around them, Next.js and TypeScript on the front, Django REST on the back, PostgreSQL with PostGIS when the data has coordinates.",
+      "Unity with C# or Unreal Engine 5 with C++ and Blueprints for games, Blender for props, and three.js with Gaussian splats when a scene has to open in the browser.",
   },
   {
     id: 3,
-    question: "What makes the geospatial part different?",
+    question: "Why does a game developer care about LiDAR?",
     answer:
-      "Most developers treat location as two float columns. I studied Geomatics, so I work with real projections, spatial indexes and LiDAR point clouds — which matters the moment your queries stop being simple, or your level has to sit on real ground.",
+      "I studied Geomatics, so a real place is something I can measure rather than guess. LiDAR scans and survey data become terrain and splat scenes, which matters the moment a level has to sit on real ground.",
   },
   {
     id: 4,
     question: "Can you take a project from scratch?",
     answer:
-      "Yes. Scoping, data modelling, the build, deployment and handover. I would rather own the whole thread than pick up a half-finished one, though I am happy to do either.",
+      "Yes. Scoping, the prototype, the build and handover. I would rather own the whole thread than pick up a half-finished one, though I am happy to do either.",
   },
   {
     id: 5,
-    question: "Do you work on machine learning too?",
+    question: "Do you make the 3D models too?",
     answer:
-      "Applied computer vision, mostly — YOLOv8 detection, tracking and classification pipelines. My thesis used LiDAR and YOLOv8 for automated road defect monitoring.",
+      "Yes, and that side is newer: low-poly props in Blender, modelled, lit and published on Sketchfab and ArtStation. Each one is on the work page with a viewer you can spin.",
   },
   {
     id: 6,
@@ -321,51 +308,51 @@ export const servicesdata: ServiceItem[] = [
   },
   {
     id: 1,
-    title: "Web applications",
+    title: "VR development",
     description:
-      "The whole thing, front to back — interface, API, database, deployment.",
-    deliverables: ["Next.js + TypeScript", "Django REST", "PostgreSQL"],
-    icon: MonitorSmartphone,
+      "Headset and browser VR — getting around, picking things up, and a frame rate that holds past the first minute.",
+    deliverables: ["locomotion", "interaction", "performance"],
+    icon: Glasses,
   },
   {
     id: 2,
-    title: "WebGIS and mapping",
+    title: "3D props",
     description:
-      "Interactive maps that stay fast when the data stops being small.",
-    deliverables: ["Leaflet", "PostGIS", "vector tiles"],
-    icon: Map,
+      "Low-poly props modelled in Blender, lit and ready to drop into a scene.",
+    deliverables: ["Blender", "low poly", "materials"],
+    icon: Box,
   },
   {
     id: 3,
-    title: "Spatial analysis",
+    title: "Tools and pipelines",
     description:
-      "Proximity, routing, overlays and everything that needs a real projection.",
-    deliverables: ["GiST indexes", "QGIS / ArcGIS", "geoprocessing"],
-    icon: Globe2,
+      "Editor tools and importers that keep content moving, scan-to-engine included.",
+    deliverables: ["editor tools", "importers", "automation"],
+    icon: Wrench,
   },
   {
     id: 4,
-    title: "LiDAR and point clouds",
+    title: "Virtual tours and digital twins",
     description:
-      "Pipelines that turn raw scans into layers you can act on — or terrain a level can stand on.",
-    deliverables: ["classification", "rasterisation", "GIS export"],
-    icon: Radar,
+      "Real places captured and published as Gaussian-splat tours that open in any browser.",
+    deliverables: ["Gaussian splats", "hotspots", "walk / fly / orbit"],
+    icon: Sparkles,
   },
   {
     id: 5,
-    title: "Applied computer vision",
+    title: "LiDAR and point clouds",
     description:
-      "Detection and tracking pipelines from video, built to run repeatably.",
-    deliverables: ["YOLOv8", "OpenCV", "Kalman tracking"],
-    icon: ScanEye,
+      "Raw scans turned into terrain a level can stand on, or layers you can act on.",
+    deliverables: ["classification", "heightmaps", "point clouds"],
+    icon: Radar,
   },
   {
     id: 6,
-    title: "APIs and integrations",
+    title: "Real-time 3D on the web",
     description:
-      "Auth, payments and third-party services wired in without leaking keys.",
-    deliverables: ["JWT auth", "payment gateways", "Docker"],
-    icon: Plug,
+      "three.js scenes that load fast and hold their frame rate, like the ones on this site.",
+    deliverables: ["three.js", "React Three Fiber", "WebGL"],
+    icon: Code2,
   },
 
 ];
@@ -389,22 +376,22 @@ export const disciplinesdata: DisciplineItem[] = [
   },
   {
     id: 1,
-    title: "Web engineering",
-    tagline: "the thing people actually use",
+    title: "3D modelling",
+    tagline: "one prop at a time",
     description:
-      "Full-stack applications end to end — interface, API, database and the deploy that puts them in front of someone.",
-    tools: ["React", "Next.js", "Django", "PostgreSQL"],
-    icon: Code2,
-    model: "code",
+      "Props modelled in Blender, from a wooden crate up: shapes, materials and lighting, published on Sketchfab and ArtStation as they land. The newest of the three.",
+    tools: ["Blender", "low poly", "materials", "lighting"],
+    icon: Box,
+    model: "crate",
   },
   {
     id: 2,
-    title: "Geomatics and spatial",
-    tagline: "where it is, properly",
+    title: "LiDAR and capture",
+    tagline: "real places, scanned",
     description:
-      "Real projections, spatial indexes, LiDAR and digital twins. The half most stacks fudge until it breaks.",
-    tools: ["PostGIS", "LiDAR", "Digital Twin", "3D Gaussian Splatting"],
-    icon: Globe2,
+      "Real places captured with LiDAR and turned into Gaussian-splat tours, or terrain a level can stand on. Where the Geomatics degree earns its keep.",
+    tools: ["LiDAR", "Point clouds", "3D Gaussian Splatting", "Digital Twin"],
+    icon: Radar,
     model: "globe",
   },
 ];
@@ -516,9 +503,9 @@ export const skillAreaLabel: Record<SkillArea, string> = {
 export const skillAreaOrder: SkillArea[] = [
   "engine",
   "modelling",
+  "spatial",
   "frontend",
   "backend",
-  "spatial",
   "vision",
   "other",
 ];

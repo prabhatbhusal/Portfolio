@@ -132,7 +132,7 @@ async function navLinks(): Promise<NavItem[]> {
       children: [
         { title: "Skills", description: "Unlocked by shipping, not by rating", url: "/skills", icon: "layers" },
         { title: "Now", description: "VR and the RCAAS.tech studio", url: "/#now", icon: "live" },
-        { title: "About me", description: "Where games, the web and maps meet", url: "/#about", icon: "user" },
+        { title: "About me", description: "Where games, 3D and real places meet", url: "/#about", icon: "user" },
         { title: "Gallery", description: "Scenes from the field", url: "/gallery", icon: "image" },
         { title: "FAQ", description: "Quick answers", url: "/#faq", icon: "help" },
         { title: "Contact", description: "Tell me what you are building", url: "/contact", icon: "mail" },

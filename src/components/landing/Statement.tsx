@@ -9,7 +9,7 @@ import { useRange } from "../motion";
 const lines = [
   "Gameplay systems in Unity and Unreal — movement, combat and AI that feel right.",
   "Worlds on real terrain, built from LiDAR and survey data.",
-  "And the full-stack web — backends, tools and sites — to ship them.",
+  "And the props that fill them, modelled in Blender.",
 ];
 
 /* each line lights up in turn while the card is pinned */
