@@ -84,6 +84,35 @@
     "embed": "https://sketchfab.com/models/2173f384d972422a94f4144c3be9fa46/embed?ui_theme=dark&dnt=1"
   },
   {
+    "slug": "wooden-stool",
+    "year": "2026",
+    "role": "Modelling, materials and lighting",
+    "highlights": [
+      "A small wooden stool, a flat seat on four legs, and the second prop after the wooden crate.",
+      "1,590 faces and 616 vertices across three materials, with no textures: the colour comes from the materials alone.",
+      "Staged on Sketchfab in a simple set of floor and backdrop planes, and posted on ArtStation."
+    ],
+    "stack": "3D",
+    "sector": "3D modelling",
+    "badge": "3d model",
+    "featured": false,
+    "title": "Wooden Stool",
+    "description": "A low-poly wooden stool, my second prop after the crate: a flat seat on four legs, coloured with three simple materials and no textures.",
+    "skills": [
+      "Blender"
+    ],
+    "github": null,
+    "live": "https://sketchfab.com/3d-models/wooden-stool-64142d228d904d1788b5ce2e17a81e69",
+    "artstation": "https://www.artstation.com/artwork/9BBZ6Q",
+    "cover": {
+      "src": "/work/wooden-stool.webp",
+      "alt": "Low-poly wooden stool with a flat orange seat on four legs",
+      "width": 80,
+      "height": 80
+    },
+    "embed": "https://sketchfab.com/models/64142d228d904d1788b5ce2e17a81e69/embed?ui_theme=dark&dnt=1"
+  },
+  {
     "slug": "padel-shot-classification",
     "year": "2025",
     "role": "Computer vision pipeline",
