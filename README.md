@@ -43,7 +43,7 @@ through. Lately I model my own props in Blender as well.
 This repo is the site that shows all of it:
 
 - **Games**: PC builds in Unity and Unreal Engine, each with its own page
-- **Work**: VR, 3D and LiDAR projects, with what each one does, the year, my role and the decisions that mattered
+- **Work**: VR, 3D and LiDAR projects, with what each one does, the year, my role and the decisions that mattered. Earlier web and spatial work sits folded away at the bottom
 - **3D models**: Sketchfab viewers you can spin on the page, also listed under games
 - **Skills**: unlocked by shipping, so every tool points at the project that first used it
 - **Blog**: notes on LiDAR and real-time 3D
